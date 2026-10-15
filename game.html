@@ -71,7 +71,7 @@
       letter-spacing: 0.3px;
     }
     .hud-icon { width: 18px; height: 18px; fill: #38bdf8; display: inline-block; vertical-align: middle; flex-shrink: 0; }
-    .hud-pill {
+    .hud-pill { 
       background: linear-gradient(135deg, #f59e0b, #d97706);
       padding: 4px 12px; border-radius: 999px; font-weight: 800; font-family: 'Chakra Petch', sans-serif;
       font-size: 0.88rem;
@@ -295,27 +295,6 @@
     }
     .rule-banner-single svg { width: 19px; height: 19px; fill: #0284c7; flex-shrink: 0; margin-top: 2px; }
 
-    .start-input {
-      width: 100%;
-      padding: 14px 18px;
-      border-radius: 16px;
-      border: 3px solid #cbd5e1;
-      background: #f8fafc;
-      color: #0f172a;
-      font-size: 1.05rem;
-      font-weight: 700;
-      text-align: center;
-      outline: none;
-      transition: all 0.2s;
-      box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
-    }
-
-    .start-input:focus {
-      border-color: #0284c7;
-      background: #ffffff;
-      box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.25);
-    }
-
     .start-btn {
       width: 100%;
       margin-top: 14px;
@@ -426,7 +405,6 @@
     }
     .table-cell.selected { background: #38bdf8; border-color: #0284c7; }
 
-    /* UI สำหรับคำถามรูปภาพ */
     .image-q-preview {
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       background: #ffffff; border: 2px solid #cbd5e1; border-radius: 14px;
@@ -445,7 +423,6 @@
     .img-choice-btn svg { width: 44px; height: 44px; }
     .img-choice-btn span { font-size: 0.88rem; font-weight: 700; color: #334155; }
 
-    /* กล่องจำลองหน้า Word พิเศษสำหรับข้อ 13 และ 18 */
     .word-sim-sheet {
       width: 100%; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 10px;
       padding: 16px 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); position: relative;
@@ -509,21 +486,8 @@
     }
     .kn-notice svg { width: 18px; height: 18px; fill: #f87171; flex-shrink: 0; }
 
-    /* ตกแต่งคำเน้นย้ำและสไตล์ไฮไลต์ในใบความรู้ */
-    .hl-yellow {
-      background: #fde047;
-      color: #0f172a;
-      padding: 1px 6px;
-      border-radius: 4px;
-      font-weight: 800;
-    }
-    .hl-blue {
-      background: #38bdf8;
-      color: #0f172a;
-      padding: 1px 6px;
-      border-radius: 4px;
-      font-weight: 800;
-    }
+    .hl-yellow { background: #fde047; color: #0f172a; padding: 1px 6px; border-radius: 4px; font-weight: 800; }
+    .hl-blue { background: #38bdf8; color: #0f172a; padding: 1px 6px; border-radius: 4px; font-weight: 800; }
   </style>
 </head>
 <body>
@@ -589,6 +553,7 @@
     </div>
   </div>
 
+  <!-- START SCREEN (ถอดช่องกรอกชื่อออก และดึงข้อมูลผู้ใช้งานจาก Session อัตโนมัติ) -->
   <div id="start-screen" class="overlay-screen">
     <div class="start-modal">
       <div class="hero-banner">
@@ -619,11 +584,9 @@
 
       <div class="rule-banner-single">
         <svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/></svg>
-        <div><b>วิธีปลดม่านเลเซอร์:</b> ขับรถชนม่านพลังงานแต่ละด่าน พิชิตคำถามทั้ง 20 ข้อเพื่อเปิดทางเข้าสู่เส้นชัย!</div>
+        <div><b>ผู้เล่นปัจจุบัน:</b> <span id="start-player-display" style="color:#0284c7; font-weight:800;">กำลังโหลด...</span></div>
       </div>
 
-      <input type="text" id="player-input" class="start-input" placeholder="พิมพ์ชื่อ - นามสกุล หรือ เลขที่..." autocomplete="off" />
-      
       <button class="start-btn" onclick="startGame()">
         <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
         เข้าสู่สนามแข่ง (START MISSION)
@@ -641,9 +604,7 @@
         <span style="font-weight:900; color:#0284c7;" id="cp-pts">+1 คะแนน</span>
       </div>
       <div class="q-statement" id="cp-q">ภารกิจปฏิบัติการ...</div>
-
       <div class="minigame-stage" id="cp-minigame-area"></div>
-
       <div style="background: #f1f5f9; border: 1px solid #cbd5e1; padding: 10px 14px; border-radius: 12px; font-size: 0.88rem; color: #475569; display: flex; gap: 8px; align-items: center;">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="#64748b"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
         <span id="cp-footer-tip">แตะเลือกคำตอบหรือจับคู่ให้ถูกต้องเพื่อปลดล็อกม่านเลเซอร์</span>
@@ -664,9 +625,7 @@
           <svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
           <span id="kn-subject">หัวข้อความรู้</span>
         </div>
-        <div class="kn-desc" id="kn-text">
-          เนื้อหาความรู้สรุป...
-        </div>
+        <div class="kn-desc" id="kn-text">เนื้อหาความรู้สรุป...</div>
       </div>
 
       <div class="kn-notice">
@@ -697,17 +656,47 @@
       </div>
 
       <p style="font-size:0.85rem; color:#38bdf8; margin-bottom:15px;">บันทึกภาพหน้าจอนี้เพื่อส่งหลักฐานการเรียนรู้</p>
-      <button class="rbx-green-btn" onclick="location.reload()">
-        <svg viewBox="0 0 24 24" width="22" height="22" fill="#fff"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
-        เล่นทบทวนอีกครั้ง
+      <button class="rbx-green-btn" onclick="window.location.href='index.html'">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="#fff"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        กลับไปยังหน้าหลัก Hub
       </button>
     </div>
   </div>
 
   <script>
-    // รวม 20 ข้อ ข้อละ 1 คะแนนเต็ม รวม 20 คะแนน (พร้อมไฮไลต์จุดสังเกตใน Diagnostic Feedback)
+    // ดึงชื่อผู้ใช้จาก Session หลักที่ Login ไว้ในหน้าแรก (index.html) อัตโนมัติ
+    let playerName = "ผู้เล่นทั่วไป";
+    
+    function loadUserSession() {
+      const sessionStr = localStorage.getItem("word_road_current_session");
+      if (sessionStr) {
+        try {
+          const session = JSON.parse(sessionStr);
+          if (session && session.fullname) {
+            playerName = session.fullname;
+          } else if (session && session.username) {
+            playerName = session.username;
+          }
+        } catch (e) {
+          console.error("Parse session error:", e);
+        }
+      }
+      
+      const displayEl = document.getElementById("start-player-display");
+      if (displayEl) displayEl.innerText = playerName;
+      const hudEl = document.getElementById("hud-name");
+      if (hudEl) {
+        hudEl.innerText = playerName;
+        hudEl.title = playerName;
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      loadUserSession();
+    });
+
+    // 20 ข้อคำถามมาตรฐาน Microsoft Word ม.1
     const questionsPool = [
-      // ด่าน 1
       {
         qId: 1, stage: 1, pts: 1.0, mode: "ribbon",
         q: "ข้อที่ 1/20: เลือกแท็บเมนู Ribbon ที่ใช้เปลี่ยนแบบฟอนต์และขนาดตัวอักษร:",
@@ -728,8 +717,6 @@
         knTitle: "จุดสังเกต: Format Painter (ตัวคัดวางรูปแบบ)",
         knText: "สังเกตรูป <span class='hl-yellow'>แปรงทาสี</span> ใช้ในการ <span class='hl-blue'>คัดลอกสไตล์ข้อความ</span> (ฟอนต์, สี, ขนาด) ไม่ใช่กรรไกร (ตัด) หรือกระดาษซ้อน (คัดลอกเนื้อหา)"
       },
-
-      // ด่าน 2
       {
         qId: 3, stage: 2, pts: 1.0, mode: "matching",
         q: "ข้อที่ 3/20: แตะจับคู่ 'คำสั่งจัดการเอกสาร' กับ 'คีย์ลัด' ให้ถูกต้องทั้ง 2 คู่:",
@@ -748,8 +735,6 @@
         knTitle: "จุดสังเกต: คีย์ลัดเปิดไฟล์ (Open)",
         knText: "<span class='hl-yellow'>Ctrl + O</span> ย่อมาจาก <b>Open</b> ใช้เปิดไฟล์เก่า (จำสับสน: Ctrl + P คือ Print / Ctrl + F คือ Find)"
       },
-
-      // ด่าน 3
       {
         qId: 5, stage: 3, pts: 1.0, mode: "choice",
         q: "ข้อที่ 5/20: พิมพ์ข้อความผิดแล้วเผลอลบหายไป จะกดคีย์ลัดใดเพื่อกู้คืนข้อความกลับมาทันที (Undo):",
@@ -766,8 +751,6 @@
         knTitle: "จุดสังเกตความแตกต่าง: Undo vs Redo",
         knText: "<b>Ctrl + Z</b> = ย้อนกลับ (Undo) <br><span class='hl-yellow'>Ctrl + Y</span> = <span class='hl-blue'>ทำซ้ำคำสั่งล่าสุด (Redo)</span>"
       },
-
-      // ด่าน 4
       {
         qId: 7, stage: 4, pts: 1.0, mode: "matching",
         q: "ข้อที่ 7/20: แตะจับคู่ 'สไตล์ฟอนต์' กับ 'คีย์ลัดคำสั่ง' ให้ถูกต้องครบทั้ง 2 คู่:",
@@ -781,18 +764,12 @@
       {
         qId: 8, stage: 4, pts: 1.0, mode: "image_query",
         q: "ข้อที่ 8/20: จากรูปภาพไอคอนด้านล่างนี้ มีหน้าที่สั่งการทำงานใดใน Word?",
-        customHtml: `
-          <div style="padding:10px;">
-            <svg viewBox="0 0 24 24" width="70" height="70" fill="#0284c7"><path d="M12 17c3.31 0 6-2.69 6-6V3h-2.5v8c0 1.93-1.57 3.5-3.5 3.5S8.5 12.93 8.5 11V3H6v8c0 3.31 2.69 6 6 6zm-7 2v2h14v-2H5z"/></svg>
-          </div>
-        `,
+        customHtml: `<div style="padding:10px;"><svg viewBox="0 0 24 24" width="70" height="70" fill="#0284c7"><path d="M12 17c3.31 0 6-2.69 6-6V3h-2.5v8c0 1.93-1.57 3.5-3.5 3.5S8.5 12.93 8.5 11V3H6v8c0 3.31 2.69 6 6 6zm-7 2v2h14v-2H5z"/></svg></div>`,
         target: "ขีดเส้นใต้ข้อความ (Underline)",
         opts: ["ขีดเส้นใต้ข้อความ (Underline)", "ตัวเอียง (Italic)", "ตัวยก (Superscript)", "เน้นสีข้อความ (Highlight)"],
         knTitle: "จุดสังเกต: ไอคอนตัว U ขีดเส้นใต้",
         knText: "ตัวไอคอนมีรูปตัว <b>U ที่มีขีดด้านล่าง</b> ย่อมาจาก <span class='hl-yellow'>Underline (Ctrl + U)</span> ใช้สำหรับขีดเส้นใต้"
       },
-
-      // ด่าน 5
       {
         qId: 9, stage: 5, pts: 1.0, mode: "align",
         q: "ข้อที่ 9/20: กดปุ่มจัดตำแหน่งเอกสาร เพื่อวางข้อความให้อยู่ 'กึ่งกลางหน้ากระดาษ':",
@@ -800,8 +777,6 @@
         knTitle: "จุดสังเกต: การจัดแนวย่อหน้า (Alignment)",
         knText: "การวางข้อความตรงกลางหน้ากระดาษ ให้เลือก <span class='hl-yellow'>กึ่งกลาง (Center)</span> หรือใช้คีย์ลัด <span class='hl-blue'>Ctrl + E</span>"
       },
-
-      // ด่าน 6
       {
         qId: 10, stage: 6, pts: 1.0, mode: "choice",
         q: "ข้อที่ 10/20: เครื่องมือใดใช้สร้างรายการที่มีลำดับ 1, 2, 3 ตามลำดับก่อนหลัง:",
@@ -823,8 +798,6 @@
         knTitle: "จุดสังเกต: สัญลักษณ์ Bullets",
         knText: "ไอคอน <span class='hl-yellow'>จุด Bullets</span> เป็นจุดทรงกลมนำหน้า เหมาะสำหรับหัวข้อย่อยที่ไม่ต้องระบุลำดับก่อนหลัง"
       },
-
-      // ด่าน 7
       {
         qId: 12, stage: 7, pts: 1.0, mode: "choice",
         q: "ข้อที่ 12/20: คำสั่ง Wrap Text รูปแบบใดทำให้ข้อความไหลล้อมรอบกรอบรูปภาพเป็นสี่เหลี่ยมพอดี:",
@@ -836,24 +809,12 @@
       {
         qId: 13, stage: 7, pts: 1.0, mode: "image_query",
         q: "ข้อที่ 13/20: ภาพจำลองเอกสารด้านล่าง (รูปภาพอยู่ด้านหลัง ตัวหนังสือพิมพ์ลอยทับด้านบน) ตรงกับคำสั่ง Wrap Text ชนิดใด?",
-        customHtml: `
-          <div class="word-sim-sheet">
-            <div style="font-size:0.75rem; color:#94a3b8; margin-bottom:8px; font-weight:800;">จำลองหน้ากระดาษ Word</div>
-            <div class="wrap-behind-demo">
-              <div class="wrap-behind-box">
-                <svg viewBox="0 0 24 24" width="28" height="28" fill="#713f12" opacity="0.4"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-              </div>
-              <div class="wrap-behind-text">ข้อความลอยทับรูปภาพ</div>
-            </div>
-          </div>
-        `,
+        customHtml: `<div class="word-sim-sheet"><div style="font-size:0.75rem; color:#94a3b8; margin-bottom:8px; font-weight:800;">จำลองหน้ากระดาษ Word</div><div class="wrap-behind-demo"><div class="wrap-behind-box"><svg viewBox="0 0 24 24" width="28" height="28" fill="#713f12" opacity="0.4"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg></div><div class="wrap-behind-text">ข้อความลอยทับรูปภาพ</div></div></div>`,
         target: "Behind Text (อยู่ข้างหลังข้อความ)",
         opts: ["In Front of Text (ข้างหน้าข้อความ)", "Behind Text (อยู่ข้างหลังข้อความ)", "Top and Bottom (บนและล่าง)", "Through (ทะลุผ่าน)"],
         knTitle: "จุดสังเกต: Behind Text",
         knText: "การส่งรูปภาพลงไปเป็นฉากหลังแล้วให้ข้อความลอยทับด้านบน เรียกว่า <span class='hl-yellow'>Behind Text (อยู่ข้างหลังข้อความ)</span>"
       },
-
-      // ด่าน 8
       {
         qId: 14, stage: 8, pts: 1.0, mode: "table_grid",
         q: "ข้อที่ 14/20: กำหนดขนาดสร้างตารางข้อมูลจำนวน '3 คอลัมน์ x 2 แถว' ให้ถูกต้อง:",
@@ -861,8 +822,6 @@
         knTitle: "จุดสังเกต: แถวและคอลัมน์ตาราง",
         knText: "<span class='hl-yellow'>คอลัมน์ = แนวตั้ง (3)</span> และ <span class='hl-blue'>แถว = แนวนอน (2)</span> ดังนั้นจึงนับเป็นตารางขนาด 3 x 2"
       },
-
-      // ด่าน 9
       {
         qId: 15, stage: 9, pts: 1.0, mode: "choice",
         q: "ข้อที่ 15/20: พิมพ์ตารางกว้าง ต้องตั้งค่าหน้ากระดาษแบบใดในเมนู Orientation:",
@@ -884,8 +843,6 @@
         knTitle: "จุดสังเกต: ไอคอน Margins",
         knText: "ไอคอน <span class='hl-yellow'>Margins (ระยะขอบกระดาษ)</span> สังเกตเส้นขอบสี่เหลี่ยมซ้อนชั้นที่แสดงพื้นที่ระยะเว้นว่างรอบกระดาษ"
       },
-
-      // ด่าน 10
       {
         qId: 17, stage: 10, pts: 1.0, mode: "choice",
         q: "ข้อที่ 17/20: ในโปรแกรม Word การตรวจพบคำที่สะกดผิดจะแจ้งเตือนด้วยสัญลักษณ์ใดใต้คำ:",
@@ -897,22 +854,12 @@
       {
         qId: 18, stage: 10, pts: 1.0, mode: "image_query",
         q: "ข้อที่ 18/20: เส้นหยักสีฟ้าใต้ข้อความดังภาพ บ่งบอกถึงข้อผิดพลาดประเภทใด?",
-        customHtml: `
-          <div class="word-sim-sheet">
-            <div style="font-size:0.75rem; color:#94a3b8; margin-bottom:10px; font-weight:800;">จำลองการพิมพ์ใน Microsoft Word</div>
-            <div style="padding:14px 6px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px;">
-              <span class="wavy-underline-blue">สวัสดี&nbsp;&nbsp;&nbsp;&nbsp;ครับผม</span>
-            </div>
-            <div style="font-size:0.8rem; color:#64748b; margin-top:8px;">(สังเกต: มีเส้นหยักสีฟ้าปรากฏใต้ข้อความ)</div>
-          </div>
-        `,
+        customHtml: `<div class="word-sim-sheet"><div style="font-size:0.75rem; color:#94a3b8; margin-bottom:10px; font-weight:800;">จำลองการพิมพ์ใน Microsoft Word</div><div style="padding:14px 6px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px;"><span class="wavy-underline-blue">สวัสดี&nbsp;&nbsp;&nbsp;&nbsp;ครับผม</span></div><div style="font-size:0.8rem; color:#64748b; margin-top:8px;">(สังเกต: มีเส้นหยักสีฟ้าปรากฏใต้ข้อความ)</div></div>`,
         target: "ไวยากรณ์หรือการเคาะเว้นวรรคผิดพลาด",
         opts: ["สะกดคำผิด", "ไวยากรณ์หรือการเคาะเว้นวรรคผิดพลาด", "ไม่ได้บันทึกไฟล์", "ฟอนต์ไม่รองรับภาษาไทย"],
         knTitle: "จุดสังเกตจำง่าย: สีแดง vs สีฟ้า",
         knText: "สีแดง = สะกดผิด<br><span class='hl-yellow'>สีฟ้า</span> = <span class='hl-blue'>ไวยากรณ์หรือเคาะเว้นวรรคซ้ำซ้อนผิดพลาด</span>"
       },
-
-      // ด่าน 11
       {
         qId: 19, stage: 11, pts: 1.0, mode: "choice",
         q: "ข้อที่ 19/20: การเตรียมหัวข้อเพื่อสร้างสารบัญอัตโนมัติ (Table of Contents) ต้องกำหนดสไตล์ใดให้กับหัวข้อหลัก:",
@@ -921,8 +868,6 @@
         knTitle: "จุดสังเกต: สารบัญอัตโนมัติ",
         knText: "การดึงสารบัญอัตโนมัติ Word จะดึงจากข้อความที่ตั้งสไตล์เป็น <span class='hl-yellow'>Heading 1 (หัวเรื่อง 1)</span> หรือ Heading 2"
       },
-
-      // ด่าน 12
       {
         qId: 20, stage: 12, pts: 1.0, mode: "choice",
         q: "ข้อที่ 20/20: ส่งออกไฟล์ชนิดใดที่ล็อกการจัดหน้ากระดาษและฟอนต์ได้แน่นอนที่สุดเมื่อนำไปพิมพ์งาน:",
@@ -1062,7 +1007,6 @@
     let carGroup;
     let checkpoints = [];
     let obstacles = [];
-    let playerName = "Player";
     let score = 0;
     let currentStage = 0; 
     let solvedQuestionsCount = 0; 
@@ -1072,7 +1016,6 @@
     let questionFailedAttempts = {};
     let keys = { up: false, down: false, left: false, right: false };
 
-    // ปรับเปลี่ยนพารามิเตอร์การขับขี่ให้นุ่มนวลขึ้น
     let carPhysics = {
       x: 0, z: 0,
       angle: 0,
@@ -1080,7 +1023,7 @@
       maxSpeed: 1.35,
       accel: 0.03,
       friction: 0.018,
-      turnSpeed: 0.038, // ลดความไวพวงมาลัยเพื่อไม่ให้เลี้ยวสบัดเกินไป
+      turnSpeed: 0.038,
       spinTimer: 0
     };
 
@@ -1099,7 +1042,6 @@
       { x: 0, z: -2350, stage: 12 }
     ];
 
-    // โครงสร้างคิวสำหรับ Spaced Repetition (การสุ่มวนข้อที่เคยตอบผิดซ้ำ)
     let pendingRepeatQuestions = [];
 
     function updateProgressHUD() {
@@ -1110,13 +1052,7 @@
     }
 
     function startGame() {
-      const nameVal = document.getElementById("player-input").value.trim();
-      if (!nameVal) { alert("กรุณาพิมพ์ชื่อหรือเลขที่ก่อนเริ่มเล่นครับ!"); return; }
-      playerName = nameVal;
-      document.getElementById("hud-name").innerText = playerName;
-      document.getElementById("hud-name").title = playerName;
       document.getElementById("start-screen").style.display = "none";
-
       initAudio();
       init3DWorld();
       setupInputListeners();
@@ -1370,7 +1306,6 @@
     function setupInputListeners() {
       window.addEventListener("keydown", e => {
         if (isModalOpen) return;
-
         const k = e.key.toLowerCase();
         if (k === "arrowup" || k === "w") keys.up = true;
         if (k === "arrowdown" || k === "s") keys.down = true;
@@ -1402,7 +1337,7 @@
 
       if (carPhysics.spinTimer > 0) {
         carPhysics.spinTimer--;
-        carPhysics.angle += 0.12; // ปรับลดมุมสบัดลงเพื่อไม่ให้รบกวนผู้เรียน
+        carPhysics.angle += 0.12;
         carPhysics.speed *= 0.96;
       } else {
         if (keys.up) {
@@ -1434,7 +1369,7 @@
           const dist = Math.hypot(carPhysics.x - ob.x, carPhysics.z - ob.z);
           if (dist < ob.radius + 1.8) {
             ob.hit = true;
-            carPhysics.spinTimer = 15; // ลดระยะเวลาหน่วงเมื่อชนหิน/กรวย
+            carPhysics.spinTimer = 15;
             carPhysics.speed *= 0.5;
             playCrashSound();
 
@@ -1462,7 +1397,6 @@
       carGroup.position.set(carPhysics.x, 0, carPhysics.z);
       carGroup.rotation.y = carPhysics.angle;
 
-      // ปรับเปลี่ยนมุมกล้องติดตามให้อยู่สูงขึ้น มองเห็นเส้นทางได้กว้างขึ้น
       const cameraOffset = new THREE.Vector3(0, 6.2, 14.0);
       cameraOffset.applyAxisAngle(new THREE.Vector3(0, 1, 0), carPhysics.angle);
       camera.position.x = carPhysics.x + cameraOffset.x;
@@ -1491,21 +1425,15 @@
 
     function startStageSequence(stageIdx) {
       activeStageIdx = stageIdx;
-      
-      // ดึงข้อสอบประจำด่านตามปกติ
       stageQuestionsQueue = questionsPool.filter(q => q.stage === (stageIdx + 1));
 
-      // Spaced Repetition: สุ่มนำข้อที่เคยตอบผิดเมื่อ 2-3 ด่านก่อน วนกลับมาถามซ้ำ
       const readyToRepeat = pendingRepeatQuestions.filter(item => (stageIdx + 1) >= item.targetStage);
       readyToRepeat.forEach(item => {
-        // แทรกข้อความสุ่มทบทวนเข้าไป
         const clonedQ = { ...item.qObj, isRepeatMode: true };
         stageQuestionsQueue.push(clonedQ);
       });
       
-      // ลบข้อที่ดึงออกมาทบทวนแล้วออกจากคิวรอนำกลับมาซ้ำ
       pendingRepeatQuestions = pendingRepeatQuestions.filter(item => (stageIdx + 1) < item.targetStage);
-
       loadNextQuestionInStage();
     }
 
@@ -1514,7 +1442,6 @@
         finishStage(activeStageIdx);
         return;
       }
-
       currentQuestion = stageQuestionsQueue.shift();
       openCheckpointModal(currentQuestion);
     }
@@ -1758,8 +1685,7 @@
     function submitWrongTask(m) {
       questionFailedAttempts[m.qId] = true;
       
-      // เพิ่มคำถามข้อนี้เข้าคิวรอการสุ่มวนถามซ้ำในอีก 2 ด่านข้างหน้า (Spaced Repetition)
-      const repeatDelay = 2; // เว้นช่วงอีก 2 ด่านแล้วนำกลับมาถามซ้ำ
+      const repeatDelay = 2;
       const futureStage = Math.min(activeStageIdx + 1 + repeatDelay, 12);
       
       const existsInQueue = pendingRepeatQuestions.some(item => item.qObj.qId === m.qId);
@@ -1800,7 +1726,6 @@
       carPhysics.z -= 4.5;
 
       if (currentStage >= 12) {
-        // หากเล่นถึงด่านสุดท้ายแล้วยังมีข้อที่ตอบผิดค้างอยู่ในระบบทบทวน ให้วนกลับไปถามให้ครบทุกข้อก่อนจบ
         if (pendingRepeatQuestions.length > 0) {
           const nextItem = pendingRepeatQuestions.shift();
           const clonedQ = { ...nextItem.qObj, isRepeatMode: true };
@@ -1889,7 +1814,6 @@
       const code = `WR3D-${btoa(encodeURIComponent(playerName)).slice(0, 5).toUpperCase()}-${displayScore}PTS-${Date.now().toString().slice(-4)}`;
       document.getElementById("cert-code").innerText = `รหัสยืนยันผลการขับขี่: ${code}`;
 
-      // บันทึกคะแนน
       const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLScDqf_3sbr3G8XbgR4atsdlcKscqiL_snt7iXLfACcwBjGj1g/formResponse";
       const formData = new FormData();
       formData.append("entry.1063080801", playerName);
