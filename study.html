@@ -6,21 +6,29 @@
   <title>Word Road 3D: หนังสือเรียนดิจิทัล Microsoft Word (ม.1)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700;800&family=Kanit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,600;0,700;0,800;1,700&family=Kanit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
   <style>
     :root {
-      --bg-gradient: radial-gradient(circle at 50% 20%, #38bdf8 0%, #0369a1 100%);
-      --card-bg: #ffffff;
-      --border-blue: #38bdf8;
+      --bg-gradient: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 50%, #bae6fd 100%);
+      --card-bg: rgba(255, 255, 255, 0.92);
+      --card-border: #7dd3fc;
       --primary-blue: #0284c7;
       --dark-blue: #0369a1;
-      --text-main: #0f172a;
-      --text-sub: #334155;
+      --neon-cyan: #06b6d4;
+      --neon-yellow: #ca8a04;
       --yellow-bg: #fefce8;
       --yellow-border: #facc15;
+      --text-main: #0f172a;
+      --text-sub: #334155;
+      --text-muted: #64748b;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+    * {
+      box-sizing: border-box; margin: 0; padding: 0;
+      user-select: none; -webkit-user-select: none;
+      touch-action: manipulation;
+    }
 
     body {
       min-height: 100vh;
@@ -30,7 +38,20 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 24px 16px 48px;
+      justify-content: flex-start;
+      padding: 20px 14px 48px;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Bright Arcade Grid Background */
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background: 
+        linear-gradient(to right, rgba(2, 132, 199, 0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(2, 132, 199, 0.08) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none; z-index: 0;
     }
 
     .ico {
@@ -38,21 +59,32 @@
       display: inline-block; vertical-align: middle; flex-shrink: 0;
     }
 
+    /* Main Container */
     .study-container {
       background: var(--card-bg);
-      border: 5px solid var(--border-blue);
-      border-radius: 32px;
-      padding: 36px 32px;
-      max-width: 840px; width: 100%;
-      box-shadow: 0 25px 60px rgba(2, 132, 199, 0.4), 0 0 0 8px rgba(255, 255, 255, 0.25);
+      border: 3px solid var(--card-border);
+      backdrop-filter: blur(12px);
+      border-radius: 28px;
+      padding: 32px 28px;
+      max-width: 860px; width: 100%;
+      box-shadow: 0 20px 50px rgba(2, 132, 199, 0.18), 0 0 0 6px rgba(255, 255, 255, 0.8);
       text-align: left;
+      z-index: 1;
+      position: relative;
+      animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
+    @keyframes popIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    /* Top Navigation Header */
     .top-nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 3px solid #bae6fd;
+      border-bottom: 2px dashed #bae6fd;
       padding-bottom: 16px;
       margin-bottom: 24px;
       gap: 12px; flex-wrap: wrap;
@@ -66,34 +98,40 @@
       padding: 6px 18px;
       border-radius: 999px;
       font-size: 0.95rem;
-      box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3);
-      display: inline-flex; align-items: center; gap: 6px;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+      display: inline-flex; align-items: center; gap: 8px;
     }
 
     .btn-back-hub {
       padding: 10px 18px;
       border-radius: 14px;
       border: 2px solid #cbd5e1;
-      background: #f8fafc;
+      background: #ffffff;
       color: #475569;
       font-weight: 800;
       font-size: 0.9rem;
       cursor: pointer;
       text-decoration: none;
-      display: inline-flex; align-items: center; gap: 6px;
+      display: inline-flex; align-items: center; gap: 8px;
       transition: all 0.2s;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
     }
-    .btn-back-hub:hover { background: #e2e8f0; color: #0f172a; }
+    .btn-back-hub:hover {
+      background: #f1f5f9;
+      border-color: var(--primary-blue);
+      color: var(--primary-blue);
+    }
 
-    /* Book Typography Style */
+    /* Lesson Typography */
     .lesson-header-title {
-      font-size: 1.65rem;
+      font-size: 1.6rem;
       font-weight: 900;
       color: var(--primary-blue);
       line-height: 1.35;
       margin-bottom: 22px;
-      border-bottom: 2px dashed #bae6fd;
-      padding-bottom: 12px;
+      border-bottom: 2px solid #e0f2fe;
+      padding-bottom: 14px;
+      display: flex; align-items: center; gap: 10px;
     }
 
     .content-section {
@@ -105,12 +143,14 @@
 
     .content-section h3 {
       color: var(--dark-blue);
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 800;
       margin: 26px 0 12px;
       display: flex; align-items: center; gap: 8px;
       border-left: 5px solid var(--primary-blue);
       padding-left: 12px;
+      background: linear-gradient(90deg, rgba(2, 132, 199, 0.06) 0%, transparent 100%);
+      padding-top: 4px; padding-bottom: 4px; border-radius: 0 8px 8px 0;
     }
 
     .content-section p { margin-bottom: 12px; text-indent: 1.5em; }
@@ -131,8 +171,8 @@
       border: 2px solid #bae6fd;
       border-radius: 20px;
       padding: 20px;
-      margin: 20px 0;
-      box-shadow: inset 0 2px 4px rgba(2, 132, 199, 0.05);
+      margin: 22px 0;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.06);
     }
 
     .key-callout-title {
@@ -158,42 +198,67 @@
     }
 
     .ui-demo-box {
-      background: #f8fafc;
+      background: #ffffff;
       border: 2px dashed #cbd5e1;
       border-radius: 20px;
       padding: 20px;
       margin: 22px 0;
       text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
     }
 
     .ui-demo-caption {
       font-size: 0.88rem;
       font-weight: 700;
-      color: #64748b;
+      color: var(--text-muted);
       margin-top: 10px;
     }
 
-    /* Start Race Button */
-    .btn-play-now {
-      width: 100%;
+    /* Action Buttons (Hub / Test) */
+    .action-footer-group {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 14px;
+      margin-top: 36px;
+    }
+
+    .btn-action-footer {
       padding: 16px;
-      border-radius: 20px;
+      border-radius: 18px;
       border: none;
-      background: linear-gradient(180deg, #10b981 0%, #059669 100%);
-      color: #ffffff;
-      font-size: 1.2rem;
-      font-weight: 900;
+      font-size: 1.1rem;
+      font-weight: 800;
       cursor: pointer;
-      box-shadow: 0 6px 0 #047857, 0 10px 20px rgba(16, 185, 129, 0.35);
-      text-align: center;
       display: flex; justify-content: center; align-items: center; gap: 10px;
       text-decoration: none;
-      margin-top: 36px;
       transition: all 0.15s;
     }
 
-    .btn-play-now:hover { filter: brightness(1.08); }
-    .btn-play-now:active { transform: translateY(4px); box-shadow: 0 2px 0 #047857; }
+    .btn-return-hub {
+      background: #f1f5f9;
+      color: #475569;
+      border: 2px solid #cbd5e1;
+      box-shadow: 0 4px 0 #94a3b8;
+    }
+    .btn-return-hub:hover { background: #e2e8f0; }
+    .btn-return-hub:active { transform: translateY(3px); box-shadow: 0 1px 0 #94a3b8; }
+
+    .btn-start-test {
+      background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+      color: #ffffff;
+      box-shadow: 0 5px 0 #047857, 0 10px 20px rgba(16, 185, 129, 0.25);
+    }
+    .btn-start-test:hover { filter: brightness(1.06); }
+    .btn-start-test:active { transform: translateY(3px); box-shadow: 0 2px 0 #047857; }
+
+    /* Responsive Adjustments */
+    @media (max-width: 640px) {
+      body { padding: 14px 10px 32px; }
+      .study-container { padding: 22px 18px; border-radius: 22px; }
+      .lesson-header-title { font-size: 1.35rem; }
+      .action-footer-group { grid-template-columns: 1fr; }
+      .content-section { font-size: 0.96rem; }
+    }
   </style>
 </head>
 <body>
@@ -217,11 +282,17 @@
       <div id="study-body"></div>
     </div>
 
-    <!-- Action Button -->
-    <a id="btn-start-game" class="btn-play-now" href="#">
-      <svg class="ico" style="width:24px; height:24px;" viewBox="0 0 24 24"><path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z"/></svg>
-      <span>อ่านจบแล้ว! เข้าสู่สนามแข่ง 3D ทบทวนความรู้</span>
-    </a>
+    <!-- Bottom Action Group -->
+    <div class="action-footer-group">
+      <a href="index.html" class="btn-action-footer btn-return-hub">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        <span>กลับหน้าหลัก</span>
+      </a>
+      <a id="btn-start-game" class="btn-action-footer btn-start-test" href="#">
+        <svg class="ico" style="width:22px; height:22px;" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        <span>ทำแบบทดสอบปลดล็อกบทเรียน</span>
+      </a>
+    </div>
   </div>
 
   <script>
@@ -244,7 +315,7 @@
 
           <div class="ui-demo-box">
             <svg viewBox="0 0 320 120" width="100%" height="110">
-              <rect x="5" y="5" width="310" height="110" rx="10" fill="#f1f5f9" stroke="#0284c7" stroke-width="2"/>
+              <rect x="5" y="5" width="310" height="110" rx="10" fill="#f8fafc" stroke="#0284c7" stroke-width="2"/>
               <rect x="5" y="5" width="310" height="26" fill="#0284c7" rx="10 10 0 0"/>
               <text x="15" y="22" fill="#fff" font-size="11" font-weight="bold">Document1 - Microsoft Word (Title Bar)</text>
               <rect x="15" y="38" width="290" height="34" fill="#e2e8f0" rx="6"/>
@@ -340,7 +411,7 @@
               <svg class="ico" viewBox="0 0 24 24"><path d="M7 14c-1.66 0-3 1.34-3 3 0 1.31-1.16 2-2 2 .92 1.22 2.49 2 4 2 2.21 0 4-1.79 4-4 0-1.66-1.34-3-3-3zm13.71-9.37l-1.34-1.34c-.39-.39-1.02-.39-1.41 0L9 12.25 11.75 15l8.96-8.96c.39-.39.39-1.02 0-1.41z"/></svg>
               <span>เคล็ดลับการใช้งานแปรงทาสี</span>
             </div>
-            <p class="no-indent">• **คลิก 1 ครั้ง:** คัดลอกรูปแบบนำไปป้ายใส่ข้อความได้เพียง 1 ครั้งแล้วแปรงจะปิดตัวลง<br>• **ดับเบิลคลิก 2 ครั้ง:** ล็อกแปรงทาสี นำไปป้ายตกแต่งข้อความหลายๆ จุดได้อย่างต่อเนื่อง (เลิกล็อกโดยกดปุ่ม <span class="shortcut-badge">Esc</span>)</p>
+            <p class="no-indent">• <b>คลิก 1 ครั้ง:</b> คัดลอกรูปแบบนำไปป้ายใส่ข้อความได้เพียง 1 ครั้งแล้วแปรงจะปิดตัวลง<br>• <b>ดับเบิลคลิก 2 ครั้ง:</b> ล็อกแปรงทาสี นำไปป้ายตกแต่งข้อความหลายๆ จุดได้อย่างต่อเนื่อง (เลิกล็อกโดยกดปุ่ม <span class="shortcut-badge">Esc</span>)</p>
           </div>
         `
       },
@@ -363,7 +434,7 @@
               <svg class="ico" viewBox="0 0 24 24"><path d="M3 21h18v-2H3v2zm0-4h18v-2H3v2zm0-4h18v-2H3v2zm0-4h18V7H3v2zm0-6v2h18V3H3z"/></svg>
               <span>ระยะห่างบรรทัดมาตรฐาน (Line Spacing)</span>
             </div>
-            <p class="no-indent">การกำหนดระยะห่างบรรทัดมาตรฐานในการพิมพ์รายงานวิชาการภาษาไทย มักกำหนดไว้ที่ **1.15 บรรทัด** หรือ **1.5 บรรทัด** เพื่อป้องกันไม่ให้ตัวอักษรซ้อนทับกันสระบน-สระล่าง</p>
+            <p class="no-indent">การกำหนดระยะห่างบรรทัดมาตรฐานในการพิมพ์รายงานวิชาการภาษาไทย มักกำหนดไว้ที่ <b>1.15 บรรทัด</b> หรือ <b>1.5 บรรทัด</b> เพื่อป้องกันไม่ให้ตัวอักษรซ้อนทับกันสระบน-สระล่าง</p>
           </div>
         `
       },
@@ -393,7 +464,7 @@
           <p>รูปภาพช่วยเพิ่มความน่าสนใจให้กับเอกสาร โดยสามารถแทรกได้จากแท็บ <b>แทรก (Insert) > รูปภาพ (Pictures)</b> ไม่ว่าจะเป็นรูปภาพจากเครื่องคอมพิวเตอร์ หรือรูปภาพออนไลน์</p>
 
           <h3>1. รูปแบบการตัดข้อความรอบรูปภาพ (Wrap Text Modes)</h3>
-          <p class="no-indent">เมื่อแทรกรูปภาพเข้ามาแล้ว มักประสบปัญหาไม่สามารถคลิกลากย้ายรูปภาพได้ ให้คลิกที่รูปภาพแล้วกดปุ่ม **การตัดข้อความ (Wrap Text)** เพื่อเลือกโหมดดังนี้:</p>
+          <p class="no-indent">เมื่อแทรกรูปภาพเข้ามาแล้ว มักประสบปัญหาไม่สามารถคลิกลากย้ายรูปภาพได้ ให้คลิกที่รูปภาพแล้วกดปุ่ม <b>การตัดข้อความ (Wrap Text)</b> เพื่อเลือกโหมดดังนี้:</p>
           <ul>
             <li><b>In Line with Text (แบบประสานในแนวเดียวกับข้อความ):</b> รูปภาพจะถูกวางตัวเหมือนพยัญชนะตัวหนึ่งในบรรทัด</li>
             <li><b>Square (แบบสี่เหลี่ยม):</b> ตัวหนังสือจะล้อมรอบรูปภาพเป็นกรอบสี่เหลี่ยมอย่างมีระเบียบ</li>
@@ -407,7 +478,7 @@
               <svg class="ico" viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
               <span>หลักการย่อ-ขยายรูปภาพไม่ให้เสียสัดส่วน</span>
             </div>
-            <p class="no-indent">การย่อหรือขยายรูปภาพ ควรคลิกลากจุดดึงที่ **มุมทั้ง 4 มุมของรูปภาพเท่านั้น** ห้ามลากดึงจุดตรงกลางด้านข้างหรือด้านบน-ล่าง เพราะจะทำให้รูปภาพเบี้ยวสูญเสียสัดส่วนเดิม</p>
+            <p class="no-indent">การย่อหรือขยายรูปภาพ ควรคลิกลากจุดดึงที่ <b>มุมทั้ง 4 มุมของรูปภาพเท่านั้น</b> ห้ามลากดึงจุดตรงกลางด้านข้างหรือด้านบน-ล่าง เพราะจะทำให้รูปภาพเบี้ยวสูญเสียสัดส่วนเดิม</p>
           </div>
         `
       },
@@ -461,7 +532,7 @@
               <svg class="ico" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z"/></svg>
               <span>ขนาดกระดาษมาตรฐาน (Paper Size)</span>
             </div>
-            <p class="no-indent">ขนาดกระดาษที่นิยมใช้แพร่หลายที่สุดในสถานศึกษาและหน่วยงานคือ **A4** (ขนาดกว้าง 21 เซนติเมตร x สูง 29.7 เซนติเมตร)</p>
+            <p class="no-indent">ขนาดกระดาษที่นิยมใช้แพร่หลายที่สุดในสถานศึกษาและหน่วยงานคือ <b>A4</b> (ขนาดกว้าง 21 เซนติเมตร x สูง 29.7 เซนติเมตร)</p>
           </div>
         `
       },
@@ -477,7 +548,7 @@
           </ul>
 
           <h3>2. เครื่องมือค้นหาและแทนที่คำ (Find & Replace)</h3>
-          <p>หากเราพิมพ์คำผิดซ้ำกันหลายสิบจุดในรายงานความยาวหลายหน้า สามารถใช้เครื่องมือ **ค้นหาและแทนที่** เพื่อเปลี่ยนคำผิดเป็นคำที่ถูกต้องทั้งหมดได้ในการคลิกครั้งเดียว</p>
+          <p>หากเราพิมพ์คำผิดซ้ำกันหลายสิบจุดในรายงานความยาวหลายหน้า สามารถใช้เครื่องมือ <b>ค้นหาและแทนที่</b> เพื่อเปลี่ยนคำผิดเป็นคำที่ถูกต้องทั้งหมดได้ในการคลิกครั้งเดียว</p>
 
           <div class="key-callout-box">
             <div class="key-callout-title">
@@ -504,7 +575,7 @@
               <svg class="ico" viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
               <span>การอัปเดตสารบัญเมื่อเนื้อหาเปลี่ยน</span>
             </div>
-            <p class="no-indent">หากมีการพิมพ์เนื้อหาเพิ่มจนเลขหน้าเคลื่อน ให้คลิกที่สารบัญแล้วกดปุ่ม **อัปเดตสารบัญ (Update Table)** เลือกคำสั่ง **อัปเดตทั้งตาราง** เลขหน้าทั้งหมดจะถูกปรับปรุงให้ถูกต้องทันที</p>
+            <p class="no-indent">หากมีการพิมพ์เนื้อหาเพิ่มจนเลขหน้าเคลื่อน ให้คลิกที่สารบัญแล้วกดปุ่ม <b>อัปเดตสารบัญ (Update Table)</b> เลือกคำสั่ง <b>อัปเดตทั้งตาราง</b> เลขหน้าทั้งหมดจะถูกปรับปรุงให้ถูกต้องทันที</p>
           </div>
         `
       },
@@ -529,7 +600,7 @@
               <svg class="ico" viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
               <span>คำแนะนำก่อนสั่งพิมพ์จริง</span>
             </div>
-            <p class="no-indent">ควรตรวจสอบความเรียบร้อยของหน้าเอกสารผ่านมุมมอง **ตัวอย่างก่อนพิมพ์ (Print Preview)** ทุกครั้ง เพื่อป้องกันการพิมพ์งานออกมาผิดพลาดซึ่งจะทำให้สิ้นเปลืองกระดาษและหมึกพิมพ์</p>
+            <p class="no-indent">ควรตรวจสอบความเรียบร้อยของหน้าเอกสารผ่านมุมมอง <b>ตัวอย่างก่อนพิมพ์ (Print Preview)</b> ทุกครั้ง เพื่อป้องกันการพิมพ์งานออกมาผิดพลาดซึ่งจะทำให้สิ้นเปลืองกระดาษและหมึกพิมพ์</p>
           </div>
         `
       }
@@ -545,7 +616,11 @@
       <span>UNIT ${unitId}</span>
     `;
     
-    document.getElementById("btn-start-game").href = `game.html?unit=${unitId}`;
+    // ตั้งค่าให้ปุ่มทำแบบทดสอบเปิดหน้า index.html พร้อมสั่งรันแบบทดสอบของบทนั้น
+    document.getElementById("btn-start-game").onclick = function(e) {
+      e.preventDefault();
+      window.location.href = `index.html?quizUnit=${unitId}`;
+    };
 
     const currentBookLesson = bookDatabase[unitId];
     if (currentBookLesson) {
