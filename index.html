@@ -10,12 +10,13 @@
   <style>
     :root {
       --primary: #0284c7;
-      --primary-dark: #0369a1;
+      --primary-hover: #0369a1;
       --accent-yellow: #facc15;
       --accent-green: #10b981;
-      --bg-dark: #0f172a;
-      --card-bg: rgba(30, 41, 59, 0.85);
-      --border-color: rgba(255, 255, 255, 0.15);
+      --green-dark: #047857;
+      --bg-dark: #0b1329;
+      --card-bg: rgba(15, 23, 42, 0.82);
+      --border-color: rgba(255, 255, 255, 0.12);
     }
 
     * {
@@ -23,59 +24,86 @@
       margin: 0;
       padding: 0;
       user-select: none;
+      -webkit-user-select: none;
     }
 
     body {
       min-height: 100vh;
-      background: radial-gradient(circle at 50% 30%, #0284c7 0%, #0f172a 80%);
+      background: radial-gradient(circle at 50% 20%, #1e293b 0%, #0b1329 80%);
       font-family: 'Kanit', sans-serif;
       color: #ffffff;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 24px 16px 40px;
+      padding: 28px 16px 48px;
+    }
+
+    /* Icon Base */
+    .ico {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+      display: inline-block;
+      vertical-align: middle;
+      flex-shrink: 0;
     }
 
     /* Header Banner */
     .header-card {
       background: var(--card-bg);
-      backdrop-filter: blur(12px);
-      border: 3px solid #38bdf8;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 2px solid rgba(56, 189, 248, 0.4);
       border-radius: 28px;
-      padding: 24px;
-      max-width: 800px;
+      padding: 28px 24px;
+      max-width: 820px;
       width: 100%;
       text-align: center;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 25px rgba(56, 189, 248, 0.3);
-      margin-bottom: 24px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(2, 132, 199, 0.25);
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header-card::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.08) 0%, transparent 60%);
+      pointer-events: none;
     }
 
     .game-logo {
       font-family: 'Chakra Petch', sans-serif;
-      font-size: 2.6rem;
+      font-size: 2.8rem;
       font-weight: 800;
       color: #ffffff;
-      text-shadow: 3px 3px 0px #0369a1, 0 0 15px rgba(250, 204, 21, 0.6);
-      letter-spacing: 1.5px;
+      text-shadow: 3px 3px 0px #0284c7, 0 0 20px rgba(250, 204, 21, 0.5);
+      letter-spacing: 2px;
       margin-bottom: 6px;
+      line-height: 1.1;
     }
 
     .sub-badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: var(--accent-yellow);
+      gap: 8px;
+      background: linear-gradient(135deg, #facc15 0%, #eab308 100%);
       color: #713f12;
       font-size: 0.9rem;
       font-weight: 800;
-      padding: 4px 16px;
+      padding: 5px 18px;
       border-radius: 999px;
-      box-shadow: 0 3px 0 #ca8a04;
+      box-shadow: 0 4px 12px rgba(250, 204, 21, 0.3);
+      margin-top: 4px;
     }
 
     /* Player Profile Box */
     .player-box {
-      margin-top: 18px;
+      margin-top: 22px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -83,124 +111,154 @@
     }
 
     .player-input {
-      width: 280px;
-      padding: 10px 16px;
-      border-radius: 14px;
-      border: 2px solid #cbd5e1;
-      background: #f8fafc;
-      color: #0f172a;
+      width: 320px;
+      padding: 12px 20px;
+      border-radius: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      background: rgba(15, 23, 42, 0.8);
+      color: #ffffff;
       font-size: 1rem;
       font-weight: 700;
       text-align: center;
       outline: none;
+      transition: all 0.25s ease;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .player-input::placeholder {
+      color: #94a3b8;
+      font-weight: 500;
     }
 
     .player-input:focus {
       border-color: var(--accent-yellow);
-      box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.3);
+      background: rgba(15, 23, 42, 0.95);
+      box-shadow: 0 0 0 4px rgba(250, 204, 21, 0.25);
     }
 
     /* Units Grid */
     .units-container {
-      max-width: 800px;
+      max-width: 820px;
       width: 100%;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-      gap: 18px;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 20px;
     }
 
     .unit-card {
       background: var(--card-bg);
-      backdrop-filter: blur(10px);
-      border: 2px solid var(--border-color);
-      border-radius: 20px;
-      padding: 18px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-radius: 22px;
+      padding: 22px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: transform 0.2s, border-color 0.2s;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      position: relative;
     }
 
     .unit-card:hover {
-      transform: translateY(-4px);
-      border-color: #38bdf8;
+      transform: translateY(-5px);
+      border-color: rgba(56, 189, 248, 0.5);
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.15);
     }
 
     .unit-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .unit-number {
-      background: var(--primary);
-      color: #fff;
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      color: #ffffff;
       font-family: 'Chakra Petch', sans-serif;
       font-weight: 800;
       font-size: 0.85rem;
+      padding: 4px 12px;
+      border-radius: 10px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 8px rgba(2, 132, 199, 0.4);
+    }
+
+    .unit-badge {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #94a3b8;
+      background: rgba(255, 255, 255, 0.06);
       padding: 3px 10px;
       border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .unit-title {
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       font-weight: 700;
       color: #f8fafc;
-      margin-bottom: 14px;
-      line-height: 1.4;
+      margin-bottom: 18px;
+      line-height: 1.45;
     }
 
     /* Action Buttons inside Card */
     .btn-group {
       display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: 8px;
+      grid-template-columns: 1fr 1.25fr;
+      gap: 10px;
     }
 
     .btn-action {
-      padding: 10px;
-      border-radius: 12px;
+      padding: 12px 14px;
+      border-radius: 14px;
       border: none;
       font-family: 'Kanit', sans-serif;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       font-weight: 800;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      transition: all 0.15s;
+      gap: 8px;
+      transition: all 0.2s ease;
     }
 
     .btn-study {
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.08);
       color: #e2e8f0;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.15);
     }
 
     .btn-study:hover {
-      background: rgba(255, 255, 255, 0.25);
-      color: #fff;
+      background: rgba(255, 255, 255, 0.18);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.3);
     }
 
     .btn-game {
       background: linear-gradient(180deg, #10b981 0%, #059669 100%);
       color: #ffffff;
-      box-shadow: 0 4px 0 #047857;
+      box-shadow: 0 4px 0 #047857, 0 6px 15px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-game:hover {
+      filter: brightness(1.1);
     }
 
     .btn-game:active {
-      transform: translateY(2px);
-      box-shadow: 0 2px 0 #047857;
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 #047857;
     }
 
     /* Modal for Study Mode */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(15, 23, 42, 0.92);
-      backdrop-filter: blur(12px);
+      background: rgba(11, 19, 41, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       display: none;
       justify-content: center;
       align-items: center;
@@ -210,48 +268,67 @@
 
     .study-card {
       background: #1e293b;
-      border: 3px solid #38bdf8;
-      border-radius: 24px;
-      padding: 24px;
-      max-width: 600px;
+      border: 2px solid #38bdf8;
+      border-radius: 26px;
+      padding: 28px;
+      max-width: 620px;
       width: 100%;
-      color: #fff;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+      color: #ffffff;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(56, 189, 248, 0.2);
       max-height: 85vh;
       overflow-y: auto;
+      animation: popIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .study-title {
+    @keyframes popIn {
+      from { transform: scale(0.92); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .study-header-modal {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       font-size: 1.3rem;
       font-weight: 800;
       color: var(--accent-yellow);
-      margin-bottom: 12px;
-      border-bottom: 2px dashed rgba(255,255,255,0.2);
-      padding-bottom: 8px;
+      margin-bottom: 14px;
+      border-bottom: 2px dashed rgba(255, 255, 255, 0.15);
+      padding-bottom: 12px;
     }
 
     .study-content {
-      font-size: 0.95rem;
-      line-height: 1.6;
+      font-size: 1rem;
+      line-height: 1.65;
       color: #cbd5e1;
-      margin-bottom: 20px;
-    }
-
-    .study-content ul {
-      margin-left: 20px;
-      margin-top: 8px;
+      margin-bottom: 24px;
+      background: rgba(15, 23, 42, 0.6);
+      padding: 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .close-btn {
       width: 100%;
-      padding: 12px;
-      border-radius: 14px;
+      padding: 14px;
+      border-radius: 16px;
       border: none;
-      background: #ef4444;
-      color: #fff;
+      background: linear-gradient(180deg, #ef4444 0%, #dc2626 100%);
+      color: #ffffff;
       font-weight: 800;
-      font-size: 1rem;
+      font-size: 1.05rem;
       cursor: pointer;
+      box-shadow: 0 4px 0 #b91c1c;
+      transition: all 0.15s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .close-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 #b91c1c;
     }
   </style>
 </head>
@@ -260,7 +337,10 @@
   <!-- Header Section -->
   <div class="header-card">
     <div class="game-logo">WORD ROAD 3D</div>
-    <div class="sub-badge">ศูนย์รวมการเรียนรู้โปรแกรม Microsoft Word (ม.1)</div>
+    <div class="sub-badge">
+      <svg class="ico" style="fill:#713f12;" viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zm0 13.09L4.27 12 12 7.78 19.73 12 12 16.09zM6 14.5v3.5l6 3.3 6-3.3v-3.5l-6 3.3-6-3.3z"/></svg>
+      <span>ศูนย์รวมการเรียนรู้โปรแกรม Microsoft Word (ม.1)</span>
+    </div>
     
     <div class="player-box">
       <input type="text" id="player-name" class="player-input" placeholder="พิมพ์ชื่อ - นามสกุล หรือ เลขที่..." autocomplete="off">
@@ -273,11 +353,17 @@
   <!-- Modal สำหรับโหมดอ่านทบทวนสรุปเนื้อหา -->
   <div class="modal-overlay" id="study-modal">
     <div class="study-card">
-      <div class="study-title" id="study-modal-title">สรุปบทเรียน</div>
+      <div class="study-header-modal">
+        <svg class="ico" style="width:24px; height:24px; fill:#facc15;" viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+        <span id="study-modal-title">สรุปบทเรียน</span>
+      </div>
       <div class="study-content" id="study-modal-content">
         เนื้อหาสรุปความรู้...
       </div>
-      <button class="close-btn" onclick="closeStudyModal()">ปิดหน้าต่างสรุปความรู้</button>
+      <button class="close-btn" onclick="closeStudyModal()">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        <span>ปิดหน้าต่างสรุปความรู้</span>
+      </button>
     </div>
   </div>
 
@@ -298,6 +384,16 @@
       { id: 12, title: "บทที่ 12: การส่งออกไฟล์และการพิมพ์เอกสาร (Print & Export)", summary: "การบันทึกไฟล์เป็น PDF เพื่อล็อกหน้ากระดาษ และการตั้งค่าสั่งพิมพ์งานออกทางเครื่องพิมพ์" }
     ];
 
+    // ไอคอน SVG สไตล์แอปพลิเคชัน
+    const iconBook = `<svg class="ico" viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>`;
+    const iconFlag = `<svg class="ico" viewBox="0 0 24 24"><path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z"/></svg>`;
+
+    // ดึงชื่อที่เคยพิมพ์บันทึกไว้ในเบราว์เซอร์
+    const savedName = localStorage.getItem("word_road_player_name");
+    if (savedName) {
+      document.getElementById("player-name").value = savedName;
+    }
+
     // สร้างการ์ดบทเรียนลงบนหน้าเว็บ
     const grid = document.getElementById("units-grid");
     unitsData.forEach(u => {
@@ -307,15 +403,18 @@
         <div>
           <div class="unit-header">
             <span class="unit-number">UNIT ${u.id}</span>
+            <span class="unit-badge">บทเรียนที่ ${u.id}</span>
           </div>
           <div class="unit-title">${u.title}</div>
         </div>
         <div class="btn-group">
           <button class="btn-action btn-study" onclick="openStudyModal(${u.id})">
-            📖 อ่านสรุป
+            ${iconBook}
+            <span>อ่านสรุป</span>
           </button>
           <button class="btn-action btn-game" onclick="playGame(${u.id})">
-            🏎️ ลุยสนามแข่ง
+            ${iconFlag}
+            <span>ลุยสนามแข่ง</span>
           </button>
         </div>
       `;
@@ -328,8 +427,11 @@
       if (unit) {
         document.getElementById("study-modal-title").innerText = unit.title;
         document.getElementById("study-modal-content").innerHTML = `
-          <p style="font-weight:700; color:#38bdf8; margin-bottom:8px;">📌 สรุปประเด็นสำคัญประจำบทเรียน:</p>
-          <p>${unit.summary}</p>
+          <div style="font-weight:800; color:#38bdf8; margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+            <svg class="ico" style="fill:#38bdf8;" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+            <span>สรุปประเด็นสำคัญประจำบทเรียน:</span>
+          </div>
+          <p style="font-weight:500;">${unit.summary}</p>
         `;
         document.getElementById("study-modal").style.display = "flex";
       }
@@ -348,10 +450,10 @@
         return;
       }
       
-      // บันทึกชื่อไว้ใช้ในเกม
+      // บันทึกชื่อไว้ใช้ในระบบ
       localStorage.setItem("word_road_player_name", name);
-      // เปลี่ยนหน้าหรือเข้าสู่ตัวเกม
-      alert(`ยินดีต้อนรับคุณ ${name} เข้าสู่สนามแข่งบทที่ ${unitId}!`);
+      // เปลี่ยนหน้าเข้าสู่สนามแข่งประจำบทเรียนที่เลือก
+      window.location.href = `game.html?unit=${unitId}`;
     }
   </script>
 </body>
