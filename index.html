@@ -331,6 +331,7 @@
       border-radius: 14px; font-weight: 800; color: #0369a1; cursor: grab;
       box-shadow: 0 4px 0 #0284c7; transition: all 0.15s; font-size: 0.92rem;
       display: flex; align-items: center; gap: 6px;
+      touch-action: none;
     }
     .draggable-chip:active { cursor: grabbing; transform: scale(0.95); }
     .draggable-chip.dragging { opacity: 0.4; }
@@ -1150,7 +1151,7 @@
         dropZone.className = "drag-drop-zone";
         dropZone.innerHTML = `<span style="color:#0284c7; font-weight:800; font-size:0.85rem;">[ ลากกล่องคำตอบมาวางที่นี่ ]</span>`;
 
-        // Event listener สำหรับการลากวาง (Desktop & Touch Mobile)
+        // Event listener สำหรับ HTML5 Drag and Drop (Desktop)
         dropZone.ondragover = (e) => { e.preventDefault(); dropZone.classList.add("hovered"); };
         dropZone.ondragleave = () => dropZone.classList.remove("hovered");
         dropZone.ondrop = (e) => {
@@ -1174,14 +1175,70 @@
           chip.draggable = true;
           chip.innerHTML = `<svg class="svg-icon" style="width:16px; height:16px;" viewBox="0 0 24 24"><path d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 4c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg><span>${itemText}</span>`;
 
+          // Desktop Drag Events
           chip.ondragstart = () => { draggedItemValue = itemText; chip.classList.add("dragging"); };
           chip.ondragend = () => { chip.classList.remove("dragging"); };
 
-          // คลิกหรือแตะเลือกบนมือถือ
-          chip.onclick = () => {
-            dropZone.classList.add("filled");
-            dropZone.innerHTML = `<span style="color:#047857; font-weight:800;">${itemText}</span>`;
-            setTimeout(() => handleChoiceAnswer(itemText, currentQ.target, currentQ), 200);
+          // Touch Drag Events สำหรับ Mobile & Tablet (เน้นการลากวางเท่านั้น ไม่มีคลิกตอบ)
+          let clone = null;
+          chip.ontouchstart = (e) => {
+            draggedItemValue = itemText;
+            chip.classList.add("dragging");
+            const touch = e.touches[0];
+            
+            // สร้าง Clone เพื่อแสดงตัวที่ลากตามนิ้ว
+            clone = chip.cloneNode(true);
+            clone.style.position = "fixed";
+            clone.style.zIndex = "1000";
+            clone.style.opacity = "0.9";
+            clone.style.pointerEvents = "none";
+            clone.style.left = `${touch.clientX - 40}px`;
+            clone.style.top = `${touch.clientY - 20}px`;
+            document.body.appendChild(clone);
+          };
+
+          chip.ontouchmove = (e) => {
+            if (!clone) return;
+            const touch = e.touches[0];
+            clone.style.left = `${touch.clientX - 40}px`;
+            clone.style.top = `${touch.clientY - 20}px`;
+
+            // เช็คว่านิ้วลากผ่าน DropZone หรือไม่เพื่อแสดง Highlight
+            const rect = dropZone.getBoundingClientRect();
+            if (
+              touch.clientX >= rect.left &&
+              touch.clientX <= rect.right &&
+              touch.clientY >= rect.top &&
+              touch.clientY <= rect.bottom
+            ) {
+              dropZone.classList.add("hovered");
+            } else {
+              dropZone.classList.remove("hovered");
+            }
+          };
+
+          chip.ontouchend = (e) => {
+            chip.classList.remove("dragging");
+            dropZone.classList.remove("hovered");
+            if (clone) {
+              clone.remove();
+              clone = null;
+            }
+
+            const touch = e.changedTouches[0];
+            const rect = dropZone.getBoundingClientRect();
+
+            // ตรวจสอบว่าถูกปล่อย (Drop) ลงบน Drop Zone หรือไม่
+            if (
+              touch.clientX >= rect.left &&
+              touch.clientX <= rect.right &&
+              touch.clientY >= rect.top &&
+              touch.clientY <= rect.bottom
+            ) {
+              dropZone.classList.add("filled");
+              dropZone.innerHTML = `<span style="color:#047857; font-weight:800;">${itemText}</span>`;
+              setTimeout(() => handleChoiceAnswer(itemText, currentQ.target, currentQ), 200);
+            }
           };
 
           pool.appendChild(chip);
