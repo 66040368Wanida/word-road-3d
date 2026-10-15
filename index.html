@@ -3,134 +3,413 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Word Road 3D: Ultimate Learning Hub</title>
+  <title>Word Road 3D: Cyberpunk Learning Hub</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700;800&family=Kanit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,700;0,800;1,700&family=Kanit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  
   <style>
     :root {
-      --bg-gradient: radial-gradient(circle at 50% 30%, #38bdf8 0%, #0369a1 100%);
-      --card-bg: #ffffff;
-      --border-blue: #38bdf8;
-      --yellow: #facc15;
+      --bg-dark: #070913;
+      --card-bg: rgba(15, 23, 42, 0.75);
+      --card-border: rgba(56, 189, 248, 0.25);
+      --neon-blue: #00f0ff;
+      --neon-purple: #7000ff;
+      --neon-pink: #ff007f;
+      --neon-yellow: #facc15;
+      --neon-green: #10b981;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-user-select: none; }
+    * {
+      box-sizing: border-box; margin: 0; padding: 0;
+      user-select: none; -webkit-user-select: none;
+      touch-action: manipulation;
+    }
 
     body {
       min-height: 100vh;
-      background: var(--bg-gradient);
+      background: var(--bg-dark);
       font-family: 'Kanit', sans-serif;
-      color: #0f172a;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      color: var(--text-main);
+      display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
       padding: 24px 16px;
+      overflow-x: hidden;
+      position: relative;
     }
 
-    .ico { width: 20px; height: 20px; fill: currentColor; display: inline-block; vertical-align: middle; }
+    /* Dynamic Grid Background Effect */
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background: 
+        linear-gradient(to right, rgba(56, 189, 248, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(56, 189, 248, 0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none; z-index: 0;
+    }
 
-    /* Login Screen */
-    #login-screen {
-      position: fixed; inset: 0; background: var(--bg-gradient);
+    body::after {
+      content: ''; position: fixed; top: 20%; left: 50%; transform: translate(-50%, -50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(0, 240, 255, 0.12) 0%, rgba(112, 0, 255, 0.08) 50%, transparent 70%);
+      pointer-events: none; z-index: 0; filter: blur(60px);
+    }
+
+    .icon {
+      width: 20px; height: 20px; fill: currentColor;
+      display: inline-block; vertical-align: middle; flex-shrink: 0;
+    }
+
+    /* ==========================================================================
+       AUTH SCREEN (LOGIN / REGISTER)
+       ========================================================================== */
+    #auth-screen {
+      position: fixed; inset: 0; background: rgba(7, 9, 19, 0.95);
+      backdrop-filter: blur(16px);
       display: flex; justify-content: center; align-items: center;
       padding: 16px; z-index: 200;
     }
 
-    .login-card {
-      background: var(--card-bg); border: 5px solid var(--border-blue);
-      border-radius: 32px; padding: 28px 24px; max-width: 520px; width: 100%;
-      text-align: center; box-shadow: 0 25px 60px rgba(2, 132, 199, 0.4);
+    .auth-card {
+      background: var(--card-bg);
+      border: 2px solid var(--neon-blue);
+      border-radius: 28px; padding: 32px 28px;
+      max-width: 440px; width: 100%;
+      box-shadow: 0 0 35px rgba(0, 240, 255, 0.25), inset 0 0 15px rgba(0, 240, 255, 0.1);
+      position: relative; overflow: hidden; z-index: 1;
+      animation: popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    .login-header {
-      background: linear-gradient(135deg, #0284c7, #2563eb);
-      margin: -28px -24px 20px -24px; padding: 24px 16px 18px;
-      border-radius: 26px 26px 0 0; border-bottom: 4px solid var(--yellow);
+    @keyframes popIn {
+      from { transform: scale(0.85); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
 
-    .game-logo {
-      font-family: 'Chakra Petch', sans-serif; font-size: 2.4rem; font-weight: 800; color: #ffffff;
-      text-shadow: 3px 3px 0px #0369a1, 0 0 18px rgba(250, 204, 21, 0.6); line-height: 1.1;
+    .auth-header {
+      text-align: center; margin-bottom: 24px;
     }
 
-    .player-input {
-      width: 100%; padding: 14px 18px; border-radius: 16px;
-      border: 3px solid #cbd5e1; background: #f8fafc; color: #0f172a;
-      font-size: 1.05rem; font-weight: 700; text-align: center; outline: none; margin-bottom: 16px;
+    .game-title-neon {
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 2.5rem; font-weight: 800;
+      font-style: italic;
+      background: linear-gradient(135deg, #ffffff 0%, var(--neon-blue) 50%, var(--neon-purple) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+      letter-spacing: 1.5px; line-height: 1.1;
     }
 
-    .btn-login-start {
-      width: 100%; padding: 15px; border-radius: 18px; border: none;
-      background: linear-gradient(180deg, #10b981 0%, #059669 100%);
-      color: #ffffff; font-size: 1.2rem; font-weight: 900; cursor: pointer;
-      box-shadow: 0 6px 0 #047857; display: flex; justify-content: center; align-items: center; gap: 8px;
+    .game-subtitle {
+      color: var(--neon-yellow); font-size: 0.85rem; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase; margin-top: 6px;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
     }
 
-    /* Hub Screen */
-    #hub-screen { display: none; width: 100%; max-width: 860px; flex-direction: column; align-items: center; }
-
-    .hub-header-card {
-      background: var(--card-bg); border: 5px solid var(--border-blue); border-radius: 28px;
-      padding: 20px 24px; width: 100%; box-shadow: 0 20px 50px rgba(2, 132, 199, 0.35);
-      display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px;
+    .auth-tabs {
+      display: flex; background: rgba(2, 6, 23, 0.8);
+      padding: 4px; border-radius: 14px; border: 1px solid var(--card-border);
+      margin-bottom: 20px;
     }
 
-    .units-grid { width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 18px; }
+    .auth-tab-btn {
+      flex: 1; padding: 10px; border: none; background: transparent;
+      color: var(--text-muted); font-family: 'Kanit'; font-weight: 700;
+      font-size: 0.95rem; border-radius: 10px; cursor: pointer; transition: all 0.2s;
+    }
+
+    .auth-tab-btn.active {
+      background: linear-gradient(135deg, var(--neon-blue), #0284c7);
+      color: #000; box-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+    }
+
+    .input-group {
+      display: flex; flex-direction: column; gap: 14px; margin-bottom: 22px;
+    }
+
+    .input-wrapper {
+      position: relative; display: flex; align-items: center;
+    }
+
+    .input-wrapper .icon {
+      position: absolute; left: 16px; color: var(--neon-blue);
+    }
+
+    .cyber-input {
+      width: 100%; padding: 14px 16px 14px 48px; border-radius: 14px;
+      border: 1.5px solid var(--card-border);
+      background: rgba(15, 23, 42, 0.9); color: #fff;
+      font-family: 'Kanit'; font-size: 0.95rem; font-weight: 600;
+      outline: none; transition: all 0.2s;
+    }
+
+    .cyber-input:focus {
+      border-color: var(--neon-blue);
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+      background: rgba(30, 41, 59, 0.9);
+    }
+
+    .btn-cyber-submit {
+      width: 100%; padding: 15px; border-radius: 14px; border: none;
+      background: linear-gradient(135deg, var(--neon-blue) 0%, var(--neon-purple) 100%);
+      color: #fff; font-family: 'Chakra Petch'; font-size: 1.15rem; font-weight: 800;
+      cursor: pointer; box-shadow: 0 0 20px rgba(112, 0, 255, 0.4);
+      display: flex; justify-content: center; align-items: center; gap: 10px;
+      transition: transform 0.1s, box-shadow 0.2s;
+    }
+
+    .btn-cyber-submit:active { transform: scale(0.98); }
+
+    /* ==========================================================================
+       MAIN HUB SCREEN
+       ========================================================================== */
+    #hub-screen {
+      display: none; width: 100%; max-width: 1100px;
+      flex-direction: column; gap: 24px; z-index: 1;
+    }
+
+    /* Top User HUD Bar */
+    .hub-navbar {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(12px);
+      border-radius: 20px; padding: 16px 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .user-profile-info {
+      display: flex; align-items: center; gap: 14px;
+    }
+
+    .user-avatar {
+      width: 48px; height: 48px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+      display: flex; justify-content: center; align-items: center;
+      color: #fff; font-weight: 900; font-size: 1.3rem;
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+    }
+
+    .user-details h3 {
+      font-size: 1.1rem; font-weight: 800; color: var(--text-main); line-height: 1.2;
+    }
+
+    .user-details p {
+      font-size: 0.8rem; color: var(--neon-blue); font-weight: 600;
+      display: flex; align-items: center; gap: 4px; margin-top: 2px;
+    }
+
+    .btn-logout {
+      padding: 9px 16px; border-radius: 12px;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      background: rgba(239, 68, 68, 0.1); color: #f87171;
+      font-family: 'Kanit'; font-weight: 700; font-size: 0.88rem;
+      cursor: pointer; display: flex; align-items: center; gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-logout:hover {
+      background: #ef4444; color: #fff;
+      box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+    }
+
+    /* Section Banner */
+    .hub-banner {
+      background: linear-gradient(135deg, rgba(2, 132, 199, 0.2) 0%, rgba(112, 0, 255, 0.2) 100%);
+      border: 1px solid var(--card-border);
+      border-radius: 24px; padding: 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      position: relative; overflow: hidden;
+    }
+
+    .banner-text h2 {
+      font-family: 'Chakra Petch'; font-size: 1.8rem; font-weight: 800;
+      color: #fff; margin-bottom: 4px;
+    }
+
+    .banner-text p {
+      font-size: 0.92rem; color: var(--text-muted);
+    }
+
+    /* Grid Layout for Lessons */
+    .units-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px; width: 100%;
+    }
 
     .unit-card {
-      background: #ffffff; border: 3px solid #e2e8f0; border-radius: 22px; padding: 20px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 22px; padding: 22px;
       display: flex; flex-direction: column; justify-content: space-between;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08); text-align: left;
+      gap: 16px; position: relative; overflow: hidden;
+      backdrop-filter: blur(10px);
+      transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    .unit-card:hover { transform: translateY(-4px); border-color: #38bdf8; }
 
-    .unit-tag { background: #0284c7; color: #fff; font-family: 'Chakra Petch'; font-weight: 800; font-size: 0.82rem; padding: 3px 10px; border-radius: 8px; }
-    .unit-title-text { font-size: 1.08rem; font-weight: 800; color: #0f172a; margin: 12px 0 16px; line-height: 1.45; }
+    .unit-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--neon-blue);
+      box-shadow: 0 12px 30px rgba(0, 240, 255, 0.15);
+    }
 
-    .btn-group { display: grid; grid-template-columns: 1fr 1.2fr; gap: 10px; }
+    .unit-card-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+    }
+
+    .unit-badge {
+      background: rgba(0, 240, 255, 0.1); color: var(--neon-blue);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      font-family: 'Chakra Petch'; font-weight: 800; font-size: 0.8rem;
+      padding: 4px 12px; border-radius: 999px; letter-spacing: 1px;
+    }
+
+    .unit-title-text {
+      font-size: 1.1rem; font-weight: 800; color: #fff;
+      line-height: 1.45; margin-top: 10px;
+    }
+
+    .unit-actions-group {
+      display: grid; grid-template-columns: 1fr 1.2fr; gap: 10px;
+    }
 
     .btn-act {
-      padding: 11px; border-radius: 14px; border: none; font-family: 'Kanit', sans-serif;
-      font-size: 0.92rem; font-weight: 800; cursor: pointer; display: flex;
-      align-items: center; justify-content: center; gap: 6px; transition: all 0.15s;
+      padding: 11px 14px; border-radius: 12px; border: none;
+      font-family: 'Kanit', sans-serif; font-size: 0.9rem; font-weight: 700;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      gap: 8px; transition: all 0.2s;
     }
 
-    .btn-read { background: #f0f9ff; color: #0284c7; border: 2px solid #bae6fd; }
-    .btn-play { background: linear-gradient(180deg, #10b981 0%, #059669 100%); color: #ffffff; box-shadow: 0 4px 0 #047857; }
+    .btn-study {
+      background: rgba(255, 255, 255, 0.05); color: var(--text-main);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-study:hover {
+      background: rgba(255, 255, 255, 0.15); border-color: #fff;
+    }
+
+    .btn-race {
+      background: linear-gradient(135deg, var(--neon-green) 0%, #059669 100%);
+      color: #fff; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-race:hover {
+      box-shadow: 0 6px 18px rgba(16, 185, 129, 0.5); transform: translateY(-1px);
+    }
+
+    /* Responsive Layout Controls */
+    @media (max-width: 768px) {
+      body { padding: 16px 12px; }
+      .hub-banner { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .units-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- 1. LOGIN SCREEN -->
-  <div id="login-screen">
-    <div class="login-card">
-      <div class="login-header">
-        <div class="game-logo">WORD ROAD 3D</div>
-        <div style="color:#facc15; font-weight:800; font-size:0.9rem; margin-top:6px;">ศูนย์รวมการเรียนรู้ Microsoft Word ม.1</div>
+  <!-- ==========================================================================
+       1. AUTHENTICATION SCREEN (REGISTER / LOGIN)
+       ========================================================================== -->
+  <div id="auth-screen">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="game-title-neon">WORD ROAD 3D</div>
+        <div class="game-subtitle">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          Cyberpunk Learning Hub
+        </div>
       </div>
 
-      <input type="text" id="player-input" class="player-input" placeholder="พิมพ์ชื่อ - นามสกุล หรือ เลขที่..." autocomplete="off" />
+      <!-- Tab Switcher -->
+      <div class="auth-tabs">
+        <button class="auth-tab-btn active" id="tab-login-btn" onclick="switchTab('login')">เข้าสู่ระบบ</button>
+        <button class="auth-tab-btn" id="tab-register-btn" onclick="switchTab('register')">ลงทะเบียนผู้ใช้</button>
+      </div>
 
-      <button class="btn-login-start" onclick="handleLogin()">
-        <svg class="ico" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-        <span>เข้าสู่ระบบ (LOGIN)</span>
-      </button>
+      <!-- LOGIN FORM -->
+      <form id="login-form" onsubmit="handleLogin(event)">
+        <div class="input-group">
+          <div class="input-wrapper">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            <input type="text" id="login-username" class="cyber-input" placeholder="ชื่อผู้ใช้ / เลขที่..." required autocomplete="off" />
+          </div>
+          <div class="input-wrapper">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+            <input type="password" id="login-password" class="cyber-input" placeholder="รหัสผ่าน..." required />
+          </div>
+        </div>
+
+        <button type="submit" class="btn-cyber-submit">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5v10z"/></svg>
+          <span>เข้าสู่ระบบ (LOGIN)</span>
+        </button>
+      </form>
+
+      <!-- REGISTER FORM -->
+      <form id="register-form" style="display: none;" onsubmit="handleRegister(event)">
+        <div class="input-group">
+          <div class="input-wrapper">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            <input type="text" id="reg-fullname" class="cyber-input" placeholder="ชื่อ - นามสกุล หรือ เลขที่..." required autocomplete="off" />
+          </div>
+          <div class="input-wrapper">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+            <input type="text" id="reg-username" class="cyber-input" placeholder="ตั้งชื่อผู้ใช้ (Username)..." required autocomplete="off" />
+          </div>
+          <div class="input-wrapper">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+            <input type="password" id="reg-password" class="cyber-input" placeholder="ตั้งรหัสผ่าน (Password)..." required />
+          </div>
+        </div>
+
+        <button type="submit" class="btn-cyber-submit">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          <span>ยืนยันการลงทะเบียน</span>
+        </button>
+      </form>
     </div>
   </div>
 
-  <!-- 2. MAIN HUB SCREEN -->
+  <!-- ==========================================================================
+       2. MAIN HUB SCREEN
+       ========================================================================== -->
   <div id="hub-screen">
-    <div class="hub-header-card">
-      <div>
-        <span style="color:#0284c7; font-weight:800;">ยินดีต้อนรับ:</span>
-        <span id="display-user-name" style="color:#0f172a; font-weight:900; font-size:1.15rem; margin-left:6px;">-</span>
+    
+    <!-- User Navbar -->
+    <div class="hub-navbar">
+      <div class="user-profile-info">
+        <div class="user-avatar" id="user-avatar-text">U</div>
+        <div class="user-details">
+          <h3 id="display-fullname">ผู้ใช้งานระบบ</h3>
+          <p>
+            <svg class="icon" style="width: 14px; height: 14px;" viewBox="0 0 24 24"><path d="M12 2L1 21h22L12 2zm0 3.99L19.53 19H4.47L12 5.99zM11 16h2v2h-2zm0-6h2v4h-2z"/></svg>
+            <span id="display-username">@username</span>
+          </p>
+        </div>
       </div>
-      <button onclick="switchUser()" style="padding:8px 14px; border-radius:12px; border:2px solid #cbd5e1; background:#f8fafc; font-weight:800; cursor:pointer;">สลับชื่อ</button>
+
+      <button class="btn-logout" onclick="logout()">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
+        <span>ออกจากระบบ</span>
+      </button>
     </div>
 
+    <!-- Section Banner -->
+    <div class="hub-banner">
+      <div class="banner-text">
+        <h2>เลือกบทเรียน Microsoft Word ม.1</h2>
+        <p>ศึกษาเนื้อหาหรือลงเข้าแข่งขันในสนามแข่ง 3D เพื่อสะสมคะแนน</p>
+      </div>
+    </div>
+
+    <!-- Units Cards Grid -->
     <div class="units-grid" id="units-grid"></div>
   </div>
 
   <script>
+    // รายชื่อบทเรียนทั้งหมด 12 บท
     const unitsList = [
       { id: 1, title: "บทที่ 1: รู้จักหน้าตาและส่วนประกอบของ Microsoft Word" },
       { id: 2, title: "บทที่ 2: การจัดการไฟล์เอกสารและคีย์ลัดพื้นฐาน" },
@@ -146,55 +425,160 @@
       { id: 12, title: "บทที่ 12: การส่งออกไฟล์และการพิมพ์เอกสาร (Print & Export)" }
     ];
 
-    const inputName = document.getElementById("player-input");
-    const savedName = localStorage.getItem("word_road_player_name");
-    if (savedName) inputName.value = savedName;
+    // ตรวจสอบการสลับสลับ Tab หน้า Auth
+    function switchTab(tab) {
+      const loginForm = document.getElementById("login-form");
+      const regForm = document.getElementById("register-form");
+      const tabLoginBtn = document.getElementById("tab-login-btn");
+      const tabRegBtn = document.getElementById("tab-register-btn");
 
-    function handleLogin() {
-      const name = inputName.value.trim();
-      if (!name) { alert("กรุณาพิมพ์ชื่อ - นามสกุล หรือ เลขที่ก่อนนะครับ!"); return; }
-
-      localStorage.setItem("word_road_player_name", name);
-      document.getElementById("display-user-name").innerText = name;
-      document.getElementById("login-screen").style.display = "none";
-      document.getElementById("hub-screen").style.display = "flex";
-      renderHubUnits();
+      if (tab === 'login') {
+        loginForm.style.display = "block";
+        regForm.style.display = "none";
+        tabLoginBtn.classList.add("active");
+        tabRegBtn.classList.remove("active");
+      } else {
+        loginForm.style.display = "none";
+        regForm.style.display = "block";
+        tabRegBtn.classList.add("active");
+        tabLoginBtn.classList.remove("active");
+      }
     }
 
-    function switchUser() {
+    // ดึงฐานข้อมูลผู้ใช้จาก LocalStorage
+    function getUsersDB() {
+      const db = localStorage.getItem("word_road_users_db");
+      return db ? JSON.parse(db) : {};
+    }
+
+    // บันทึกฐานข้อมูลผู้ใช้ลง LocalStorage
+    function saveUsersDB(db) {
+      localStorage.setItem("word_road_users_db", JSON.stringify(db));
+    }
+
+    // สมัครสมาชิกใหม่
+    function handleRegister(e) {
+      e.preventDefault();
+      const fullname = document.getElementById("reg-fullname").value.trim();
+      const username = document.getElementById("reg-username").value.trim().toLowerCase();
+      const password = document.getElementById("reg-password").value.trim();
+
+      if (!fullname || !username || !password) {
+        alert("กรุณากรอกข้อมูลให้ครบทุกช่องครับ");
+        return;
+      }
+
+      const db = getUsersDB();
+      if (db[username]) {
+        alert("Username นี้มีผู้ใช้งานแล้ว กรุณาใช้ชื่ออื่นครับ");
+        return;
+      }
+
+      // บันทึกข้อมูล
+      db[username] = { fullname, password };
+      saveUsersDB(db);
+
+      alert("ลงทะเบียนสำเร็จแล้ว! ระบบจะนำท่านเข้าสู่ระบบทันที");
+      
+      // Auto Login หลังสมัคร
+      setCurrentSession({ username, fullname });
+      loadHubScreen();
+    }
+
+    // เข้าสู่ระบบ
+    function handleLogin(e) {
+      e.preventDefault();
+      const username = document.getElementById("login-username").value.trim().toLowerCase();
+      const password = document.getElementById("login-password").value.trim();
+
+      const db = getUsersDB();
+      const user = db[username];
+
+      if (user && user.password === password) {
+        setCurrentSession({ username, fullname: user.fullname });
+        loadHubScreen();
+      } else {
+        alert("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง กรุณาตรวจสอบอีกครั้งครับ");
+      }
+    }
+
+    // จัดการ Session ผู้ใช้งานปัจจุบัน
+    function setCurrentSession(userObj) {
+      localStorage.setItem("word_road_current_session", JSON.stringify(userObj));
+    }
+
+    function getCurrentSession() {
+      const session = localStorage.getItem("word_road_current_session");
+      return session ? JSON.parse(session) : null;
+    }
+
+    function logout() {
+      localStorage.removeItem("word_road_current_session");
       document.getElementById("hub-screen").style.display = "none";
-      document.getElementById("login-screen").style.display = "flex";
+      document.getElementById("auth-screen").style.display = "flex";
     }
 
-    function renderHubUnits() {
+    // โหลดหน้า Hub หลัก
+    function loadHubScreen() {
+      const session = getCurrentSession();
+      if (!session) return;
+
+      document.getElementById("display-fullname").innerText = session.fullname;
+      document.getElementById("display-username").innerText = `@${session.username}`;
+      document.getElementById("user-avatar-text").innerText = session.fullname.charAt(0).toUpperCase();
+
+      document.getElementById("auth-screen").style.display = "none";
+      document.getElementById("hub-screen").style.display = "flex";
+
+      renderUnitsGrid();
+    }
+
+    // สร้างการ์ดบทเรียน
+    function renderUnitsGrid() {
       const container = document.getElementById("units-grid");
       container.innerHTML = "";
+
       unitsList.forEach(u => {
         const card = document.createElement("div");
         card.className = "unit-card";
         card.innerHTML = `
           <div>
-            <span class="unit-tag">UNIT ${u.id}</span>
+            <div class="unit-card-header">
+              <span class="unit-badge">UNIT ${u.id.toString().padStart(2, '0')}</span>
+            </div>
             <div class="unit-title-text">${u.title}</div>
           </div>
-          <div class="btn-group">
-            <button class="btn-act btn-read" onclick="goToStudy(${u.id})">📖 อ่านสรุป</button>
-            <button class="btn-act btn-play" onclick="goToGame(${u.id})">🏎️ สนามแข่ง</button>
+
+          <div class="unit-actions-group">
+            <button class="btn-act btn-study" onclick="goToStudy(${u.id})">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+              <span>อ่านสรุป</span>
+            </button>
+            <button class="btn-act btn-race" onclick="goToGame(${u.id})">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+              <span>สนามแข่ง</span>
+            </button>
           </div>
         `;
         container.appendChild(card);
       });
     }
 
-    // กดแล้วเปลี่ยนหน้าไปยัง study.html?unit=X
     function goToStudy(unitId) {
       window.location.href = `study.html?unit=${unitId}`;
     }
 
-    // กดแล้วเปลี่ยนหน้าไปยัง game.html?unit=X
     function goToGame(unitId) {
       window.location.href = `game.html?unit=${unitId}`;
     }
+
+    // Auto Check Session เมื่อเปิดหน้าเว็บ
+    window.addEventListener("DOMContentLoaded", () => {
+      const session = getCurrentSession();
+      if (session) {
+        loadHubScreen();
+      }
+    });
   </script>
 </body>
 </html>
