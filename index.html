@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Word Road 3D: Learning Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700;800&family=Kanit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --accent-yellow: #facc15;
+      --accent-green: #10b981;
+      --bg-dark: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.85);
+      --border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at 50% 30%, #0284c7 0%, #0f172a 80%);
+      font-family: 'Kanit', sans-serif;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px 40px;
+    }
+
+    /* Header Banner */
+    .header-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 3px solid #38bdf8;
+      border-radius: 28px;
+      padding: 24px;
+      max-width: 800px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 25px rgba(56, 189, 248, 0.3);
+      margin-bottom: 24px;
+    }
+
+    .game-logo {
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 2.6rem;
+      font-weight: 800;
+      color: #ffffff;
+      text-shadow: 3px 3px 0px #0369a1, 0 0 15px rgba(250, 204, 21, 0.6);
+      letter-spacing: 1.5px;
+      margin-bottom: 6px;
+    }
+
+    .sub-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent-yellow);
+      color: #713f12;
+      font-size: 0.9rem;
+      font-weight: 800;
+      padding: 4px 16px;
+      border-radius: 999px;
+      box-shadow: 0 3px 0 #ca8a04;
+    }
+
+    /* Player Profile Box */
+    .player-box {
+      margin-top: 18px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .player-input {
+      width: 280px;
+      padding: 10px 16px;
+      border-radius: 14px;
+      border: 2px solid #cbd5e1;
+      background: #f8fafc;
+      color: #0f172a;
+      font-size: 1rem;
+      font-weight: 700;
+      text-align: center;
+      outline: none;
+    }
+
+    .player-input:focus {
+      border-color: var(--accent-yellow);
+      box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.3);
+    }
+
+    /* Units Grid */
+    .units-container {
+      max-width: 800px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 18px;
+    }
+
+    .unit-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 2px solid var(--border-color);
+      border-radius: 20px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .unit-card:hover {
+      transform: translateY(-4px);
+      border-color: #38bdf8;
+    }
+
+    .unit-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .unit-number {
+      background: var(--primary);
+      color: #fff;
+      font-family: 'Chakra Petch', sans-serif;
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 3px 10px;
+      border-radius: 8px;
+    }
+
+    .unit-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #f8fafc;
+      margin-bottom: 14px;
+      line-height: 1.4;
+    }
+
+    /* Action Buttons inside Card */
+    .btn-group {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 8px;
+    }
+
+    .btn-action {
+      padding: 10px;
+      border-radius: 12px;
+      border: none;
+      font-family: 'Kanit', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .btn-study {
+      background: rgba(255, 255, 255, 0.12);
+      color: #e2e8f0;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-study:hover {
+      background: rgba(255, 255, 255, 0.25);
+      color: #fff;
+    }
+
+    .btn-game {
+      background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 0 #047857;
+    }
+
+    .btn-game:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 #047857;
+    }
+
+    /* Modal for Study Mode */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(12px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      z-index: 100;
+    }
+
+    .study-card {
+      background: #1e293b;
+      border: 3px solid #38bdf8;
+      border-radius: 24px;
+      padding: 24px;
+      max-width: 600px;
+      width: 100%;
+      color: #fff;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+
+    .study-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--accent-yellow);
+      margin-bottom: 12px;
+      border-bottom: 2px dashed rgba(255,255,255,0.2);
+      padding-bottom: 8px;
+    }
+
+    .study-content {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #cbd5e1;
+      margin-bottom: 20px;
+    }
+
+    .study-content ul {
+      margin-left: 20px;
+      margin-top: 8px;
+    }
+
+    .close-btn {
+      width: 100%;
+      padding: 12px;
+      border-radius: 14px;
+      border: none;
+      background: #ef4444;
+      color: #fff;
+      font-weight: 800;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Section -->
+  <div class="header-card">
+    <div class="game-logo">WORD ROAD 3D</div>
+    <div class="sub-badge">ศูนย์รวมการเรียนรู้โปรแกรม Microsoft Word (ม.1)</div>
+    
+    <div class="player-box">
+      <input type="text" id="player-name" class="player-input" placeholder="พิมพ์ชื่อ - นามสกุล หรือ เลขที่..." autocomplete="off">
+    </div>
+  </div>
+
+  <!-- Units Grid (12 บทเรียน) -->
+  <div class="units-container" id="units-grid"></div>
+
+  <!-- Modal สำหรับโหมดอ่านทบทวนสรุปเนื้อหา -->
+  <div class="modal-overlay" id="study-modal">
+    <div class="study-card">
+      <div class="study-title" id="study-modal-title">สรุปบทเรียน</div>
+      <div class="study-content" id="study-modal-content">
+        เนื้อหาสรุปความรู้...
+      </div>
+      <button class="close-btn" onclick="closeStudyModal()">ปิดหน้าต่างสรุปความรู้</button>
+    </div>
+  </div>
+
+  <script>
+    // ข้อมูลบทเรียนทั้ง 12 บท
+    const unitsData = [
+      { id: 1, title: "บทที่ 1: รู้จักหน้าตาและส่วนประกอบของ Microsoft Word", summary: "เรียนรู้แถบเมนู Ribbon, แถบเครื่องมือ Quick Access, ไม้บรรทัด และการจัดการมุมมองหน้าเอกสาร" },
+      { id: 2, title: "บทที่ 2: การจัดการไฟล์เอกสารและคีย์ลัดพื้นฐาน", summary: "การสร้างเอกสารใหม่ (Ctrl+N), การบันทึก (Ctrl+S), การเปิดไฟล์ (Ctrl+O) และการยกเลิกคำสั่ง (Ctrl+Z)" },
+      { id: 3, title: "บทที่ 3: การพิมพ์และการจัดการข้อความภาษาไทย/อังกฤษ", summary: "เทคนิคการเลือกข้อความ, การคัดลอก (Ctrl+C), การตัด (Ctrl+X) และการวาง (Ctrl+V)" },
+      { id: 4, title: "บทที่ 4: การตกแต่งฟอนต์และรูปแบบตัวอักษร", summary: "การเปลี่ยนแบบฟอนต์, ขนาด, ตัวหนา (Ctrl+B), ตัวเอียง (Ctrl+I), ตัวขีดเส้นใต้ (Ctrl+U) และตัวคัดวางรูปแบบ (Format Painter)" },
+      { id: 5, title: "บทที่ 5: การจัดแนวย่อหน้าและการเว้นระยะบรรทัด", summary: "การจัดข้อความชิดซ้าย กึ่งกลาง ชิดขวา และกระจายแบบ Thai Distributed รวมถึงการตั้งระยะห่างบรรทัด" },
+      { id: 6, title: "บทที่ 6: การสร้างรายการหัวข้อย่อยและลำดับเลข", summary: "การใช้งาน Bullets (หัวข้อย่อยไม่มีลำดับ) และ Numbering (ลำดับตัวเลข 1, 2, 3) เพื่อจัดระเบียบข้อมูล" },
+      { id: 7, title: "บทที่ 7: การแทรกรูปภาพและการจัดตัดข้อความ (Wrap Text)", summary: "การแทรกรูปภาพ การปรับขนาด และการตั้งค่า Wrap Text เช่น Square, Tight และ Behind Text" },
+      { id: 8, title: "บทที่ 8: การสร้างและตกแต่งตารางข้อมูล", summary: "การกำหนดจำนวนแถวและคอลัมน์ การผสานเซลล์ (Merge Cells) และการใส่สีพื้นหลังตาราง" },
+      { id: 9, title: "บทที่ 9: การตั้งค่าหน้ากระดาษและระยะขอบ (Page Setup)", summary: "การเลือกวางกระดาษแนวตั้ง (Portrait) / แนวนอน (Landscape) และการปรับระยะขอบกระดาษ (Margins)" },
+      { id: 10, title: "บทที่ 10: การตรวจคำผิดและการค้นหา/แทนที่คำ", summary: "จุดสังเกตเส้นใต้หยักสีแดง (สะกดผิด) และเส้นใต้สีฟ้า (เว้นวรรคผิด) รวมถึงการใช้ Find & Replace" },
+      { id: 11, title: "บทที่ 11: การใช้งาน Style และการสร้างสารบัญอัตโนมัติ", summary: "การกำหนด Heading 1, Heading 2 เพื่อดึงสารบัญอัตโนมัติ (Table of Contents) ได้อย่างรวดเร็ว" },
+      { id: 12, title: "บทที่ 12: การส่งออกไฟล์และการพิมพ์เอกสาร (Print & Export)", summary: "การบันทึกไฟล์เป็น PDF เพื่อล็อกหน้ากระดาษ และการตั้งค่าสั่งพิมพ์งานออกทางเครื่องพิมพ์" }
+    ];
+
+    // สร้างการ์ดบทเรียนลงบนหน้าเว็บ
+    const grid = document.getElementById("units-grid");
+    unitsData.forEach(u => {
+      const card = document.createElement("div");
+      card.className = "unit-card";
+      card.innerHTML = `
+        <div>
+          <div class="unit-header">
+            <span class="unit-number">UNIT ${u.id}</span>
+          </div>
+          <div class="unit-title">${u.title}</div>
+        </div>
+        <div class="btn-group">
+          <button class="btn-action btn-study" onclick="openStudyModal(${u.id})">
+            📖 อ่านสรุป
+          </button>
+          <button class="btn-action btn-game" onclick="playGame(${u.id})">
+            🏎️ ลุยสนามแข่ง
+          </button>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+
+    // ฟังก์ชันเปิด Modal สรุปบทเรียน
+    function openStudyModal(unitId) {
+      const unit = unitsData.find(u => u.id === unitId);
+      if (unit) {
+        document.getElementById("study-modal-title").innerText = unit.title;
+        document.getElementById("study-modal-content").innerHTML = `
+          <p style="font-weight:700; color:#38bdf8; margin-bottom:8px;">📌 สรุปประเด็นสำคัญประจำบทเรียน:</p>
+          <p>${unit.summary}</p>
+        `;
+        document.getElementById("study-modal").style.display = "flex";
+      }
+    }
+
+    function closeStudyModal() {
+      document.getElementById("study-modal").style.display = "none";
+    }
+
+    // ฟังก์ชันเข้าเล่นเกมประจำบท
+    function playGame(unitId) {
+      const name = document.getElementById("player-name").value.trim();
+      if (!name) {
+        alert("กรุณาพิมพ์ชื่อ - นามสกุล หรือ เลขที่ ก่อนเลือกสนามแข่งนะครับ!");
+        document.getElementById("player-name").focus();
+        return;
+      }
+      
+      // บันทึกชื่อไว้ใช้ในเกม
+      localStorage.setItem("word_road_player_name", name);
+      // เปลี่ยนหน้าหรือเข้าสู่ตัวเกม
+      alert(`ยินดีต้อนรับคุณ ${name} เข้าสู่สนามแข่งบทที่ ${unitId}!`);
+    }
+  </script>
+</body>
+</html>
