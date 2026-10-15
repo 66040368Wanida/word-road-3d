@@ -10,18 +10,19 @@
   
   <style>
     :root {
-      --bg-gradient: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 50%, #bae6fd 100%);
-      --card-bg: rgba(255, 255, 255, 0.92);
-      --card-border: #7dd3fc;
-      --primary-blue: #0284c7;
-      --dark-blue: #0369a1;
-      --neon-cyan: #06b6d4;
-      --neon-yellow: #ca8a04;
-      --yellow-bg: #fefce8;
-      --yellow-border: #facc15;
+      --word-blue-dark: #1e40af;
+      --word-blue-main: #1d4ed8;
+      --word-blue-bright: #3b82f6;
+      --word-cyan: #0284c7;
+      --arcade-gold: #f59e0b;
+      --arcade-yellow: #facc15;
+      --arcade-green: #10b981;
+      --arcade-red: #ef4444;
+      --bg-gradient: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #7dd3fc 100%);
+      --card-bg: #ffffff;
       --text-main: #0f172a;
       --text-sub: #334155;
-      --text-muted: #64748b;
+      --text-muted: #475569;
     }
 
     * {
@@ -39,35 +40,34 @@
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      padding: 20px 14px 48px;
+      padding: 20px 14px 50px;
       overflow-x: hidden;
       position: relative;
     }
 
-    /* Bright Arcade Grid Background */
+    /* 3D Bright Arcade Grid Background */
     body::before {
       content: ''; position: fixed; inset: 0;
       background: 
-        linear-gradient(to right, rgba(2, 132, 199, 0.08) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(2, 132, 199, 0.08) 1px, transparent 1px);
+        linear-gradient(to right, rgba(2, 132, 199, 0.12) 2px, transparent 2px),
+        linear-gradient(to bottom, rgba(2, 132, 199, 0.12) 2px, transparent 2px);
       background-size: 32px 32px;
       pointer-events: none; z-index: 0;
     }
 
     .ico {
-      width: 20px; height: 20px; fill: currentColor;
+      width: 22px; height: 22px; fill: currentColor;
       display: inline-block; vertical-align: middle; flex-shrink: 0;
     }
 
-    /* Main Container */
+    /* Main Container Card */
     .study-container {
       background: var(--card-bg);
-      border: 3px solid var(--card-border);
-      backdrop-filter: blur(12px);
+      border: 4px solid var(--word-blue-main);
       border-radius: 28px;
       padding: 32px 28px;
-      max-width: 860px; width: 100%;
-      box-shadow: 0 20px 50px rgba(2, 132, 199, 0.18), 0 0 0 6px rgba(255, 255, 255, 0.8);
+      max-width: 880px; width: 100%;
+      box-shadow: 0 10px 0 var(--word-blue-dark), 0 20px 40px rgba(2, 132, 199, 0.25);
       text-align: left;
       z-index: 1;
       position: relative;
@@ -75,8 +75,8 @@
     }
 
     @keyframes popIn {
-      from { transform: scale(0.95); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
+      from { transform: scale(0.92) translateY(20px); opacity: 0; }
+      to { transform: scale(1) translateY(0); opacity: 1; }
     }
 
     /* Top Navigation Header */
@@ -84,134 +84,131 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 2px dashed #bae6fd;
+      border-bottom: 3px dashed #bae6fd;
       padding-bottom: 16px;
       margin-bottom: 24px;
       gap: 12px; flex-wrap: wrap;
     }
 
     .unit-badge-pill {
-      background: linear-gradient(135deg, #0284c7, #0369a1);
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
       color: #ffffff;
       font-family: 'Chakra Petch', sans-serif;
       font-weight: 800;
-      padding: 6px 18px;
+      padding: 8px 20px;
       border-radius: 999px;
-      font-size: 0.95rem;
-      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+      font-size: 1rem;
+      box-shadow: 0 4px 0 #1e3a8a;
       display: inline-flex; align-items: center; gap: 8px;
     }
 
     .btn-back-hub {
       padding: 10px 18px;
       border-radius: 14px;
-      border: 2px solid #cbd5e1;
-      background: #ffffff;
-      color: #475569;
+      border: 2px solid #bae6fd;
+      background: #f0f9ff;
+      color: var(--word-blue-main);
       font-weight: 800;
       font-size: 0.9rem;
       cursor: pointer;
       text-decoration: none;
       display: inline-flex; align-items: center; gap: 8px;
-      transition: all 0.2s;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+      transition: all 0.15s;
+      box-shadow: 0 4px 0 #7dd3fc;
     }
-    .btn-back-hub:hover {
-      background: #f1f5f9;
-      border-color: var(--primary-blue);
-      color: var(--primary-blue);
-    }
+    .btn-back-hub:hover { background: #e0f2fe; }
+    .btn-back-hub:active { transform: translateY(2px); box-shadow: 0 1px 0 #7dd3fc; }
 
     /* Lesson Typography */
     .lesson-header-title {
-      font-size: 1.6rem;
+      font-size: 1.65rem;
       font-weight: 900;
-      color: var(--primary-blue);
+      color: var(--word-blue-main);
       line-height: 1.35;
       margin-bottom: 22px;
-      border-bottom: 2px solid #e0f2fe;
+      border-bottom: 3px solid #e0f2fe;
       padding-bottom: 14px;
-      display: flex; align-items: center; gap: 10px;
+      display: flex; align-items: center; gap: 12px;
     }
 
     .content-section {
       font-size: 1.02rem;
-      line-height: 1.8;
+      line-height: 1.85;
       color: var(--text-sub);
       font-weight: 400;
     }
 
     .content-section h3 {
-      color: var(--dark-blue);
-      font-size: 1.2rem;
+      color: var(--word-blue-dark);
+      font-size: 1.22rem;
       font-weight: 800;
-      margin: 26px 0 12px;
-      display: flex; align-items: center; gap: 8px;
-      border-left: 5px solid var(--primary-blue);
-      padding-left: 12px;
-      background: linear-gradient(90deg, rgba(2, 132, 199, 0.06) 0%, transparent 100%);
-      padding-top: 4px; padding-bottom: 4px; border-radius: 0 8px 8px 0;
+      margin: 28px 0 14px;
+      display: flex; align-items: center; gap: 10px;
+      border-left: 6px solid var(--word-blue-main);
+      padding-left: 14px;
+      background: linear-gradient(90deg, #e0f2fe 0%, transparent 100%);
+      padding-top: 6px; padding-bottom: 6px; border-radius: 0 12px 12px 0;
     }
 
-    .content-section p { margin-bottom: 12px; text-indent: 1.5em; }
+    .content-section p { margin-bottom: 14px; text-indent: 1.5em; }
     .content-section p.no-indent { text-indent: 0; }
 
     .content-section ul, .content-section ol {
       margin-left: 24px;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
     }
 
     .content-section li {
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     /* Callout & Shortcut Boxes */
     .key-callout-box {
       background: #f0f9ff;
-      border: 2px solid #bae6fd;
-      border-radius: 20px;
-      padding: 20px;
-      margin: 22px 0;
-      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.06);
+      border: 3px solid #bae6fd;
+      border-radius: 22px;
+      padding: 22px;
+      margin: 24px 0;
+      box-shadow: 0 6px 0 #7dd3fc;
     }
 
     .key-callout-title {
       font-weight: 800;
-      color: #0369a1;
-      font-size: 1rem;
-      margin-bottom: 10px;
+      color: var(--word-blue-main);
+      font-size: 1.05rem;
+      margin-bottom: 12px;
       display: flex; align-items: center; gap: 8px;
     }
 
     .shortcut-badge {
       background: #fef08a;
       color: #713f12;
-      border: 1.5px solid #facc15;
-      padding: 2px 8px;
-      border-radius: 8px;
+      border: 2px solid #facc15;
+      padding: 3px 10px;
+      border-radius: 10px;
       font-family: 'Chakra Petch', sans-serif;
       font-weight: 800;
-      font-size: 0.9rem;
-      box-shadow: 0 2px 0 #eab308;
+      font-size: 0.92rem;
+      box-shadow: 0 3px 0 #d97706;
       display: inline-block;
       margin: 2px 4px;
     }
 
     .ui-demo-box {
       background: #ffffff;
-      border: 2px dashed #cbd5e1;
-      border-radius: 20px;
-      padding: 20px;
-      margin: 22px 0;
+      border: 3px dashed #38bdf8;
+      border-radius: 22px;
+      padding: 22px;
+      margin: 24px 0;
       text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.08);
     }
 
     .ui-demo-caption {
-      font-size: 0.88rem;
-      font-weight: 700;
+      font-size: 0.9rem;
+      font-weight: 800;
       color: var(--text-muted);
-      margin-top: 10px;
+      margin-top: 12px;
     }
 
     /* Action Buttons (Hub / Test) */
@@ -235,29 +232,31 @@
     }
 
     .btn-return-hub {
-      background: #f1f5f9;
-      color: #475569;
-      border: 2px solid #cbd5e1;
-      box-shadow: 0 4px 0 #94a3b8;
+      background: #e0f2fe;
+      color: #0284c7;
+      border: 2px solid #38bdf8;
+      box-shadow: 0 5px 0 #0284c7;
     }
-    .btn-return-hub:hover { background: #e2e8f0; }
-    .btn-return-hub:active { transform: translateY(3px); box-shadow: 0 1px 0 #94a3b8; }
+    .btn-return-hub:hover { background: #bae6fd; }
+    .btn-return-hub:active { transform: translateY(3px); box-shadow: 0 1px 0 #0284c7; }
 
     .btn-start-test {
       background: linear-gradient(180deg, #10b981 0%, #059669 100%);
       color: #ffffff;
-      box-shadow: 0 5px 0 #047857, 0 10px 20px rgba(16, 185, 129, 0.25);
+      box-shadow: 0 6px 0 #047857, 0 10px 20px rgba(16, 185, 129, 0.3);
     }
     .btn-start-test:hover { filter: brightness(1.06); }
-    .btn-start-test:active { transform: translateY(3px); box-shadow: 0 2px 0 #047857; }
+    .btn-start-test:active { transform: translateY(4px); box-shadow: 0 2px 0 #047857; }
 
-    /* Responsive Adjustments */
+    /* Responsive Adjustments for All Devices */
     @media (max-width: 640px) {
       body { padding: 14px 10px 32px; }
-      .study-container { padding: 22px 18px; border-radius: 22px; }
+      .study-container { padding: 22px 16px; border-radius: 22px; }
       .lesson-header-title { font-size: 1.35rem; }
       .action-footer-group { grid-template-columns: 1fr; }
       .content-section { font-size: 0.96rem; }
+      .unit-badge-pill { font-size: 0.88rem; padding: 6px 14px; }
+      .btn-back-hub { font-size: 0.85rem; padding: 8px 12px; }
     }
   </style>
 </head>
@@ -289,14 +288,14 @@
         <span>กลับหน้าหลัก</span>
       </a>
       <a id="btn-start-game" class="btn-action-footer btn-start-test" href="#">
-        <svg class="ico" style="width:22px; height:22px;" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        <svg class="ico" style="width:24px; height:24px;" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
         <span>ทำแบบทดสอบปลดล็อกบทเรียน</span>
       </a>
     </div>
   </div>
 
   <script>
-    // คลังเนื้อหาหนังสือเรียนแบบละเอียดจัดเต็ม 12 บท
+    // คลังเนื้อหาหนังสือเรียนแบบรายละเอียดจัดเต็ม 12 บท (ใช้ Vector SVG Icons ทั้งหมด)
     const bookDatabase = {
       1: {
         title: "บทที่ 1: รู้จักหน้าตาและส่วนประกอบของ Microsoft Word",
@@ -316,9 +315,9 @@
           <div class="ui-demo-box">
             <svg viewBox="0 0 320 120" width="100%" height="110">
               <rect x="5" y="5" width="310" height="110" rx="10" fill="#f8fafc" stroke="#0284c7" stroke-width="2"/>
-              <rect x="5" y="5" width="310" height="26" fill="#0284c7" rx="10 10 0 0"/>
+              <rect x="5" y="5" width="310" height="26" fill="#1d4ed8" rx="10 10 0 0"/>
               <text x="15" y="22" fill="#fff" font-size="11" font-weight="bold">Document1 - Microsoft Word (Title Bar)</text>
-              <rect x="15" y="38" width="290" height="34" fill="#e2e8f0" rx="6"/>
+              <rect x="15" y="38" width="290" height="34" fill="#e0f2fe" rx="6"/>
               <text x="25" y="59" fill="#0369a1" font-size="11" font-weight="bold">[ Ribbon: Home | Insert | Draw | Layout ]</text>
               <rect x="5" y="95" width="310" height="20" fill="#cbd5e1" rx="0 0 10 10"/>
               <text x="15" y="109" fill="#475569" font-size="10">Page 1 of 1 | 350 words | Thai | Zoom 100% (Status Bar)</text>
@@ -399,8 +398,8 @@
             <li><b>ตัวหนา (Bold - <span class="shortcut-badge">Ctrl + B</span>):</b> ใช้เน้นหัวข้อ หรือข้อความสำคัญให้เข้มเด่นชัด</li>
             <li><b>ตัวเอียง (Italic - <span class="shortcut-badge">Ctrl + I</span>):</b> ใช้เน้นคำศัพท์ต่างประเทศ คำทับศัพท์ หรือเน้นข้อความสั้นๆ</li>
             <li><b>ขีดเส้นใต้ (Underline - <span class="shortcut-badge">Ctrl + U</span>):</b> กำหนดเส้นใต้เน้นความสำคัญ</li>
-            <li><b>ตัวยก (Superscript - <span class="shortcut-badge">Ctrl + Shift + +</span>):</b> พิมพ์ตัวอักษรตัวเล็กไว้ด้านบน เช่น ตัวเลขยกกำลัง ($X^2$)</li>
-            <li><b>ตัวเชิงอรรถ/ตัวกัมบัง (Subscript - <span class="shortcut-badge">Ctrl + =</span>):</b> พิมพ์ตัวอักษรตัวเล็กไว้ด้านล่าง เช่น สูตรเคมี ($H_2O$)</li>
+            <li><b>ตัวยก (Superscript - <span class="shortcut-badge">Ctrl + Shift + +</span>):</b> พิมพ์ตัวอักษรตัวเล็กไว้ด้านบน เช่น ตัวเลขยกกำลัง (X²)</li>
+            <li><b>ตัวเชิงอรรถ/ตัวกัมบัง (Subscript - <span class="shortcut-badge">Ctrl + =</span>):</b> พิมพ์ตัวอักษรตัวเล็กไว้ด้านล่าง เช่น สูตรเคมี (H₂O)</li>
           </ul>
 
           <h3>2. เครื่องมือพิเศษ: แปรงทาสี (Format Painter)</h3>
