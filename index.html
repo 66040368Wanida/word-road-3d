@@ -83,7 +83,6 @@
 
     .auth-header { text-align: center; margin-bottom: 22px; }
 
-    /* Word Brand Logo Area */
     .word-brand-badge {
       width: 68px; height: 68px; background: linear-gradient(135deg, #2563eb, #1d4ed8);
       border-radius: 20px; margin: 0 auto 12px;
@@ -183,7 +182,6 @@
     }
     .btn-logout:active { transform: translateY(2px); box-shadow: 0 1px 0 #fda4af; }
 
-    /* Hero Center Word Banner */
     .word-hero-banner {
       background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
       border: 4px solid var(--word-blue-main); border-radius: 26px; padding: 22px 28px;
@@ -209,7 +207,6 @@
       box-shadow: 0 5px 0 #d97706;
     }
 
-    /* Grid Layout & 3D Cards */
     .units-grid {
       display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
       gap: 20px; width: 100%;
@@ -244,7 +241,6 @@
 
     .unit-actions-group { display: grid; grid-template-columns: 1fr 1.2fr; gap: 10px; }
 
-    /* 3D Push Buttons */
     .btn-act {
       padding: 12px 10px; border-radius: 14px; border: none;
       font-family: 'Kanit', sans-serif; font-size: 0.9rem; font-weight: 800;
@@ -261,7 +257,6 @@
 
     .btn-disabled { background: #e2e8f0 !important; color: #94a3b8 !important; border: none !important; box-shadow: 0 4px 0 #cbd5e1 !important; cursor: not-allowed; }
 
-    /* Grand Final Boss Game Card (Bright Arcade Stage) */
     .final-game-card {
       background: linear-gradient(135deg, #1e1b4b 0%, #311b92 100%);
       border: 4px solid var(--arcade-yellow); border-radius: 26px; padding: 24px 28px;
@@ -278,7 +273,7 @@
     .btn-start-3dgame:active { transform: translateY(4px); box-shadow: 0 2px 0 #b45309; }
 
     /* ==========================================================================
-       3. INTERACTIVE MINIGAME QUIZ MODAL
+       3. INTERACTIVE MINIGAME QUIZ MODAL & HINT SYSTEM
        ========================================================================== */
     #quiz-modal {
       position: fixed; inset: 0; background: rgba(15, 23, 42, 0.75);
@@ -312,14 +307,12 @@
       display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
     }
 
-    /* SVG Question Showcase Box */
     .question-svg-showcase {
       width: 84px; height: 84px; background: #ffffff; border: 3px solid #38bdf8;
       border-radius: 22px; display: flex; justify-content: center; align-items: center;
       color: var(--word-blue-main); box-shadow: 0 5px 0 #0284c7; margin-bottom: 6px;
     }
 
-    /* Interactive Image Option Cards */
     .image-options-grid {
       display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; width: 100%;
     }
@@ -335,7 +328,6 @@
     .img-option-card .svg-icon { width: 38px; height: 38px; color: var(--word-blue-main); }
     .img-option-card span { font-size: 0.88rem; font-weight: 800; text-align: center; color: var(--text-main); }
 
-    /* Custom Interactives */
     .ribbon-bar-mini { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
     .btn-ribbon-item {
       padding: 10px 18px; border-radius: 12px; border: 2px solid #bae6fd;
@@ -362,6 +354,33 @@
     .btn-choice-item:hover { border-color: var(--word-blue-main); background: #e0f2fe; }
     .btn-choice-item:active { transform: translateY(2px); box-shadow: 0 1px 0 #7dd3fc; }
 
+    /* HINT MODAL (ใบความรู้เมื่อตอบผิด) */
+    #hint-modal {
+      position: fixed; inset: 0; background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px); display: none; justify-content: center; align-items: center;
+      padding: 18px; z-index: 400;
+    }
+
+    .hint-card {
+      background: #ffffff; border: 4px solid var(--arcade-gold);
+      border-radius: 28px; padding: 26px; max-width: 500px; width: 100%;
+      color: var(--text-main); box-shadow: 0 10px 0 #d97706, 0 25px 50px rgba(0,0,0,0.5);
+      animation: pop3D 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .hint-header {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
+      color: #d97706; font-size: 1.25rem; font-weight: 800;
+    }
+
+    .hint-box {
+      background: #fef3c7; border-left: 6px solid #f59e0b;
+      padding: 16px 18px; border-radius: 16px; margin-bottom: 20px;
+    }
+
+    .hint-box-title { font-size: 1.05rem; font-weight: 800; color: #b45309; margin-bottom: 6px; }
+    .hint-box-desc { font-size: 0.95rem; color: #451a03; line-height: 1.65; }
+
     @media (max-width: 640px) {
       body { padding: 14px 10px; }
       .word-hero-banner { flex-direction: column; align-items: flex-start; }
@@ -371,9 +390,7 @@
 </head>
 <body>
 
-  <!-- ==========================================================================
-       1. AUTH SCREEN (LOGIN / REGISTER)
-       ========================================================================== -->
+  <!-- 1. AUTH SCREEN -->
   <div id="auth-screen">
     <div class="arcade-auth-card">
       <div class="auth-header">
@@ -434,11 +451,8 @@
     </div>
   </div>
 
-  <!-- ==========================================================================
-       2. MAIN HUB SCREEN
-       ========================================================================== -->
+  <!-- 2. MAIN HUB SCREEN -->
   <div id="hub-screen">
-    
     <!-- Navbar -->
     <div class="hub-navbar">
       <div class="user-profile-info">
@@ -494,13 +508,11 @@
     </div>
   </div>
 
-  <!-- ==========================================================================
-       3. INTERACTIVE MINIGAME QUIZ MODAL
-       ========================================================================== -->
+  <!-- 3. INTERACTIVE MINIGAME QUIZ MODAL -->
   <div id="quiz-modal">
     <div class="quiz-box">
       <div class="quiz-top">
-        <span class="q-step-badge" id="quiz-badge">ข้อที่ 1 / 3</span>
+        <span class="q-step-badge" id="quiz-badge">ข้อที่ 1 / 10</span>
         <span style="font-weight:800; color:var(--word-blue-main);" id="quiz-unit-title">บทที่ 1</span>
       </div>
       
@@ -509,8 +521,25 @@
       <div class="quiz-interactive-area" id="quiz-interactive-area"></div>
 
       <div style="font-size:0.82rem; color:#475569; text-align:center; font-weight:700;">
-        ตอบถูกครบทั้ง 3 ข้อเพื่อปลดล็อกบทเรียนถัดไป
+        ตอบถูกครบทั้ง 10 ข้อเพื่อปลดล็อกบทเรียนถัดไป
       </div>
+    </div>
+  </div>
+
+  <!-- 4. HINT MODAL (ใบความรู้เมื่อตอบผิด) -->
+  <div id="hint-modal">
+    <div class="hint-card">
+      <div class="hint-header">
+        <svg class="svg-icon" style="width:28px; height:28px;" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+        <span>ยังไม่ถูกต้อง! มาดูใบความรู้ช่วยจำ</span>
+      </div>
+      <div class="hint-box">
+        <div class="hint-box-title" id="hint-title">เทคนิคสำคัญ</div>
+        <div class="hint-box-desc" id="hint-desc">คำอธิบายช่วยจำ...</div>
+      </div>
+      <button class="btn-3d-green" onclick="closeHintModal()">
+        <span>เข้าใจแล้ว ลองใหม่อีกครั้ง!</span>
+      </button>
     </div>
   </div>
 
@@ -542,82 +571,166 @@
       table: `<svg class="svg-icon" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM8 20H4v-4h4v4zm0-6H4v-4h4v4zm0-6H4V4h4v4zm6 12h-4v-4h4v4zm0-6h-4v-4h4v4zm0-6h-4V4h4v4zm6 12h-4v-4h4v4zm0-6h-4v-4h4v4zm0-6h-4V4h4v4z"/></svg>`
     };
 
-    // คลังคำถามปลดล็อกแบบ Interactive + SVG Image Questions
+    // คลังคำถาม 10 ข้อต่อบท พร้อมระบบใบความรู้ช่วยจำ (Hint System)
     const unitQuizzes = {
       1: [
-        { type: "ribbon", q: "ข้อ 1/3: แถบ Ribbon ใดใช้เป็นศูนย์รวมคำสั่งเปลี่ยนฟอนต์และปรับขนาดตัวอักษร?", target: "Home", options: ["File", "Home", "Insert", "Layout"] },
-        { type: "svgChoice", q: "ข้อ 2/3: สัญลักษณ์ไอคอนใดทำหน้าที่บันทึกเอกสาร (Save)?", target: "Save", options: [
+        { type: "ribbon", q: "ข้อ 1/10: แถบ Ribbon ใดเป็นศูนย์รวมคำสั่งเปลี่ยนฟอนต์ ขนาด และสีตัวอักษร?", target: "Home", options: ["File", "Home", "Insert", "Layout"], hintTitle: "แท็บหน้าแรก (Home)", hintText: "แท็บ <b>Home (หน้าแรก)</b> เป็นศูนย์รวมเครื่องมือพิมพ์งานพื้นฐาน เช่น ฟอนต์ ขนาด สี และการจัดวาง" },
+        { type: "svgChoice", q: "ข้อ 2/10: สัญลักษณ์ไอคอนใดทำหน้าที่บันทึกเอกสาร (Save)?", target: "Save", options: [
           { label: "บันทึกข้อมูล (Save)", svg: svgIconsDB.save, key: "Save" },
           { label: "สร้างตาราง (Table)", svg: svgIconsDB.table, key: "Table" },
           { label: "ตัวหนา (Bold)", svg: svgIconsDB.bold, key: "Bold" },
           { label: "จัดชิดซ้าย", svg: svgIconsDB.alignLeft, key: "Left" }
-        ]},
-        { type: "choice", q: "ข้อ 3/3: แถบสถานะ (Status Bar) แสดงข้อมูลใดที่ด้านล่างหน้าจอ?", target: "จำนวนหน้าและจำนวนคำ", options: ["จำนวนหน้าและจำนวนคำ", "ชื่อไฟล์เอกสาร", "ปุ่มปิดโปรแกรม Word"] }
+        ], hintTitle: "ปุ่มบันทึกเอกสาร", hintText: "ไอคอนรูป <b>แผ่นดิสก์ (Save)</b> ใช้สำหรับบันทึกงานด่วนเพื่อป้องกันข้อมูลสูญหาย" },
+        { type: "choice", q: "ข้อ 3/10: แถบด้านล่างสุดของหน้าจอที่บอกจำนวนหน้าและจำนวนคำ คืออะไร?", target: "Status Bar (แถบสถานะ)", options: ["Status Bar (แถบสถานะ)", "Title Bar (แถบชื่อเรื่อง)", "Quick Access Toolbar"], hintTitle: "แถบสถานะ (Status Bar)", hintText: "<b>Status Bar</b> อยู่ล่างสุด ทำหน้าที่รายงานจำนวนหน้า จำนวนคำ และภาษาที่กำลังใช้อยู่" },
+        { type: "choice", q: "ข้อ 4/10: แถบด้านบนสุดที่แสดงชื่อไฟล์เอกสารปัจจุบันคือแถบใด?", target: "Title Bar", options: ["Title Bar", "Status Bar", "Scroll Bar"], hintTitle: "แถบชื่อเรื่อง (Title Bar)", hintText: "<b>Title Bar</b> ตั้งอยู่บนสุดของโปรแกรม แสดงชื่อไฟล์เอกสาร (เช่น Document1) และชื่อโปรแกรม Word" },
+        { type: "choice", q: "ข้อ 5/10: หากต้องการซูมย่อ-ขยายมุมมองกระดาษ สามารถปรับได้ที่ส่วนใด?", target: "Zoom Slider บนแถบสถานะด้านล่างขวา", options: ["Zoom Slider บนแถบสถานะด้านล่างขวา", "แถบ Title Bar", "เมนู File"], hintTitle: "การปรับมุมมอง (Zoom Slider)", hintText: "ปุ่มสไลเดอร์ย่อ-ขยายมุมมองกระดาษตั้งอยู่ที่ <b>มุมล่างขวาบน Status Bar</b>" },
+        { type: "choice", q: "ข้อ 6/10: เครื่องมือ ไม้บรรทัด (Ruler) อยู่ในแถบเมนูใด?", target: "View (มุมมอง)", options: ["View (มุมมอง)", "Home (หน้าแรก)", "Insert (แทรก)"], hintTitle: "การเปิดไม้บรรทัด", hintText: "หากไม้บรรทัดหายไป ให้เปิดที่แท็บ <b>มุมมอง (View) > ทำเครื่องหมายถูกที่ช่อง ไม้บรรทัด (Ruler)</b>" },
+        { type: "choice", q: "ข้อ 7/10: Quick Access Toolbar อยู่บริเวณใดของหน้าจอ?", target: "มุมบนซ้ายมือข้าง Title Bar", options: ["มุมบนซ้ายมือข้าง Title Bar", "มุมล่างขวา", "ตรงกลางหน้ากระดาษ"], hintTitle: "แถบเครื่องมือด่วน", hintText: "<b>Quick Access Toolbar</b> รวบรวมคำสั่งใช้บ่อย เช่น Save, Undo, Redo อยู่มุมบนซ้ายสุด" },
+        { type: "ribbon", q: "ข้อ 8/10: แท็บใดใช้สำหรับแทรกตาราง รูปภาพ และสัญลักษณ์พิเศษ?", target: "Insert", options: ["Home", "Insert", "Design", "View"], hintTitle: "แท็บแทรก (Insert)", hintText: "คำสั่งเพิ่มสิ่งใหม่ๆ ลงในเอกสาร เช่น ตาราง รูปภาพ หรือรูปทรง จะรวมอยู่ในแท็บ <b>แทรก (Insert)</b>" },
+        { type: "choice", q: "ข้อ 9/10: ปุ่มปิดโปรแกรม (Close / X) ตั้งอยู่ตำแหน่งใด?", target: "มุมขวาบนสุดของ Title Bar", options: ["มุมขวาบนสุดของ Title Bar", "มุมซ้ายล่าง", "แถบ Ribbon"], hintTitle: "ปุ่มควบคุมหน้าต่าง", hintText: "ปุ่มสัญลักษณ์ [X] สีแดงใช้สำหรับปิดโปรแกรม ตั้งอยู่มุมบนขวาสุด" },
+        { type: "choice", q: "ข้อ 10/10: หน้าต่างพื้นที่สีขาวขนาดใหญ่ตรงกลางหน้าจอ เรียกว่าอะไร?", target: "พื้นที่พิมพ์งาน (Document Window)", options: ["พื้นที่พิมพ์งาน (Document Window)", "ตารางทำงาน", "แถบสถานะ"], hintTitle: "พื้นที่พิมพ์งาน", hintText: "พื้นที่สีขาวเปรียบเสมือนหน้ากระดาษเอสี่จริง ใช้สำหรับพิมพ์และจัดวางข้อความ" }
       ],
       2: [
-        { type: "match", q: "ข้อ 1/3: จับคู่คำสั่งบันทึกไฟล์และสร้างไฟล์ใหม่กับคีย์ลัด:", pairs: [{ a: "บันทึกเอกสาร", k: "Ctrl + S" }, { a: "สร้างไฟล์ใหม่", k: "Ctrl + N" }] },
-        { type: "choice", q: "ข้อ 2/3: คีย์ลัดใดใช้เปิดไฟล์เก่าที่เคยบันทึกไว้ (Open)?", target: "Ctrl + O", options: ["Ctrl + P", "Ctrl + O", "Ctrl + F"] },
-        { type: "choice", q: "ข้อ 3/3: หากเผลอลบข้อความสำคัญ สามารถกดคีย์ลัดใดเพื่อย้อนกลับ (Undo)?", target: "Ctrl + Z", options: ["Ctrl + Z", "Ctrl + Y", "Ctrl + X"] }
+        { type: "match", q: "ข้อ 1/10: จับคู่คำสั่งจัดการไฟล์พื้นฐานกับชุดคีย์ลัดให้ถูกต้อง:", pairs: [{ a: "บันทึกเอกสาร", k: "Ctrl + S" }, { a: "สร้างไฟล์ใหม่", k: "Ctrl + N" }], hintTitle: "คีย์ลัดไฟล์", hintText: "<b>Ctrl + S</b> = Save (บันทึก) / <b>Ctrl + N</b> = New (สร้างไฟล์ใหม่)" },
+        { type: "choice", q: "ข้อ 2/10: คีย์ลัดใดใช้สำหรับเปิดไฟล์เอกสารเก่าที่บันทึกไว้ (Open)?", target: "Ctrl + O", options: ["Ctrl + P", "Ctrl + O", "Ctrl + F"], hintTitle: "คีย์ลัดเปิดไฟล์", hintText: "<b>Ctrl + O</b> ย่อมาจาก Open ใช้เปิดหน้าต่างเลือกไฟล์เก่าขึ้นมาทำต่อ" },
+        { type: "choice", q: "ข้อ 3/10: หากเผลอลบข้อความสำคัญ กดคีย์ลัดใดเพื่อย้อนกลับ (Undo)?", target: "Ctrl + Z", options: ["Ctrl + Z", "Ctrl + Y", "Ctrl + X"], hintTitle: "คีย์ลัดย้อนกลับ", hintText: "<b>Ctrl + Z</b> (Undo) ใช้สำหรับยกเลิกคำสั่งหรือกู้ข้อความที่เพิ่งลบไปให้กลับคืนมา" },
+        { type: "choice", q: "ข้อ 4/10: ปุ่มคีย์ลัด Ctrl + Y ทำหน้าที่อะไร?", target: "ทำซ้ำคำสั่งล่าสุด (Redo)", options: ["ทำซ้ำคำสั่งล่าสุด (Redo)", "บันทึกเป็น", "ตัดข้อความ"], hintTitle: "คีย์ลัด Redo", hintText: "<b>Ctrl + Y</b> (Redo) ใช้ทำซ้ำคำสั่งล่าสุด เป็นคู่ตรงข้ามกับ Ctrl + Z" },
+        { type: "choice", q: "ข้อ 5/10: คำสั่ง Save As (บันทึกเป็น) ต่างจาก Save อย่างไร?", target: "Save As ใช้ตั้งชื่อไฟล์ใหม่หรือเปลี่ยนโฟลเดอร์จัดเก็บ", options: ["Save As ใช้ตั้งชื่อไฟล์ใหม่หรือเปลี่ยนโฟลเดอร์จัดเก็บ", "Save As ใช้ลบไฟล์ทิ้ง", "เหมือนกันทุกประการ"], hintTitle: "Save vs Save As", hintText: "<b>Save As</b> ใช้เมื่อต้องการตั้งชื่อไฟล์ใหม่ เปลี่ยนโฟลเดอร์ หรือแปลงไฟล์เป็น PDF" },
+        { type: "choice", q: "ข้อ 6/10: คีย์ลัดใดใช้ปิดหน้าต่างเอกสารปัจจุบันที่กำลังเปิดอยู่ (Close)?", target: "Ctrl + W", options: ["Ctrl + W", "Ctrl + Q", "Ctrl + E"], hintTitle: "คีย์ลัดปิดเอกสาร", hintText: "<b>Ctrl + W</b> ใช้ปิดเฉพาะหน้าต่างเอกสารปัจจุบันโดยไม่ปิดตัวโปรแกรม Word" },
+        { type: "choice", q: "ข้อ 7/10: หากต้องการคัดลอกข้อความ (Copy) ต้องใช้คีย์ลัดใด?", target: "Ctrl + C", options: ["Ctrl + C", "Ctrl + V", "Ctrl + X"], hintTitle: "คีย์ลัดคัดลอก", hintText: "<b>Ctrl + C</b> = Copy (คัดลอกสำเนาไว้ในหน่วยความจำ)" },
+        { type: "choice", q: "ข้อ 8/10: คีย์ลัดใดใช้สำหรับ ย้ายข้อความ (Cut)?", target: "Ctrl + X", options: ["Ctrl + X", "Ctrl + C", "Ctrl + V"], hintTitle: "คีย์ลัดย้ายข้อความ", hintText: "<b>Ctrl + X</b> = Cut (ตัดข้อความต้นฉบับออกเพื่อรอการย้าย)" },
+        { type: "choice", q: "ข้อ 9/10: คำสั่ง วางข้อความ (Paste) ใช้คีย์ลัดอะไร?", target: "Ctrl + V", options: ["Ctrl + V", "Ctrl + P", "Ctrl + S"], hintTitle: "คีย์ลัดวางข้อความ", hintText: "<b>Ctrl + V</b> = Paste (วางข้อความที่ Copy หรือ Cut มาลง ณ ตำแหน่งเคอร์เซอร์)" },
+        { type: "choice", q: "ข้อ 10/10: คีย์ลัดใดใช้ คลุมดำเลือกข้อความทั้งหมด ในเอกสาร (Select All)?", target: "Ctrl + A", options: ["Ctrl + A", "Ctrl + S", "Ctrl + Z"], hintTitle: "คีย์ลัดเลือกทั้งหมด", hintText: "<b>Ctrl + A</b> = Select All (เลือกตัวอักษรและวัตถุทั้งหมดในเอกสาร)" }
       ],
       3: [
-        { type: "choice", q: "ข้อ 1/3: ปุ่มใดบนคีย์บอร์ดใช้สำหรับสลับภาษาไทย/อังกฤษในการพิมพ์?", target: "ปุ่มเปลี่ยนภาษา (~ Grave Accent)", options: ["ปุ่ม Shift", "ปุ่ม Spacebar", "ปุ่มเปลี่ยนภาษา (~ Grave Accent)"] },
-        { type: "choice", q: "ข้อ 2/3: ปุ่ม Enter ใช้สำหรับหน้าที่ใดในการพิมพ์ข้อความ?", target: "ขึ้นย่อหน้าใหม่", options: ["เคาะเว้นวรรค", "ขึ้นย่อหน้าใหม่", "ลบอักษรด้านซ้าย"] },
-        { type: "choice", q: "ข้อ 3/3: ปุ่ม Delete ต่างจาก Backspace อย่างไร?", target: "Delete ลบตัวอักษรทางขวา", options: ["Delete ลบตัวอักษรทางขวา", "Delete ลบทั้งบรรทัด", "ไม่มีความต่างกัน"] }
+        { type: "choice", q: "ข้อ 1/10: ปุ่มใดบนคีย์บอร์ดใช้สลับภาษาไทย/อังกฤษในการพิมพ์?", target: "ปุ่มเปลี่ยนภาษา (~ Grave Accent)", options: ["ปุ่ม Shift", "ปุ่ม Spacebar", "ปุ่มเปลี่ยนภาษา (~ Grave Accent)"], hintTitle: "การสลับภาษาพิมพ์", hintText: "ปุ่ม <b>~ (Grave Accent)</b> มุมซ้ายบนสุด ใช้สำหรับสลับภาษาพิมพ์ไทย/อังกฤษ" },
+        { type: "choice", q: "ข้อ 2/10: ปุ่ม Enter บนแป้นพิมพ์มีไว้ทำหน้าที่อะไร?", target: "ขึ้นย่อหน้าใหม่", options: ["เคาะเว้นวรรค", "ขึ้นย่อหน้าใหม่", "ลบอักษรด้านซ้าย"], hintTitle: "หน้าที่ของปุ่ม Enter", hintText: "กดปุ่ม <b>Enter</b> เมื่อต้องการจบย่อหน้าและขึ้นบรรทัดใหม่" },
+        { type: "choice", q: "ข้อ 3/10: ปุ่ม Delete ต่างจาก Backspace อย่างไร?", target: "Delete ลบตัวอักษรทางขวา / Backspace ลบทางซ้าย", options: ["Delete ลบตัวอักษรทางขวา / Backspace ลบทางซ้าย", "Delete ลบทั้งบรรทัด", "ไม่มีความต่างกัน"], hintTitle: "การลบตัวอักษร", hintText: "<b>Backspace</b> ลบอักษรด้านซ้ายของเคอร์เซอร์ ส่วน <b>Delete</b> ลบอักษรด้านขวา" },
+        { type: "choice", q: "ข้อ 4/10: การเมาส์ไป ชี้ที่คำ แล้ว ดับเบิลคลิก (คลิกซ้าย 2 ครั้ง) จะเกิดผลอย่างไร?", target: "เลือกเฉพาะคำนั้น", options: ["เลือกเฉพาะคำนั้น", "เลือกทั้งย่อหน้า", "ลบคำนั้นทิ้ง"], hintTitle: "เทคนิคเลือกข้อความ", hintText: "ดับเบิลคลิก = เลือก 1 คำ / ทริปเปิลคลิก (3 ครั้ง) = เลือกทั้งย่อหน้า" },
+        { type: "choice", q: "ข้อ 5/10: เทคนิคเลือกข้อความ ทั้งย่อหน้า (Paragraph) ต้องทำอย่างไร?", target: "ทริปเปิลคลิก (คลิกซ้าย 3 ครั้งติดกัน)", options: ["ทริปเปิลคลิก (คลิกซ้าย 3 ครั้งติดกัน)", "ดับเบิลคลิก", "กด Enter 2 ครั้ง"], hintTitle: "เลือกทั้งย่อหน้า", hintText: "คลิกซ้ายเร็วๆ 3 ครั้งติดกันบนข้อความ จะเป็นการคลุมดำเลือกทั้งย่อหน้านั้นทันที" },
+        { type: "choice", q: "ข้อ 6/10: ปุ่ม Caps Lock บนแป้นพิมพ์มีไว้ทำอะไร?", target: "พิมพ์ตัวอักษรภาษาอังกฤษตัวพิมพ์ใหญ่ต่อเนื่อง", options: ["พิมพ์ตัวอักษรภาษาอังกฤษตัวพิมพ์ใหญ่ต่อเนื่อง", "เคาะเว้นวรรคยาว", "ย้ายเคอร์เซอร์"], hintTitle: "ปุ่ม Caps Lock", hintText: "เปิดปุ่ม <b>Caps Lock</b> เมื่อต้องการพิมพ์ภาษาอังกฤษตัวพิมพ์ใหญ่ (Capital Letters) หลายตัวติดกัน" },
+        { type: "choice", q: "ข้อ 7/10: หากต้องการพิมพ์ตัวอักษรแถวบนของปุ่มแป้นพิมพ์ ต้องกดปุ่มใดค้างไว้?", target: "ปุ่ม Shift", options: ["ปุ่ม Shift", "ปุ่ม Ctrl", "ปุ่ม Alt"], hintTitle: "การพิมพ์วรรณยุกต์/ตัวแถวบน", hintText: "กดปุ่ม <b>Shift ค้างไว้</b> แล้วกดปุ่มอักษร จะได้ตัวอักษรแถวบนหรือตัวพิมพ์ใหญ่" },
+        { type: "choice", q: "ข้อ 8/10: การเคาะเว้นวรรคระหว่างคำตามหลักมาตรฐาน ควรเคาะปุ่ม Spacebar กี่ครั้ง?", target: "เคาะ 1 ครั้ง", options: ["เคาะ 1 ครั้ง", "เคาะ 2 ครั้ง", "เคาะ 3 ครั้ง"], hintTitle: "มาตรฐานการเว้นวรรค", hintText: "ตามหลักไวยากรณ์และคอมพิวเตอร์ ควรเคาะเว้นวรรคด้วย Spacebar เพียง <b>1 ครั้ง</b> เท่านั้น" },
+        { type: "choice", q: "ข้อ 9/10: เส้นแนวตั้งสีดำที่กะพริบอยู่บนหน้ากระดาษ เรียกว่าอะไร?", target: "เคอร์เซอร์ (Cursor / Insertion Point)", options: ["เคอร์เซอร์ (Cursor / Insertion Point)", "ตัวชี้เมาส์", "เส้นบรรทัด"], hintTitle: "รู้จักเคอร์เซอร์", hintText: "<b>เคอร์เซอร์</b> คือเส้นกะพริบที่บอกตำแหน่งว่าตัวอักษรที่เราพิมพ์จะไปปรากฏตรงไหน" },
+        { type: "choice", q: "ข้อ 10/10: หากต้องการยกเลิกการเลือกข้อความ (ยกเลิกคลุมดำ) ต้องทำอย่างไร?", target: "คลิกเมาส์ซ้ายที่พื้นที่ว่าง 1 ครั้ง", options: ["คลิกเมาส์ซ้ายที่พื้นที่ว่าง 1 ครั้ง", "กด Enter", "กด Backspace"], hintTitle: "การยกเลิกการคลุมดำ", hintText: "เพียงแค่คลิกเมาส์ซ้ายตรงตำแหน่งว่างใดๆ แถบสีไฮไลท์คลุมดำจะหายไปทันที" }
       ],
       4: [
-        { type: "svgShowcase", q: "ข้อ 1/3: สัญลักษณ์ไอคอนที่ปรากฏคือเครื่องมือใด?", showcaseSvg: svgIconsDB.bold, target: "ตัวหนา (Bold)", options: ["ตัวหนา (Bold)", "ตัวเอียง (Italic)", "ขีดเส้นใต้ (Underline)"] },
-        { type: "svgChoice", q: "ข้อ 2/3: หากต้องการเปลี่ยนตัวอักษรเป็น ตัวเอียง (Italic) ต้องเลือกไอคอนใด?", target: "Italic", options: [
+        { type: "svgShowcase", q: "ข้อ 1/10: สัญลักษณ์ไอคอนที่ปรากฏคือเครื่องมือใด?", showcaseSvg: svgIconsDB.bold, target: "ตัวหนา (Bold)", options: ["ตัวหนา (Bold)", "ตัวเอียง (Italic)", "ขีดเส้นใต้ (Underline)"], hintTitle: "ไอคอน Bold", hintText: "สัญลักษณ์ <b>B</b> ย่อมาจาก Bold ใช้ปรับตัวอักษรให้เป็นตัวหนาเน้นความสำคัญ" },
+        { type: "svgChoice", q: "ข้อ 2/10: หากต้องการเปลี่ยนตัวอักษรเป็น ตัวเอียง (Italic) ต้องเลือกไอคอนใด?", target: "Italic", options: [
           { label: "ตัวหนา (Bold)", svg: svgIconsDB.bold, key: "Bold" },
           { label: "ตัวเอียง (Italic)", svg: svgIconsDB.italic, key: "Italic" },
           { label: "ขีดเส้นใต้ (Underline)", svg: svgIconsDB.underline, key: "Underline" },
           { label: "จัดกึ่งกลาง", svg: svgIconsDB.alignCenter, key: "Center" }
-        ]},
-        { type: "choice", q: "ข้อ 3/3: คำสั่ง ขีดเส้นใต้ข้อความ (Underline) ใช้คีย์ลัดใด?", target: "Ctrl + U", options: ["Ctrl + U", "Ctrl + D", "Ctrl + K"] }
+        ], hintTitle: "ไอคอน Italic", hintText: "สัญลักษณ์ <i>I</i> เอียง ย่อมาจาก Italic ใช้ปรับตัวอักษรให้เป็นสไตล์ตัวเอียง" },
+        { type: "choice", q: "ข้อ 3/10: คำสั่ง ขีดเส้นใต้ข้อความ (Underline) ใช้คีย์ลัดใด?", target: "Ctrl + U", options: ["Ctrl + U", "Ctrl + D", "Ctrl + K"], hintTitle: "คีย์ลัด Underline", hintText: "<b>Ctrl + U</b> = Underline (ขีดเส้นใต้ข้อความที่เลือก)" },
+        { type: "choice", q: "ข้อ 4/10: คำสั่ง ตัวหนา (Bold) ตรงกับคีย์ลัดใดบนแป้นพิมพ์?", target: "Ctrl + B", options: ["Ctrl + B", "Ctrl + N", "Ctrl + O"], hintTitle: "คีย์ลัด ตัวหนา", hintText: "<b>Ctrl + B</b> = Bold (ปรับสไตล์ตัวอักษรหนา)" },
+        { type: "choice", q: "ข้อ 5/10: คำสั่ง ตัวเอียง (Italic) ตรงกับคีย์ลัดใด?", target: "Ctrl + I", options: ["Ctrl + I", "Ctrl + L", "Ctrl + E"], hintTitle: "คีย์ลัด ตัวเอียง", hintText: "<b>Ctrl + I</b> = Italic (ปรับสไตล์ตัวอักษรเอียง)" },
+        { type: "choice", q: "ข้อ 6/10: คำสั่ง ตัวยก (Superscript) เช่น พิมพ์เลขยกกำลัง X² ใช้คีย์ลัดใด?", target: "Ctrl + Shift + +", options: ["Ctrl + Shift + +", "Ctrl + =", "Ctrl + Alt + S"], hintTitle: "ตัวยก (Superscript)", hintText: "<b>Ctrl + Shift + +</b> ใช้ทำตัวยกด้านบน เช่น X² ส่วน <b>Ctrl + =</b> ใช้ทำตัวเชิงอรรถด้านล่าง เช่น H₂O" },
+        { type: "choice", q: "ข้อ 7/10: เครื่องมือ แปรงทาสี (Format Painter) มีไว้ทำหน้าที่อะไร?", target: "คัดลอกเฉพาะรูปแบบและสไตล์ข้อความ", options: ["คัดลอกเฉพาะรูปแบบและสไตล์ข้อความ", "ระบายสีพื้นหลัง", "วาดรูปภาพ"], hintTitle: "แปรง Format Painter", hintText: "<b>Format Painter</b> ใช้ดูดรูปแบบ (ฟอนต์ สี ขนาด) จากข้อความหนึ่งไปป้ายใส่อีกข้อความหนึ่ง" },
+        { type: "choice", q: "ข้อ 8/10: หากต้องการล็อกเครื่องมือแปรง Format Painter ให้ใช้งานได้ต่อเนื่องหลายครั้ง ต้องทำอย่างไร?", target: "ดับเบิลคลิก (คลิกซ้าย 2 ครั้ง) ที่ไอคอนแปรง", options: ["ดับเบิลคลิก (คลิกซ้าย 2 ครั้ง) ที่ไอคอนแปรง", "คลิกขวา", "กด Enter ค้างไว้"], hintTitle: "เทคนิคล็อกแปรงทาสี", hintText: "<b>ดับเบิลคลิกที่แปรง</b> = ล็อกแปรงให้นำไปป้ายตกแต่งข้อความกี่จุดก็ได้ (เลิกล็อกโดยกด Esc)" },
+        { type: "choice", q: "ข้อ 9/10: ฟอนต์มาตรฐานแห่งชาติที่นิยมใช้ทำรายงานและหนังสือราชการไทย คือฟอนต์ใด?", target: "TH Sarabun PSK", options: ["TH Sarabun PSK", "Angsana New", "Cordia New"], hintTitle: "ฟอนต์มาตรฐานรายงาน", hintText: "<b>TH Sarabun PSK</b> เป็น 1 ใน 13 ฟอนต์มาตรฐานภาครัฐที่นิยมใช้พิมพ์รายงานวิชาการ" },
+        { type: "choice", q: "ข้อ 10/10: ตัวเลือก Highlight Color (สีไฮไลต์ข้อความ) ต่างจาก Font Color อย่างไร?", target: "Highlight Color เน้นสีที่พื้นหลังข้อความเหมือนปากกาเน้นข้อความ", options: ["Highlight Color เน้นสีที่พื้นหลังข้อความเหมือนปากกาเน้นข้อความ", "เหมือนกันทุกประการ", "Highlight Color เปลี่ยนสีเส้นขอบกระดาษ"], hintTitle: "ปากกาไฮไลต์", hintText: "<b>Highlight Color</b> ระบายสีพื้นหลังตัวอักษรเหมือนปากกาเน้นข้อความ ส่วน <b>Font Color</b> เปลี่ยนสีตัวอักษรโดยตรง" }
       ],
       5: [
-        { type: "svgChoice", q: "ข้อ 1/3: ไอคอนใดใช้สำหรับจัดข้อความให้อยู่ กึ่งกลาง (Center)?", target: "Center", options: [
+        { type: "svgChoice", q: "ข้อ 1/10: ไอคอนใดใช้สำหรับจัดข้อความให้อยู่ กึ่งกลาง (Center)?", target: "Center", options: [
           { label: "ชิดซ้าย", svg: svgIconsDB.alignLeft, key: "Left" },
           { label: "จัดกึ่งกลาง", svg: svgIconsDB.alignCenter, key: "Center" },
           { label: "ชิดขวา", svg: svgIconsDB.alignRight, key: "Right" },
           { label: "สร้างตาราง", svg: svgIconsDB.table, key: "Table" }
-        ]},
-        { type: "choice", q: "ข้อ 2/3: คีย์ลัดใดใช้จัดข้อความให้อยู่กึ่งกลางหน้ากระดาษ?", target: "Ctrl + E", options: ["Ctrl + L", "Ctrl + E", "Ctrl + R"] },
-        { type: "choice", q: "ข้อ 3/3: การจัดย่อหน้าแบบ Justify มีลักษณะอย่างไร?", target: "จัดข้อความให้เรียบเท่ากันทั้งซ้ายและขวา", options: ["ชิดซ้ายอย่างเดียว", "จัดข้อความให้เรียบเท่ากันทั้งซ้ายและขวา", "จัดชิดขวาอย่างเดียว"] }
+        ], hintTitle: "ไอคอนจัดกึ่งกลาง", hintText: "ไอคอนเส้นบรรทัดเรียงตรงกลาง ใช้จัดหัวข้อให้อยู่กึ่งกลางหน้ากระดาษ" },
+        { type: "choice", q: "ข้อ 2/10: คีย์ลัดใดใช้จัดข้อความให้อยู่ กึ่งกลางหน้ากระดาษ (Center)?", target: "Ctrl + E", options: ["Ctrl + L", "Ctrl + E", "Ctrl + R"], hintTitle: "คีย์ลัดจัดกึ่งกลาง", hintText: "<b>Ctrl + E</b> = Center Align (จัดข้อความกึ่งกลาง)" },
+        { type: "choice", q: "ข้อ 3/10: คีย์ลัดใดใช้จัดข้อความให้ ชิดขอบซ้าย (Align Left)?", target: "Ctrl + L", options: ["Ctrl + L", "Ctrl + R", "Ctrl + J"], hintTitle: "คีย์ลัดชิดซ้าย", hintText: "<b>Ctrl + L</b> = Align Left (จัดข้อความชิดขอบซ้าย)" },
+        { type: "choice", q: "ข้อ 4/10: คีย์ลัดใดใช้จัดข้อความให้ ชิดขอบขวา (Align Right)?", target: "Ctrl + R", options: ["Ctrl + R", "Ctrl + L", "Ctrl + E"], hintTitle: "คีย์ลัดชิดขวา", hintText: "<b>Ctrl + R</b> = Align Right (จัดข้อความชิดขอบขวา เช่น วันที่ หรือลายเซ็น)" },
+        { type: "choice", q: "ข้อ 5/10: การจัดย่อหน้าแบบ Justify (Ctrl + J) มีลักษณะอย่างไร?", target: "จัดข้อความให้เรียบเท่ากันทั้งขอบซ้ายและขอบขวา", options: ["จัดข้อความให้เรียบเท่ากันทั้งขอบซ้ายและขอบขวา", "ชิดซ้ายอย่างเดียว", "จัดกึ่งกลาง"], hintTitle: "การจัดแบบ Justify", hintText: "<b>Justify (Ctrl + J)</b> ช่วยกระจายตัวอักษรให้ขอบซ้ายและขอบขวาของย่อหน้าเรียบตรงเท่ากันสวยงาม" },
+        { type: "choice", q: "ข้อ 6/10: คำสั่ง Thai Distributed (กระจายแบบไทย) เหมาะสำหรับงานแบบใด?", target: "กระจายช่องไฟพยัญชนะไทยให้เต็มบรรทัดสวยงาม", options: ["กระจายช่องไฟพยัญชนะไทยให้เต็มบรรทัดสวยงาม", "พิมพ์ภาษาอังกฤษ", "ใส่สีตัวหนังสือ"], hintTitle: "กระจายแบบไทย", hintText: "<b>Thai Distributed</b> ช่วยคำนวณระยะเว้นพยัญชนะและสระภาษาไทยให้เต็มบรรทัดอย่างสมดุล" },
+        { type: "choice", q: "ข้อ 7/10: ระยะห่างบรรทัดมาตรฐาน (Line Spacing) ในการทำรายงานภาษาไทย ควรตั้งค่าเท่าใด?", target: "1.15 หรือ 1.5 บรรทัด", options: ["1.15 หรือ 1.5 บรรทัด", "3.0 บรรทัด", "0.5 บรรทัด"], hintTitle: "ระยะห่างบรรทัด", hintText: "รายงานมาตรฐานนิยมตั้งระยะห่างบรรทัดไว้ที่ <b>1.15 หรือ 1.5</b> เพื่อไม่ให้สระบน-สระล่างทับกัน" },
+        { type: "choice", q: "ข้อ 8/10: หากต้องการย่อหน้าบรรทัดแรกเข้ามาด้านใน ปุ่มใดบนคีย์บอร์ดใช้ย่อหน้าได้ทันที?", target: "ปุ่ม Tab", options: ["ปุ่ม Tab", "ปุ่ม Spacebar", "ปุ่ม Shift"], hintTitle: "การทำย่อหน้า", hintText: "กด <b>ปุ่ม Tab 1 ครั้ง</b> จะได้ระยะย่อหน้าบรรทัดแรกที่มาตรฐานและเท่ากันแม่นยำกว่าการเคาะ Spacebar" },
+        { type: "choice", q: "ข้อ 9/10: กลุ่มคำสั่งจัดแนวย่อหน้า (Paragraph) ตั้งอยู่ในแถบเมนูใด?", target: "Home (หน้าแรก)", options: ["Home (หน้าแรก)", "Insert (แทรก)", "Layout (เค้าโครง)"], hintTitle: "ตำแหน่งกลุ่ม Paragraph", hintText: "กลุ่มเครื่องมือ <b>Paragraph (ย่อหน้า)</b> รวมอยู่ในแท็บเมนู <b>หน้าแรก (Home)</b>" },
+        { type: "choice", q: "ข้อ 10/10: เครื่องมือ Shading (ถังสี) ในกลุ่มย่อหน้า มีไว้ทำอะไร?", target: "เทสีพื้นหลังให้กับย่อหน้าหรือข้อความที่เลือก", options: ["เทสีพื้นหลังให้กับย่อหน้าหรือข้อความที่เลือก", "เปลี่ยนสีฟอนต์", "ลบข้อความ"], hintTitle: "การเทสีพื้นหลัง", hintText: "ไอคอนรูป <b>ถังสี (Shading)</b> ใช้สำหรับเทสีแรเงาลงบนพื้นหลังของย่อหน้าเพื่อเน้นกรอบความสนใจ" }
       ],
       6: [
-        { type: "choice", q: "ข้อ 1/3: หากต้องการสร้างรายการสินค้าที่ไม่มีลำดับก่อนหลัง ควรใช้สัญลักษณ์ใด?", target: "Bullets (สัญลักษณ์หัวข้อย่อย)", options: ["Bullets (สัญลักษณ์หัวข้อย่อย)", "Numbering (ลำดับเลข)", "Multilevel List"] },
-        { type: "choice", q: "ข้อ 2/3: หากทำขั้นตอนการทำอาหาร 1, 2, 3 ควรใช้เครื่องมือใด?", target: "Numbering", options: ["Bullets", "Numbering", "Caption"] },
-        { type: "choice", q: "ข้อ 3/3: ปุ่ม Tab บนคีย์บอร์ด ช่วยอะไรในการทำรายการหัวข้อย่อย?", target: "เพิ่มระดับย่อหน้าเข้าไปข้างใน", options: ["ลบรายการ", "เพิ่มระดับย่อหน้าเข้าไปข้างใน", "เปลี่ยนสีสัญลักษณ์"] }
+        { type: "choice", q: "ข้อ 1/10: รายการสินค้าที่ไม่จำเป็นต้องเรียงลำดับก่อนหลัง ควรใช้เครื่องมือใด?", target: "Bullets (สัญลักษณ์หัวข้อย่อย)", options: ["Bullets (สัญลักษณ์หัวข้อย่อย)", "Numbering (ลำดับเลข)", "Multilevel List"], hintTitle: "การใช้ Bullets", hintText: "<b>Bullets</b> ใช้ทำรายการสัญลักษณ์จุด/วงกลม เหมาะกับเนื้อหาที่ไม่เน้นลำดับก่อน-หลัง" },
+        { type: "choice", q: "ข้อ 2/10: รายการขั้นตอนการทำอาหาร 1, 2, 3 ควรเลือกใช้เครื่องมือใด?", target: "Numbering (ลำดับเลข)", options: ["Bullets", "Numbering (ลำดับเลข)", "Caption"], hintTitle: "การใช้ Numbering", hintText: "ขั้นตอนที่มีลำดับแน่นอน (1, 2, 3... หรือ ก, ข, ค...) ให้เลือกใช้ <b>Numbering (ลำดับเลข)</b>" },
+        { type: "choice", q: "ข้อ 3/10: ปุ่ม Tab บนคีย์บอร์ด ช่วยอะไรในการทำรายการหัวข้อ?", target: "เพิ่มระดับย่อหน้าเข้าไปด้านใน (Increase Indent)", options: ["เพิ่มระดับย่อหน้าเข้าไปด้านใน (Increase Indent)", "ลบรายการทิ้ง", "เปลี่ยนสีหัวข้อ"], hintTitle: "การเพิ่มย่อหน้ารายการ", hintText: "กดปุ่ม <b>Tab</b> = ย่นหัวข้อลงไปเป็นหัวข้อย่อยระดับล่าง (Increase Indent)" },
+        { type: "choice", q: "ข้อ 4/10: หากต้องการ ถอยหัวข้อย่อยกลับขึ้นมา เป็นหัวข้อระดับบน ต้องกดปุ่มใด?", target: "Shift + Tab", options: ["Shift + Tab", "Ctrl + Tab", "Alt + Tab"], hintTitle: "การลดระดับย่อหน้า", hintText: "กดปุ่ม <b>Shift + Tab</b> = ดึงย่อหน้ารายการย่อยกลับขึ้นมาระดับบน (Decrease Indent)" },
+        { type: "choice", q: "ข้อ 5/10: Multilevel List (รายการหลายระดับ) เหมาะสำหรับงานแบบใด?", target: "การทำโครงร่างบทเรียนที่มีหัวข้อหลักและหัวข้อย่อยซ้อนกันหลายชั้น", options: ["การทำโครงร่างบทเรียนที่มีหัวข้อหลักและหัวข้อย่อยซ้อนกันหลายชั้น", "การพิมพ์ข้อความบรรทัดเดียว", "การวาดรูป"], hintTitle: "Multilevel List", hintText: "<b>Multilevel List</b> ใช้จัดทำโครงร่างหนังสือ เช่น 1.1, 1.1.1 ซ้อนกันหลายชั้น" },
+        { type: "choice", q: "ข้อ 6/10: สัญลักษณ์หัวข้อย่อย (Bullets) สามารถเปลี่ยนเป็นรูปภาพอารมณ์หรือสัญลักษณ์อื่นได้หรือไม่?", target: "ทำได้ โดยเลือก Define New Bullet", options: ["ทำได้ โดยเลือก Define New Bullet", "ไม่ได้ ใช้ได้แค่จุดสีดำ", "ทำได้เฉพาะภาษาอังกฤษ"], hintTitle: "เปลี่ยนสัญลักษณ์ Bullets", hintText: "เราสามารถกำหนดรูปสัญลักษณ์ใหม่ๆ ได้ผ่านเมนู <b>Define New Bullet</b>" },
+        { type: "choice", q: "ข้อ 7/10: หากต้องการยกเลิกการทำรายการหัวข้อย่อยในบรรทัดถัดไป ต้องทำอย่างไร?", target: "กดปุ่ม Enter ซ้ำ 2 ครั้ง", options: ["กดปุ่ม Enter ซ้ำ 2 ครั้ง", "กดปุ่ม Esc", "ปิดโปรแกรม"], hintTitle: "ยกเลิกหัวข้อย่อย", hintText: "กดปุ่ม <b>Enter ซ้ำกัน 2 ครั้ง</b> ระบบจะยกเลิกสัญลักษณ์หัวข้อและกลับเข้าสู่โหมดพิมพ์ปกติ" },
+        { type: "choice", q: "ข้อ 8/10: เครื่องมือ Sort (A-Z) ในกลุ่มย่อหน้า มีไว้ใช้ทำอะไร?", target: "เรียงลำดับข้อความหรือตัวเลขตามตัวอักษร ก-ฮ หรือ A-Z", options: ["เรียงลำดับข้อความหรือตัวเลขตามตัวอักษร ก-ฮ หรือ A-Z", "เปลี่ยนภาษา", "ขยายขนาดฟอนต์"], hintTitle: "เครื่องมือ Sort", hintText: "<b>Sort (A-Z)</b> ใช้เรียงลำดับรายชื่อนักเรียนหรือข้อมูลตามตัวอักษรหรือตัวเลข" },
+        { type: "choice", q: "ข้อ 9/10: เครื่องมือ Bullets และ Numbering รวมอยู่ในกลุ่มคำสั่งใด?", target: "Paragraph (ย่อหน้า)", options: ["Paragraph (ย่อหน้า)", "Font (ฟอนต์)", "Editing (การแก้ไข)"], hintTitle: "หมวดหมู่เครื่องมือ", hintText: "เครื่องมือทำรายการหัวข้อทั้งหมดจัดอยู่ในกลุ่ม <b>Paragraph (ย่อหน้า)</b>" },
+        { type: "choice", q: "ข้อ 10/10: ข้อดีหลักของการใช้ระบบ Numbering อัตโนมัติคืออะไร?", target: "เมื่อแทรกหรือลบข้อความ ลำดับตัวเลขจะปรับให้อัตโนมัติ", options: ["เมื่อแทรกหรือลบข้อความ ลำดับตัวเลขจะปรับให้อัตโนมัติ", "ตัวหนังสือกลายเป็นสีแดง", "ประหยัดหมึกพิมพ์"], hintTitle: "ประโยชน์ของ Numbering", hintText: "ระบบจะรันตัวเลข 1, 2, 3 ให้อัตโนมัติ แม้เราจะแทรกหรือลบข้อกลางทาง ตัวเลขก็จะไม่รวน" }
       ],
       7: [
-        { type: "choice", q: "ข้อ 1/3: คำสั่ง Wrap Text แบบ Square ทำให้รูปภาพวางอย่างไร?", target: "ข้อความล้อมรอบรูปภาพเป็นทรงสี่เหลี่ยม", options: ["ข้อความล้อมรอบรูปภาพเป็นทรงสี่เหลี่ยม", "รูปภาพทับบนข้อความ", "รูปภาพไปอยู่หลังข้อความ"] },
-        { type: "choice", q: "ข้อ 2/3: คำสั่ง Behind Text เหมาะสำหรับงานแบบใด?", target: "วางรูปภาพเป็นฉากหลังให้ข้อความลอยทับ", options: ["วางรูปภาพเป็นฉากหลังให้ข้อความลอยทับ", "แทรกรูปภาพบรรทัดเดียวกับอักษร", "ตัดรูปภาพออก"] },
-        { type: "choice", q: "ข้อ 3/3: เมนูใดใช้สำหรับหมุนหรือตัดขอบรูปภาพ (Crop)?", target: "Picture Format", options: ["Picture Format", "Table Design", "Page Layout"] }
+        { type: "choice", q: "ข้อ 1/10: คำสั่ง Wrap Text แบบ Square ทำให้ข้อความวางตัวอย่างไรรอบรูปภาพ?", target: "ข้อความล้อมรอบรูปภาพเป็นทรงสี่เหลี่ยม", options: ["ข้อความล้อมรอบรูปภาพเป็นทรงสี่เหลี่ยม", "รูปภาพทับบนข้อความ", "รูปภาพไปอยู่หลังข้อความ"], hintTitle: "Wrap Text: Square", hintText: "<b>Square</b> จัดข้อความให้ล้อมรอบกรอบรูปภาพเป็นสี่เหลี่ยมอย่างมีระเบียบ" },
+        { type: "choice", q: "ข้อ 2/10: คำสั่ง Behind Text เหมาะสำหรับงานตกแต่งเอกสารแบบใด?", target: "วางรูปภาพเป็นฉากหลัง ลายน้ำ ให้ตัวหนังสือลอยทับด้านบน", options: ["วางรูปภาพเป็นฉากหลัง ลายน้ำ ให้ตัวหนังสือลอยทับด้านบน", "แทรกภาพในบรรทัดเดียวกับข้อความ", "ลบรูปภาพทิ้ง"], hintTitle: "Wrap Text: Behind Text", hintText: "<b>Behind Text</b> ย้ายรูปภาพลงไปเป็นฉากหลัง โดยมีตัวหนังสือลอยทับอยู่ด้านบน" },
+        { type: "choice", q: "ข้อ 3/10: หากต้องการย้ายรูปภาพลอยไปวางตรงไหนก็ได้โดยทับอยู่ข้างหน้าข้อความ ควรเลือกคำสั่งใด?", target: "In Front of Text", options: ["In Front of Text", "In Line with Text", "Behind Text"], hintTitle: "Wrap Text: In Front of Text", hintText: "<b>In Front of Text</b> ดึงรูปภาพให้ลอยทับอยู่ข้างหน้าตัวหนังสือ ลากย้ายอิสระ" },
+        { type: "choice", q: "ข้อ 4/10: เมนูคำสั่ง Crop มีไว้ทำหน้าที่อะไรกับรูปภาพ?", target: "ตัดเอาเฉพาะพื้นที่ส่วนที่ต้องการของรูปภาพ", options: ["ตัดเอาเฉพาะพื้นที่ส่วนที่ต้องการของรูปภาพ", "ปรับสีภาพให้สว่างขึ้น", "ใส่เส้นขอบภาพ"], hintTitle: "การ Crop รูปภาพ", hintText: "<b>Crop (ครอบตัด)</b> ใช้ตัดส่วนเกินที่ไม่ต้องการขอบข้างของรูปภาพออก" },
+        { type: "choice", q: "ข้อ 5/10: หลักการย่อ-ขยายรูปภาพ ไม่ให้เสียสัดส่วน (เบี้ยว) ต้องลากดึงที่จุดใด?", target: "จุดดึงตรงมุมทั้ง 4 มุมของรูปภาพ", options: ["จุดดึงตรงมุมทั้ง 4 มุมของรูปภาพ", "จุดดึงกึ่งกลางด้านข้าง", "จุดดึงกึ่งกลางด้านบน"], hintTitle: "ย่อยขนาดรูปภาพไม่ให้เบี้ยว", hintText: "คลิกลากจุดที่ <b>มุมทั้ง 4 มุมเท่านั้น</b> เพื่อรักษาสัดส่วนความกว้างและสูงให้สมดุล" },
+        { type: "choice", q: "ข้อ 6/10: หากแทรกรูปภาพเข้ามาแล้ว ลากย้ายรูปภาพไปไหนไม่ได้ เป็นเพราะเหตุใด?", target: "รูปภาพยังตั้งค่าเป็น In Line with Text (บรรทัดเดียวกับอักษร)", options: ["รูปภาพยังตั้งค่าเป็น In Line with Text (บรรทัดเดียวกับอักษร)", "โปรแกรมค้าง", "รูปภาพขนาดใหญ่เกินไป"], hintTitle: "แก้ปัญหารูปภาพลากย้ายไม่ได้", hintText: "รูปแทรกใหม่จะเป็น <b>In Line with Text</b> เสมอ ต้องเปลี่ยนเป็น Square หรือ Tight ก่อนจึงจะลากย้ายได้อิสระ" },
+        { type: "choice", q: "ข้อ 7/10: คำสั่ง Wrap Text แบบ Tight มีความต่างจาก Square อย่างไร?", target: "Tight ข้อความจะวิ่งล้อมรอบแนบชิดตามส่วนโค้งเว้าของรูปภาพ", options: ["Tight ข้อความจะวิ่งล้อมรอบแนบชิดตามส่วนโค้งเว้าของรูปภาพ", "Tight รูปภาพจะกลายเป็นสีขาวดำ", "ไม่มีความต่างกัน"], hintTitle: "Wrap Text: Tight", hintText: "<b>Tight (แน่น)</b> ข้อความจะวิ่งล้อมรอบแนบชิดตามรูปร่างส่วนโค้งเว้าของวัตถุ" },
+        { type: "choice", q: "ข้อ 8/10: การแทรกรูปภาพจากไฟล์ในคอมพิวเตอร์ ต้องไปที่แท็บเมนูใด?", target: "Insert (แทรก) > Pictures (รูปภาพ)", options: ["Insert (แทรก) > Pictures (รูปภาพ)", "Home (หน้าแรก) > Font", "Layout > Margins"], hintTitle: "เมนูแทรกรูปภาพ", hintText: "ไปที่แท็บ <b>แทรก (Insert) > รูปภาพ (Pictures) > Device (อุปกรณ์นี้)</b>" },
+        { type: "choice", q: "ข้อ 9/10: แท็บเครื่องมือพิเศษ Picture Format จะปรากฏขึ้นเมื่อใด?", target: "เมื่อคลิกเลือกที่ตัวรูปภาพ", options: ["เมื่อคลิกเลือกที่ตัวรูปภาพ", "เปิดโปรแกรมขึ้นมาก็พบทันที", "เมื่อกด Save"], hintTitle: "แท็บ Picture Format", hintText: "แท็บเครื่องมือตกแต่งรูปภาพจะปรากฏขึ้นอัตโนมัติเฉพาะตอนที่เรา <b>คลิกเลือกที่รูปภาพ</b> เท่านั้น" },
+        { type: "choice", q: "ข้อ 10/10: คำสั่ง Reset Picture ในแท็บ Picture Format มีไว้ทำอะไร?", target: "ยกเลิกการแต่งสีและเอฟเฟกต์ทั้งหมดเพื่อคืนค่าภาพต้นฉบับ", options: ["ยกเลิกการแต่งสีและเอฟเฟกต์ทั้งหมดเพื่อคืนค่าภาพต้นฉบับ", "ลบรูปภาพทิ้ง", "บันทึกรูปภาพ"], hintTitle: "การ คืนค่ารูปภาพ", hintText: "<b>Reset Picture</b> ใช้ยกเลิกเอฟเฟกต์ สี หรือสไตล์ที่แต่งไป เพื่อกลับไปใช้รูปภาพต้นฉบับ" }
       ],
       8: [
-        { type: "svgShowcase", q: "ข้อ 1/3: สัญลักษณ์ไอคอนนี้ใน Word ใช้สร้างสิ่งใด?", showcaseSvg: svgIconsDB.table, target: "ตารางข้อมูล (Table)", options: ["ตารางข้อมูล (Table)", "รูปภาพ (Picture)", "กล่องข้อความ (Text Box)"] },
-        { type: "choice", q: "ข้อ 2/3: หากต้องการรวมช่องตาราง 2 ช่องเข้าด้วยกัน ต้องใช้คำสั่งใด?", target: "Merge Cells", options: ["Split Cells", "Merge Cells", "Delete Cells"] },
-        { type: "choice", q: "ข้อ 3/3: คำสั่ง Split Cells มีไว้ทำอะไร?", target: "แบ่งช่องตารางออกเป็นหลายช่อง", options: ["รวมตาราง", "แบ่งช่องตารางออกเป็นหลายช่อง", "ลบตาราง"] }
+        { type: "svgShowcase", q: "ข้อ 1/10: สัญลักษณ์ไอคอนนี้ใช้ทำหน้าที่อะไรใน Microsoft Word?", showcaseSvg: svgIconsDB.table, target: "สร้างตารางข้อมูล (Table)", options: ["สร้างตารางข้อมูล (Table)", "แทรกรูปภาพ (Picture)", "สร้างกล่องข้อความ"], hintTitle: "ไอคอนตาราง", hintText: "ไอคอนตารางช่องสี่เหลี่ยม ใช้สำหรับแทรก <b>Table (ตารางข้อมูล)</b>" },
+        { type: "choice", q: "ข้อ 2/10: ช่องตารางใน แนวตั้ง เรียกว่าอะไร?", target: "คอลัมน์ (Column)", options: ["คอลัมน์ (Column)", "แถว (Row)", "เซลล์ (Cell)"], hintTitle: "โครงสร้างตาราง: แนวตั้ง", hintText: "ช่องตารางใน <b>แนวตั้ง = คอลัมน์ (Column)</b>" },
+        { type: "choice", q: "ข้อ 3/10: ช่องตารางใน แนวนอน เรียกว่าอะไร?", target: "แถว (Row)", options: ["แถว (Row)", "คอลัมน์ (Column)", "เซลล์ (Cell)"], hintTitle: "โครงสร้างตาราง: แนวนอน", hintText: "ช่องตารางใน <b>แนวนอน = แถว (Row)</b>" },
+        { type: "choice", q: "ข้อ 4/10: ช่องสี่เหลี่ยมแต่ละช่องที่เกิดจากการตัดกันของแถวและคอลัมน์ เรียกว่าอะไร?", target: "เซลล์ (Cell)", options: ["เซลล์ (Cell)", "กรอบ (Frame)", "บล็อก (Block)"], hintTitle: "ช่องตารางย่อย", hintText: "ช่องสี่เหลี่ยมแต่ละช่องภายในตารางเรียกว่า <b>เซลล์ (Cell)</b>" },
+        { type: "choice", q: "ข้อ 5/10: คำสั่ง Merge Cells (ผสานเซลล์) มีไว้ทำหน้าที่อะไร?", target: "รวมช่องเซลล์หลายๆ ช่องให้กลายเป็นช่องเดียวกัน", options: ["รวมช่องเซลล์หลายๆ ช่องให้กลายเป็นช่องเดียวกัน", "แบ่งช่องเซลล์ย่อย", "ลบตาราง"], hintTitle: "การผสานเซลล์", hintText: "<b>Merge Cells</b> รวมเซลล์หลายช่องที่คลุมดำไว้ ให้กลายเป็นช่องใหญ่ช่องเดียว" },
+        { type: "choice", q: "ข้อ 6/10: คำสั่ง Split Cells (แยกเซลล์) มีไว้ทำหน้าที่อะไร?", target: "แบ่งช่องเซลล์ 1 ช่องให้ออกเป็นหลายแถวหรือคอลัมน์ย่อย", options: ["แบ่งช่องเซลล์ 1 ช่องให้ออกเป็นหลายแถวหรือคอลัมน์ย่อย", "รวมตาราง", "ลบตาราง"], hintTitle: "การแยกเซลล์", hintText: "<b>Split Cells</b> ซอยแบ่งช่องเซลล์ 1 ช่องให้ออกเป็นแถวหรือคอลัมน์ย่อยเพิ่มเติม" },
+        { type: "choice", q: "ข้อ 7/10: เทคนิคเพิ่มแถวใหม่ในตารางอย่างรวดเร็ว สามารถทำได้อย่างไร?", target: "วางเคอร์เซอร์ช่องขวาล่างสุดแล้วกดปุ่ม Tab", options: ["วางเคอร์เซอร์ช่องขวาล่างสุดแล้วกดปุ่ม Tab", "กด Enter 10 ครั้ง", "กดปุ่ม Delete"], hintTitle: "เทคนิคเพิ่มแถวตารางด่วน", hintText: "เลื่อนเคอร์เซอร์ไปช่องสุดท้ายมุมขวาล่างสุด แล้วกด <b>Tab</b> ระบบจะสร้างแถวใหม่ต่อท้ายทันที" },
+        { type: "choice", q: "ข้อ 8/10: การลบตารางทั้งหลังอย่างรวดเร็ว ต้องใช้คำสั่งใด?", target: "Delete Table", options: ["Delete Table", "Press Backspace", "Clear Contents"], hintTitle: "การลบตาราง", hintText: "คลิกเลือกตารางแล้วใช้คำสั่ง <b>Delete > Delete Table</b> เพื่อลบทั้งโครงสร้างตาราง" },
+        { type: "choice", q: "ข้อ 9/10: แท็บ Table Design ใช้ทำหน้าที่อะไร?", target: "ตกแต่งสีเส้นขอบ สีเทาแรเงา และสไตล์สำเร็จรูปของตาราง", options: ["ตกแต่งสีเส้นขอบ สีเทาแรเงา และสไตล์สำเร็จรูปของตาราง", "เปลี่ยนขนาดกระดาษ", "ตรวจคำผิด"], hintTitle: "แท็บ Table Design", hintText: "<b>Table Design</b> ใช้เปลี่ยนสีเส้นขอบตาราง เทสีแรเงา (Shading) หรือเลือกตารางสำเร็จรูป" },
+        { type: "choice", q: "ข้อ 10/10: หากต้องการจัดข้อความให้อยู่ ตรงกลางช่องตารางพอดี ทั้งแนวตั้งและแนวนอน ต้องใช้แท็บใด?", target: "Layout (เค้าโครงตาราง) > Align Center", options: ["Layout (เค้าโครงตาราง) > Align Center", "Home > Center", "Insert > Table"], hintTitle: "จัดข้อความกึ่งกลางช่องตาราง", hintText: "ไปที่แท็บ <b>Layout (ตาราง) > กด Align Center</b> ข้อความจะอยู่ตรงกลางช่องตารางพอดีอย่างสมบูรณ์" }
       ],
       9: [
-        { type: "choice", q: "ข้อ 1/3: หากต้องการตั้งค่ากระดาษเป็น แนวนอน ต้องเลือกเมนู Orientation เป็นแบบใด?", target: "Landscape", options: ["Portrait", "Landscape", "Columns"] },
-        { type: "choice", q: "ข้อ 2/3: ระยะขอบกระดาษ ภาษาอังกฤษเรียกว่าอะไร?", target: "Margins", options: ["Margins", "Indent", "Border"] },
-        { type: "choice", q: "ข้อ 3/3: ขนาดกระดาษมาตรฐานที่นิยมใช้พิมพ์รายงานคือขนาดใด?", target: "A4", options: ["A4", "A3", "Letter"] }
+        { type: "choice", q: "ข้อ 1/10: หากต้องการตั้งค่าหน้ากระดาษเป็น แนวนอน ต้องเลือกเมนู Orientation เป็นแบบใด?", target: "Landscape", options: ["Portrait", "Landscape", "Columns"], hintTitle: "แนวกระดาษแนวนอน", hintText: "<b>Landscape</b> = กระดาษแนวนอน (เหมาะกับตารางกว้างหรือเกียรติบัตร)" },
+        { type: "choice", q: "ข้อ 2/10: หน้ากระดาษทรง แนวตั้ง มาตรฐานเรียกว่าอะไร?", target: "Portrait", options: ["Portrait", "Landscape", "Vertical"], hintTitle: "แนวกระดาษแนวตั้ง", hintText: "<b>Portrait</b> = กระดาษแนวตั้ง (มาตรฐานพิมพ์รายงานและหนังสือ)" },
+        { type: "choice", q: "ข้อ 3/10: ระยะขอบกระดาษ ภาษาอังกฤษเรียกว่าอะไร?", target: "Margins", options: ["Margins", "Indent", "Border"], hintTitle: "คำศัพท์ระยะขอบกระดาษ", hintText: "<b>Margins</b> = ระยะขอบกระดาษ (ระยะเว้นว่างจากขอบเข้ามาถึงข้อความ)" },
+        { type: "choice", q: "ข้อ 4/10: ขนาดกระดาษมาตรฐานที่นิยมใช้พิมพ์รายงานวิชาการมากที่สุดคือขนาดใด?", target: "A4", options: ["A4", "A3", "Letter"], hintTitle: "ขนาดกระดาษ A4", hintText: "<b>A4 (21 x 29.7 ซม.)</b> คือขนาดกระดาษมาตรฐานสากลที่ใช้ในสถานศึกษาและหน่วยงาน" },
+        { type: "choice", q: "ข้อ 5/10: กลุ่มคำสั่ง Page Setup (ตั้งค่าหน้ากระดาษ) รวมอยู่ในแท็บเมนูใด?", target: "Layout (เค้าโครง)", options: ["Layout (เค้าโครง)", "Home (หน้าแรก)", "Insert (แทรก)"], hintTitle: "แท็บตั้งค่าหน้ากระดาษ", hintText: "คำสั่งเกี่ยวกับกระดาษ เช่น Margins, Orientation, Size รวมอยู่ในแท็บ <b>เค้าโครง (Layout)</b>" },
+        { type: "choice", q: "ข้อ 6/10: ในการตั้งค่าระยะขอบกระดาษทำเล่มรายงาน ด้านใดควรเว้นระยะให้กว้างกว่าปกติเพื่อเผื่อเย็บเล่ม?", target: "ขอบด้านซ้าย (Left Margin)", options: ["ขอบด้านซ้าย (Left Margin)", "ขอบด้านขวา", "ขอบด้านล่าง"], hintTitle: "การเผื่อระยะเย็บเล่ม", hintText: "<b>ขอบด้านซ้าย (Left)</b> ต้องเว้นระยะเพิ่มขึ้น (ประมาณ 3 ซม. หรือ 1.5 นิ้ว) เพื่อป้องกันการเข้าเล่มสันปกทับตัวหนังสือ" },
+        { type: "choice", q: "ข้อ 7/10: คำสั่ง Columns (คอลัมน์) ในแท็บ Layout มีไว้ทำอะไร?", target: "แบ่งหน้ากระดาษออกเป็นหลายคอลัมน์เหมือนหนังสือพิมพ์", options: ["แบ่งหน้ากระดาษออกเป็นหลายคอลัมน์เหมือนหนังสือพิมพ์", "สร้างตาราง", "ใส่สีพื้นหลัง"], hintTitle: "การแบ่งคอลัมน์", hintText: "<b>Columns</b> ใช้แบ่งข้อความในหน้ากระดาษออกเป็น 2 หรือ 3 คอลัมน์สไตล์หนังสือพิมพ์" },
+        { type: "choice", q: "ข้อ 8/10: คำสั่ง Breaks > Page Break มีไว้ใช้ทำหน้าที่อะไร?", target: "ขึ้นหน้ากระดาษแผ่นใหม่ทันทีโดยไม่ต้องกด Enter หลายครั้ง", options: ["ขึ้นหน้ากระดาษแผ่นใหม่ทันทีโดยไม่ต้องกด Enter หลายครั้ง", "ลบหน้ากระดาษ", "บันทึกไฟล์"], hintTitle: "การตัดขึ้นหน้าใหม่", hintText: "<b>Page Break (Ctrl + Enter)</b> สั่งขึ้นหน้ากระดาษแผ่นใหม่ทันทีอย่างมีระเบียบ" },
+        { type: "choice", q: "ข้อ 9/10: หน่วยวัดระยะขอบกระดาษในโปรแกรม Word สามารถเปลี่ยนเป็นเซนติเมตร หรือนิ้วได้หรือไม่?", target: "ทำได้ โดยตั้งค่าใน Word Options > Advanced", options: ["ทำได้ โดยตั้งค่าใน Word Options > Advanced", "ทำไม่ได้", "ต้องซื้อโปรแกรมใหม่"], hintTitle: "การเปลี่ยนหน่วยวัด", hintText: "สามารถเปลี่ยนหน่วยวัดไม้บรรทัดและระยะขอบระหว่าง **นิ้ว (Inches)** และ **เซนติเมตร (Centimeters)** ได้" },
+        { type: "choice", q: "ข้อ 10/10: ตัวเลือก Margins แบบ Narrow (แคบ) มีลักษณะอย่างไร?", target: "เว้นระยะขอบกระดาษน้อย ทำให้มีพื้นที่พิมพ์ข้อความได้มากขึ้น", options: ["เว้นระยะขอบกระดาษน้อย ทำให้มีพื้นที่พิมพ์ข้อความได้มากขึ้น", "เว้นระยะขอบกว้างมาก", "พิมพ์ได้เฉพาะตรงกลาง"], hintTitle: "ระยะขอบแบบ Narrow", hintText: "<b>Narrow (แคบ)</b> เว้นขอบเพียง 0.5 นิ้ว ช่วยเพิ่มพื้นที่พิมพ์ข้อความในหน้ากระดาษได้จุใจยิ่งขึ้น" }
       ],
       10: [
-        { type: "choice", q: "ข้อ 1/3: เส้นหยักสีแดงใต้ข้อความ หมายถึงอะไร?", target: "สะกดคำผิด", options: ["สะกดคำผิด", "ไวยากรณ์ผิด", "เว้นวรรคผิด"] },
-        { type: "choice", q: "ข้อ 2/3: คีย์ลัดสำหรับค้นหาข้อความในเอกสาร (Find) คืออะไร?", target: "Ctrl + F", options: ["Ctrl + F", "Ctrl + H", "Ctrl + G"] },
-        { type: "choice", q: "ข้อ 3/3: หากต้องการแทนที่คำผิดทั้งเอกสารด้วยคำใหม่ ต้องใช้คำสั่งใด?", target: "Replace (Ctrl + H)", options: ["Find", "Replace (Ctrl + H)", "Select All"] }
+        { type: "choice", q: "ข้อ 1/10: เส้นใต้หยักสีแดง ใต้คำศัพท์ หมายถึงแจ้งเตือนสิ่งใด?", target: "สะกดคำผิด หรือไม่มีคำนี้ในพจนานุกรม", options: ["สะกดคำผิด หรือไม่มีคำนี้ในพจนานุกรม", "เว้นวรรคผิด", "ไวยากรณ์ผิด"], hintTitle: "เส้นใต้หยักสีแดง", hintText: "<b>เส้นใต้หยักสีแดง</b> เตือนว่าคำนั้นสะกดผิด หรือเป็นคำเฉพาะที่ไม่มีในพจนานุกรม" },
+        { type: "choice", q: "ข้อ 2/10: เส้นใต้หยักสีฟ้า ใต้ข้อความ หมายถึงแจ้งเตือนสิ่งใด?", target: "การเว้นวรรคผิดพลาด หรือผิดหลักไวยากรณ์", options: ["การเว้นวรรคผิดพลาด หรือผิดหลักไวยากรณ์", "สะกดคำผิด", "ใส่รูปภาพผิด"], hintTitle: "เส้นใต้หยักสีฟ้า", hintText: "<b>เส้นใต้หยักสีฟ้า</b> เตือนข้อผิดพลาดเกี่ยวกับการเว้นวรรคเกิน 2 ครั้ง หรือไวยากรณ์ (Formatting/Grammar)" },
+        { type: "choice", q: "ข้อ 3/10: คีย์ลัดสำหรับ ค้นหาข้อความ ในเอกสาร (Find) คืออะไร?", target: "Ctrl + F", options: ["Ctrl + F", "Ctrl + H", "Ctrl + G"], hintTitle: "คีย์ลัดการค้นหา", hintText: "<b>Ctrl + F</b> = Find (เปิดแถบค้นหาคำศัพท์ในเอกสาร)" },
+        { type: "choice", q: "ข้อ 4/10: คีย์ลัดสำหรับ ค้นหาและแทนที่คำผิด (Replace) คือคำสั่งใด?", target: "Ctrl + H", options: ["Ctrl + H", "Ctrl + F", "Ctrl + R"], hintTitle: "คีย์ลัดแทนที่คำ", hintText: "<b>Ctrl + H</b> = Replace (เปิดหน้าต่างค้นหาคำผิดและเปลี่ยนเป็นคำใหม่พร้อมกัน)" },
+        { type: "choice", q: "ข้อ 5/10: ปุ่มฟังก์ชันใดบนคีย์บอร์ด ใช้สั่งเปิดระบบตรวจสะกดและไวยากรณ์ (Spelling & Grammar)?", target: "ปุ่ม F7", options: ["ปุ่ม F7", "ปุ่ม F1", "ปุ่ม F5"], hintTitle: "คีย์ลัดตรวจคำผิด F7", hintText: "กดปุ่ม <b>F7</b> ระบบจะเปิดแผงไล่ตรวจคำสะกดผิดตั้งแต่ต้นจนจบเอกสารให้อัตโนมัติ" },
+        { type: "choice", q: "ข้อ 6/10: หากพบเส้นใต้หยักสีแดงใต้ชื่อ-นามสกุลจริงของเรา สามารถแก้ไขไม่ให้เตือนได้อย่างไร?", target: "คลิกขวาแล้วเลือก Add to Dictionary (เพิ่มลงในพจนานุกรม)", options: ["คลิกขวาแล้วเลือก Add to Dictionary (เพิ่มลงในพจนานุกรม)", "ลบชื่อทิ้ง", "ปิดหน้าจอ"], hintTitle: "การเพิ่มคำลงพจนานุกรม", hintText: "คลิกขวาเลือก <b>Add to Dictionary</b> เพื่อให้โปรแกรมจดจำชื่อเฉพาะของเราไว้ ไม่เตือนผิดอีกต่อไป" },
+        { type: "choice", q: "ข้อ 7/10: คำสั่ง Replace All ในหน้าต่าง Replace ทำหน้าที่อะไร?", target: "แทนที่คำผิดที่พบทุกจุดทั่วทั้งเอกสารในการคลิกครั้งเดียว", options: ["แทนที่คำผิดที่พบทุกจุดทั่วทั้งเอกสารในการคลิกครั้งเดียว", "เปลี่ยนเฉพาะจุดแรก", "ลบเอกสาร"], hintTitle: "การ Replace All", hintText: "<b>Replace All</b> แก้ไขคำผิดซ้ำๆ หลายสิบจุดให้กลายเป็นคำใหม่ที่ถูกต้องได้ทันทีในการคลิกเดียว" },
+        { type: "choice", q: "ข้อ 8/10: แท็บเมนูใดเป็นศูนย์รวมเครื่องมือ Spelling & Grammar และ Word Count?", target: "Review (ตรวจทาน)", options: ["Review (ตรวจทาน)", "Home (หน้าแรก)", "View (มุมมอง)"], hintTitle: "แท็บ Review", hintText: "เครื่องมือตรวจทานภาษาทั้งหมดรวมอยู่ในแท็บ <b>ตรวจทาน (Review)</b>" },
+        { type: "choice", q: "ข้อ 9/10: เครื่องมือ Thesaurus (คลังคำศัพท์) มีประโยชน์อย่างไร?", target: "ค้นหาคำที่มีความหมายเหมือนกัน (คำไวพจน์/Synonym)", options: ["ค้นหาคำที่มีความหมายเหมือนกัน (คำไวพจน์/Synonym)", "แปลภาษาทั้งเล่ม", "นับจำนวนบรรทัด"], hintTitle: "ประโยชน์ของ Thesaurus", hintText: "<b>Thesaurus</b> ช่วยเสนอคำศัพท์สละสลวยที่มีความหมายเหมือนกัน เพื่อหลีกเลี่ยงการใช้คำซ้ำๆ" },
+        { type: "choice", q: "ข้อ 10/10: เครื่องมือ Word Count แสดงสถิติข้อมูลใดของเอกสารบ้าง?", target: "จำนวนหน้า, จำนวนคำ, จำนวนตัวอักษร และย่อหน้า", options: ["จำนวนหน้า, จำนวนคำ, จำนวนตัวอักษร และย่อหน้า", "ขนาดไฟล์ PDF", "ราคาหมึกพิมพ์"], hintTitle: "เครื่องมือนับจำนวนคำ", hintText: "<b>Word Count</b> สรุปสถิติละเอียด ทั้งจำนวนคำ (Words) จำนวนอักษร (Characters) และจำนวนบรรทัด" }
       ],
       11: [
-        { type: "choice", q: "ข้อ 1/3: การทำสารบัญอัตโนมัติ (Table of Contents) ต้องกำหนดสไตล์หัวข้อเป็นแบบใด?", target: "Heading 1 / Heading 2", options: ["Normal", "Heading 1 / Heading 2", "Title"] },
-        { type: "choice", q: "ข้อ 2/3: แถบเมนูใดเป็นที่อยู่ของคำสั่ง Table of Contents (สารบัญ)?", target: "References (การอ้างอิง)", options: ["References (การอ้างอิง)", "Insert", "View"] },
-        { type: "choice", q: "ข้อ 3/3: ข้อดีของสารบัญอัตโนมัติคืออะไร?", target: "อัปเดตเลขหน้าตามจริงให้อัตโนมัติ", options: ["อัปเดตเลขหน้าตามจริงให้อัตโนมัติ", "เปลี่ยนสีฟอนต์ได้", "พิมพ์ง่ายขึ้น"] }
+        { type: "choice", q: "ข้อ 1/10: การทำ สารบัญอัตโนมัติ (Table of Contents) ต้องกำหนดสไตล์หัวข้อเป็นแบบใด?", target: "Heading 1 / Heading 2", options: ["Normal", "Heading 1 / Heading 2", "Title"], hintTitle: "การกำหนดสไตล์สารบัญ", hintText: "สารบัญอัตโนมัติจะดึงข้อความที่ตั้งเป็น <b>Heading 1 (หัวข้อหลัก)</b> และ <b>Heading 2 (หัวข้อย่อย)</b> มาสร้างเป็นสารบัญ" },
+        { type: "choice", q: "ข้อ 2/10: แถบเมนูใดเป็นที่อยู่ของคำสั่ง Table of Contents (สารบัญ)?", target: "References (การอ้างอิง)", options: ["References (การอ้างอิง)", "Insert (แทรก)", "View (มุมมอง)"], hintTitle: "แท็บสร้างสารบัญ", hintText: "ไปที่แท็บ <b>การอ้างอิง (References) > สารบัญ (Table of Contents)</b>" },
+        { type: "choice", q: "ข้อ 3/10: ข้อดีหลักของการใช้ระบบสารบัญอัตโนมัติคืออะไร?", target: "เลขหน้าอัปเดตตรงกับเนื้อหาจริงให้อัตโนมัติเมื่อเอกสารเปลี่ยนแปลง", options: ["เลขหน้าอัปเดตตรงกับเนื้อหาจริงให้อัตโนมัติเมื่อเอกสารเปลี่ยนแปลง", "เปลี่ยนสีฟอนต์ให้อัตโนมัติ", "จัดพิมพ์เร็วขึ้น"], hintTitle: "ประโยชน์ของสารบัญอัตโนมัติ", hintText: "แม้เนื้อหาจะขยับขยายไปหน้าไหน เพียงกด **Update Table** เลขหน้าในสารบัญจะปรับตามจริงทันที" },
+        { type: "choice", q: "ข้อ 4/10: หากต้องการอัปเดตเลขหน้าสารบัญหลังแก้ไขงาน ต้องกดปุ่มใดที่หัวสารบัญ?", target: "Update Table (อัปเดตสารบัญ)", options: ["Update Table (อัปเดตสารบัญ)", "Refresh Page", "Save As"], hintTitle: "การอัปเดตสารบัญ", hintText: "คลิกที่ตารางสารบัญ แล้วกดปุ่ม <b>Update Table > เลือก Update Entire Table</b>" },
+        { type: "choice", q: "ข้อ 5/10: คำสั่ง Style (ลักษณะ) รวมอยู่ในแท็บเมนูใด?", target: "Home (หน้าแรก)", options: ["Home (หน้าแรก)", "Layout (เค้าโครง)", "Design (การออกแบบ)"], hintTitle: "กลุ่มคำสั่ง Styles", hintText: "กล่องสไตล์สำเร็จรูป <b>Styles (Heading 1, Heading 2, Normal)</b> ตั้งอยู่ในแท็บ <b>หน้าแรก (Home)</b>" },
+        { type: "choice", q: "ข้อ 6/10: การลบนัมเบอร์สารบัญที่ทำจากสารบัญอัตโนมัติ ควรทำอย่างไร?", target: "ลบกรอบตารางสารบัญออกทั้งชุด", options: ["ลบกรอบตารางสารบัญออกทั้งชุด", "กด Backspace ทีละตัว", "ปิดโปรแกรม"], hintTitle: "การลบสารบัญอัตโนมัติ", hintText: "คลิกที่แท่นหัวข้อสารบัญ แล้วเลือก <b>Remove Table of Contents</b> เพื่อลบออกอย่างถูกต้อง" },
+        { type: "choice", q: "ข้อ 7/10: สไตล์ Normal ในกล่อง Styles ใช้สำหรับข้อความประเภทใด?", target: "เนื้อหารายงานทั่วไป", options: ["เนื้อหารายงานทั่วไป", "หัวข้อใหญ่", "ชื่อเรื่องหน้าปก"], hintTitle: "สไตล์ Normal", hintText: "<b>Normal</b> ใช้สำหรับข้อความเนื้อหาปกติทั่วไปในเล่มรายงาน" },
+        { type: "choice", q: "ข้อ 8/10: หากต้องการปรับเปลี่ยนสีและฟอนต์ของสไตล์ Heading 1 ทุกจุดพร้อมกัน ต้องทำอย่างไร?", target: "คลิกขวาที่ตัวเลือก Heading 1 แล้วเลือก Modify (ปรับเปลี่ยน)", options: ["คลิกขวาที่ตัวเลือก Heading 1 แล้วเลือก Modify (ปรับเปลี่ยน)", "ลบแล้วพิมพ์ใหม่", "เปลี่ยนทีละบรรทัด"], hintTitle: "การ Modify สไตล์", hintText: "คลิกขวาที่สไตล์เลือก <b>Modify</b> เปลี่ยนฟอนต์ครั้งเดียว หัวข้อที่เป็น Heading 1 ทั้งเล่มจะเปลี่ยนตามทันที" },
+        { type: "choice", q: "ข้อ 9/10: หน้าต่าง Navigation Pane (บานหน้าต่างนำทาง) ช่วยอะไรเมื่อเราจัดสไตล์ Heading ไว้?", target: "แสดงเค้าโครงหัวข้อให้คลิกวาร์ปไปยังหน้านั้นๆ ได้ทันที", options: ["แสดงเค้าโครงหัวข้อให้คลิกวาร์ปไปยังหน้านั้นๆ ได้ทันที", "ใส่สีรูปภาพ", "บันทึกไฟล์"], hintTitle: "ประโยชน์ของ Navigation Pane", hintText: "<b>Navigation Pane (Ctrl + F)</b> จะโชว์ผังหัวข้อรายงาน ช่วยให้กดคลิกข้ามไปอ่านหน้าที่ต้องการได้สะดวก" },
+        { type: "choice", q: "ข้อ 10/10: การใส่ เลขหน้าเอกสาร (Page Number) ต้องไปที่แท็บเมนูใด?", target: "Insert (แทรก) > Page Number", options: ["Insert (แทรก) > Page Number", "Home > Numbering", "Layout > Margins"], hintTitle: "การใส่เลขหน้า", hintText: "การใส่เลขหัวกระดาษ/ท้ายกระดาษ ไปที่แท็บ <b>แทรก (Insert) > Header & Footer > Page Number</b>" }
       ],
       12: [
-        { type: "choice", q: "ข้อ 1/3: นามสกุลไฟล์ใดที่ช่วยล็อกหน้ากระดาษและฟอนต์ไม่ให้เคลื่อนเมื่อนำไปเปิดเครื่องอื่น?", target: ".pdf", options: [".docx", ".pdf", ".txt"] },
-        { type: "choice", q: "ข้อ 2/3: คีย์ลัดสำหรับสั่งพิมพ์เอกสาร (Print) คืออะไร?", target: "Ctrl + P", options: ["Ctrl + P", "Ctrl + S", "Ctrl + E"] },
-        { type: "choice", q: "ข้อ 3/3: เมนู Save As ต่างจาก Save อย่างไร?", target: "Save As ใช้ตั้งชื่อหรือเปลี่ยนสถานที่บันทึกใหม่", options: ["เหมือนกันทุกประการ", "Save As ใช้ตั้งชื่อหรือเปลี่ยนสถานที่บันทึกใหม่", "Save As ใช้ลบไฟล์"] }
+        { type: "choice", q: "ข้อ 1/10: นามสกุลไฟล์ใดช่วย ล็อกหน้ากระดาษและฟอนต์ ไม่ให้เคลื่อนเพี้ยนเมื่อนำไปเปิดเครื่องอื่น?", target: ".pdf", options: [".docx", ".pdf", ".txt"], hintTitle: "ประโยชน์ของไฟล์ PDF", hintText: "<b>.pdf (Portable Document Format)</b> ช่วยล็อกตำแหน่งตัวอักษรและรูปภาพคงที่ เปิดเครื่องไหนก็ไม่เลื่อน" },
+        { type: "choice", q: "ข้อ 2/10: คีย์ลัดสำหรับสั่ง พิมพ์เอกสาร (Print) ออกทางเครื่องพิมพ์คืออะไร?", target: "Ctrl + P", options: ["Ctrl + P", "Ctrl + S", "Ctrl + E"], hintTitle: "คีย์ลัดสั่งพิมพ์", hintText: "<b>Ctrl + P</b> = Print (เปิดหน้าต่างสั่งพิมพ์งาน)" },
+        { type: "choice", q: "ข้อ 3/10: มุมมอง ตัวอย่างก่อนพิมพ์ (Print Preview) มีประโยชน์อย่างไร?", target: "ตรวจสอบความถูกต้องของหน้ากระดาษก่อนสั่งพิมพ์จริงเพื่อประหยัดกระดาษ", options: ["ตรวจสอบความถูกต้องของหน้ากระดาษก่อนสั่งพิมพ์จริงเพื่อประหยัดกระดาษ", "แก้ไขคำผิดอัตโนมัติ", "ส่งอีเมล"], hintTitle: "Print Preview", hintText: "<b>Print Preview</b> ช่วยให้เราเห็นหน้ากระดาษจริงก่อนพิมพ์ ป้องกันการพิมพ์งานออกมาผิดพลาด" },
+        { type: "choice", q: "ข้อ 4/10: ตัวเลือกการสั่งพิมพ์แบบ Print Current Page หมายถึงอะไร?", target: "สั่งพิมพ์เฉพาะหน้าปัจจุบันที่เคอร์เซอร์วางอยู่เพียงหน้าเดียว", options: ["สั่งพิมพ์เฉพาะหน้าปัจจุบันที่เคอร์เซอร์วางอยู่เพียงหน้าเดียว", "พิมพ์เอกสารทุกหน้า", "พิมพ์เฉพาะหน้าคู่"], hintTitle: "Print Current Page", hintText: "<b>Print Current Page</b> พิมพ์เฉพาะหน้ากระดาษที่เรากำลังเปิดดูอยู่ ณ ปัจจุบัน 1 หน้า" },
+        { type: "choice", q: "ข้อ 5/10: หากต้องการสั่งพิมพ์เฉพาะ หน้า 1 ถึง หน้า 5 ต้องระบุในช่อง Pages อย่างไร?", target: "1-5", options: ["1-5", "1,5", "1..5"], hintTitle: "การระบุช่วงหน้าพิมพ์", hintText: "ใช้เครื่องหมายยัติภังค์ เช่น <b>1-5</b> (พิมพ์หน้า 1 ถึง 5) / ส่วน <b>1, 5</b> (พิมพ์เฉพาะหน้า 1 และหน้า 5)" },
+        { type: "choice", q: "ข้อ 6/10: นามสกุลไฟล์มาตรฐานของโปรแกรม Microsoft Word เวอร์ชันปัจจุบันคืออะไร?", target: ".docx", options: [".docx", ".xlsx", ".pptx"], hintTitle: "นามสกุลไฟล์ Word", hintText: "<b>.docx</b> คือไฟล์เอกสารมาตรฐานของ Microsoft Word" },
+        { type: "choice", q: "ข้อ 7/10: หากต้องการส่งออกไฟล์เป็น PDF สามารถไปที่เมนูใดได้บ้าง?", target: "File > Export > Create PDF/XPS Document", options: ["File > Export > Create PDF/XPS Document", "Home > Save", "Insert > PDF"], hintTitle: "การ Export เป็น PDF", hintText: "ไปที่เมนู <b>File (ไฟล์) > Export (ส่งออก) > Create PDF/XPS</b>" },
+        { type: "choice", q: "ข้อ 8/10: การใส่รหัสผ่านล็อกเอกสารป้องกันคนเปิดอ่าน ตั้งค่าได้ที่เมนูใด?", target: "File > Info > Protect Document > Encrypt with Password", options: ["File > Info > Protect Document > Encrypt with Password", "Home > Font", "Layout > Lock"], hintTitle: "ใส่รหัสผ่านล็อกไฟล์", hintText: "ตั้งค่าใส่รหัสผ่านล็อกไฟล์ได้ที่ <b>File > Info > Protect Document (ป้องกันเอกสาร)</b>" },
+        { type: "choice", q: "ข้อ 9/10: คำสั่ง Orientation ในหน้าต่าง Print มีไว้ทำอะไร?", target: "สลับทิศทางกระดาษแนวตั้ง/แนวนอนก่อนสั่งพิมพ์", options: ["สลับทิศทางกระดาษแนวตั้ง/แนวนอนก่อนสั่งพิมพ์", "เปลี่ยนสีหมึก", "ขยายขนาดฟอนต์"], hintTitle: "ปรับแนวตั้ง/แนวนอนก่อนพิมพ์", hintText: "เราสามารถตรวจสอบและสลับแนวกระดาษแนวตั้ง (Portrait) หรือแนวนอน (Landscape) ได้ในหน้าต่าง Print" },
+        { type: "choice", q: "ข้อ 10/10: ตัวเลือก Copies ในหน้าต่าง Print หมายถึงสิ่งใด?", target: "จำนวนชุดสำเนาเอกสารที่ต้องการสั่งพิมพ์", options: ["จำนวนชุดสำเนาเอกสารที่ต้องการสั่งพิมพ์", "จำนวนหน้า", "ขนาดกระดาษ"], hintTitle: "จำนวนชุดพิมพ์ (Copies)", hintText: "<b>Copies</b> = กำหนดจำนวนชุดงานพิมพ์ เช่น กำหนดเป็น 3 คือสั่งพิมพ์ออกมา 3 ชุด" }
       ]
     };
 
@@ -834,7 +947,7 @@
       }
     }
 
-    /* Quiz Modal Mechanics with SVG Interactive Options */
+    /* Quiz Modal Mechanics & Hint Feedback */
     function startUnitQuiz(unitId) {
       activeQuizUnit = unitId;
       quizStep = 0;
@@ -853,7 +966,7 @@
       }
 
       const currentQ = qList[quizStep];
-      document.getElementById("quiz-badge").innerText = `ข้อที่ ${quizStep + 1} / 3`;
+      document.getElementById("quiz-badge").innerText = `ข้อที่ ${quizStep + 1} / 10`;
       document.getElementById("quiz-unit-title").innerText = `บทที่ ${activeQuizUnit}`;
       document.getElementById("quiz-q-text").innerText = currentQ.q;
 
@@ -874,7 +987,7 @@
           btn.innerText = opt;
           btn.onclick = () => {
             if (opt === currentQ.target) nextQuizStep();
-            else alert("ยังไม่ถูกต้อง ลองใหม่อีกครั้งครับ!");
+            else triggerHint(currentQ.hintTitle, currentQ.hintText);
           };
           choicesDiv.appendChild(btn);
         });
@@ -889,7 +1002,7 @@
           card.innerHTML = `${opt.svg}<span>${opt.label}</span>`;
           card.onclick = () => {
             if (opt.key === currentQ.target) nextQuizStep();
-            else alert("ยังไม่ถูกต้อง ลองใหม่อีกครั้งครับ!");
+            else triggerHint(currentQ.hintTitle, currentQ.hintText);
           };
           grid.appendChild(card);
         });
@@ -904,7 +1017,7 @@
           btn.innerText = opt;
           btn.onclick = () => {
             if (opt === currentQ.target) nextQuizStep();
-            else alert("ยังไม่ถูกต้อง ลองใหม่อีกครั้งครับ!");
+            else triggerHint(currentQ.hintTitle, currentQ.hintText);
           };
           ribbonDiv.appendChild(btn);
         });
@@ -919,7 +1032,7 @@
           btn.innerText = opt;
           btn.onclick = () => {
             if (opt === currentQ.target) nextQuizStep();
-            else alert("ยังไม่ถูกต้อง ลองใหม่อีกครั้งครับ!");
+            else triggerHint(currentQ.hintTitle, currentQ.hintText);
           };
           choicesDiv.appendChild(btn);
         });
@@ -965,7 +1078,7 @@
                 setTimeout(nextQuizStep, 300);
               }
             } else {
-              alert("คู่ไม่ถูกต้องครับ ลองใหม่!");
+              triggerHint(currentQ.hintTitle, currentQ.hintText);
               selectedMatchMiniAction.classList.remove("selected");
               selectedMatchMiniAction = null;
             }
@@ -981,6 +1094,16 @@
     function nextQuizStep() {
       quizStep++;
       renderQuizQuestion();
+    }
+
+    function triggerHint(title, desc) {
+      document.getElementById("hint-title").innerText = title || "เทคนิคสำคัญประจำข้อนี้";
+      document.getElementById("hint-desc").innerHTML = desc || "ทบทวนบทเรียนอีกครั้งเพื่อเลือกคำตอบที่ถูกต้องครับ!";
+      document.getElementById("hint-modal").style.display = "flex";
+    }
+
+    function closeHintModal() {
+      document.getElementById("hint-modal").style.display = "none";
     }
 
     window.addEventListener("DOMContentLoaded", () => {
