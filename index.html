@@ -3,23 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Word Road 3D: Cyberpunk Learning Hub</title>
+  <title>Word Road 3D: Bright Cyber Learning Hub</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,700;0,800;1,700&family=Kanit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,600;0,700;0,800;1,700&family=Kanit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   
   <style>
     :root {
-      --bg-dark: #070913;
-      --card-bg: rgba(15, 23, 42, 0.75);
-      --card-border: rgba(56, 189, 248, 0.25);
-      --neon-blue: #00f0ff;
-      --neon-purple: #7000ff;
-      --neon-pink: #ff007f;
-      --neon-yellow: #facc15;
+      --bg-gradient: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 50%, #bae6fd 100%);
+      --card-bg: rgba(255, 255, 255, 0.88);
+      --card-border: #7dd3fc;
+      --primary-blue: #0284c7;
+      --neon-cyan: #06b6d4;
+      --neon-purple: #8b5cf6;
+      --neon-yellow: #eab308;
       --neon-green: #10b981;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
+      --danger-red: #ef4444;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
     }
 
     * {
@@ -30,30 +31,23 @@
 
     body {
       min-height: 100vh;
-      background: var(--bg-dark);
+      background: var(--bg-gradient);
       font-family: 'Kanit', sans-serif;
       color: var(--text-main);
       display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
-      padding: 24px 16px;
+      padding: 20px 14px;
       overflow-x: hidden;
       position: relative;
     }
 
-    /* Dynamic Grid Background Effect */
+    /* Bright Arcade Grid Pattern */
     body::before {
       content: ''; position: fixed; inset: 0;
       background: 
-        linear-gradient(to right, rgba(56, 189, 248, 0.05) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(56, 189, 248, 0.05) 1px, transparent 1px);
-      background-size: 40px 40px;
+        linear-gradient(to right, rgba(2, 132, 199, 0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(2, 132, 199, 0.08) 1px, transparent 1px);
+      background-size: 32px 32px;
       pointer-events: none; z-index: 0;
-    }
-
-    body::after {
-      content: ''; position: fixed; top: 20%; left: 50%; transform: translate(-50%, -50%);
-      width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(0, 240, 255, 0.12) 0%, rgba(112, 0, 255, 0.08) 50%, transparent 70%);
-      pointer-events: none; z-index: 0; filter: blur(60px);
     }
 
     .icon {
@@ -62,23 +56,23 @@
     }
 
     /* ==========================================================================
-       AUTH SCREEN (LOGIN / REGISTER)
+       1. AUTH SCREEN (LOGIN / REGISTER)
        ========================================================================== */
     #auth-screen {
-      position: fixed; inset: 0; background: rgba(7, 9, 19, 0.95);
-      backdrop-filter: blur(16px);
+      position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(12px);
       display: flex; justify-content: center; align-items: center;
       padding: 16px; z-index: 200;
     }
 
     .auth-card {
-      background: var(--card-bg);
-      border: 2px solid var(--neon-blue);
-      border-radius: 28px; padding: 32px 28px;
+      background: #ffffff;
+      border: 3px solid var(--primary-blue);
+      border-radius: 28px; padding: 32px 26px;
       max-width: 440px; width: 100%;
-      box-shadow: 0 0 35px rgba(0, 240, 255, 0.25), inset 0 0 15px rgba(0, 240, 255, 0.1);
+      box-shadow: 0 20px 50px rgba(2, 132, 199, 0.25), 0 0 0 6px rgba(255, 255, 255, 0.8);
       position: relative; overflow: hidden; z-index: 1;
-      animation: popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     @keyframes popIn {
@@ -86,29 +80,25 @@
       to { transform: scale(1); opacity: 1; }
     }
 
-    .auth-header {
-      text-align: center; margin-bottom: 24px;
-    }
+    .auth-header { text-align: center; margin-bottom: 22px; }
 
-    .game-title-neon {
+    .game-title-bright {
       font-family: 'Chakra Petch', sans-serif;
-      font-size: 2.5rem; font-weight: 800;
-      font-style: italic;
-      background: linear-gradient(135deg, #ffffff 0%, var(--neon-blue) 50%, var(--neon-purple) 100%);
+      font-size: 2.4rem; font-weight: 800; font-style: italic;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 50%, #7c3aed 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
-      letter-spacing: 1.5px; line-height: 1.1;
+      letter-spacing: 1px; line-height: 1.1;
     }
 
     .game-subtitle {
-      color: var(--neon-yellow); font-size: 0.85rem; font-weight: 700;
-      letter-spacing: 2px; text-transform: uppercase; margin-top: 6px;
+      color: #ca8a04; font-size: 0.85rem; font-weight: 800;
+      letter-spacing: 1px; text-transform: uppercase; margin-top: 6px;
       display: flex; align-items: center; justify-content: center; gap: 6px;
     }
 
     .auth-tabs {
-      display: flex; background: rgba(2, 6, 23, 0.8);
-      padding: 4px; border-radius: 14px; border: 1px solid var(--card-border);
+      display: flex; background: #f1f5f9;
+      padding: 4px; border-radius: 14px; border: 1px solid #cbd5e1;
       margin-bottom: 20px;
     }
 
@@ -119,190 +109,216 @@
     }
 
     .auth-tab-btn.active {
-      background: linear-gradient(135deg, var(--neon-blue), #0284c7);
-      color: #000; box-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+      background: #ffffff; color: var(--primary-blue);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08); font-weight: 800;
     }
 
-    .input-group {
-      display: flex; flex-direction: column; gap: 14px; margin-bottom: 22px;
-    }
+    .input-group { display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px; }
+    .input-wrapper { position: relative; display: flex; align-items: center; }
+    .input-wrapper .icon { position: absolute; left: 16px; color: var(--primary-blue); }
 
-    .input-wrapper {
-      position: relative; display: flex; align-items: center;
-    }
-
-    .input-wrapper .icon {
-      position: absolute; left: 16px; color: var(--neon-blue);
-    }
-
-    .cyber-input {
+    .bright-input {
       width: 100%; padding: 14px 16px 14px 48px; border-radius: 14px;
-      border: 1.5px solid var(--card-border);
-      background: rgba(15, 23, 42, 0.9); color: #fff;
-      font-family: 'Kanit'; font-size: 0.95rem; font-weight: 600;
-      outline: none; transition: all 0.2s;
+      border: 2px solid #cbd5e1; background: #f8fafc; color: var(--text-main);
+      font-family: 'Kanit'; font-size: 0.95rem; font-weight: 600; outline: none; transition: all 0.2s;
     }
 
-    .cyber-input:focus {
-      border-color: var(--neon-blue);
-      box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
-      background: rgba(30, 41, 59, 0.9);
+    .bright-input:focus {
+      border-color: var(--primary-blue); background: #ffffff;
+      box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.25);
     }
 
-    .btn-cyber-submit {
-      width: 100%; padding: 15px; border-radius: 14px; border: none;
-      background: linear-gradient(135deg, var(--neon-blue) 0%, var(--neon-purple) 100%);
+    .btn-bright-submit {
+      width: 100%; padding: 15px; border-radius: 16px; border: none;
+      background: linear-gradient(180deg, #10b981 0%, #059669 100%);
       color: #fff; font-family: 'Chakra Petch'; font-size: 1.15rem; font-weight: 800;
-      cursor: pointer; box-shadow: 0 0 20px rgba(112, 0, 255, 0.4);
-      display: flex; justify-content: center; align-items: center; gap: 10px;
-      transition: transform 0.1s, box-shadow 0.2s;
+      cursor: pointer; box-shadow: 0 5px 0 #047857;
+      display: flex; justify-content: center; align-items: center; gap: 8px;
+      transition: transform 0.1s, box-shadow 0.1s;
     }
-
-    .btn-cyber-submit:active { transform: scale(0.98); }
+    .btn-bright-submit:active { transform: translateY(3px); box-shadow: 0 2px 0 #047857; }
 
     /* ==========================================================================
-       MAIN HUB SCREEN
+       2. MAIN HUB SCREEN
        ========================================================================== */
     #hub-screen {
-      display: none; width: 100%; max-width: 1100px;
-      flex-direction: column; gap: 24px; z-index: 1;
+      display: none; width: 100%; max-width: 1050px;
+      flex-direction: column; gap: 20px; z-index: 1;
     }
 
-    /* Top User HUD Bar */
     .hub-navbar {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      backdrop-filter: blur(12px);
-      border-radius: 20px; padding: 16px 24px;
+      background: var(--card-bg); border: 2px solid var(--card-border);
+      backdrop-filter: blur(10px); border-radius: 20px; padding: 14px 20px;
       display: flex; justify-content: space-between; align-items: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      box-shadow: 0 10px 25px rgba(2, 132, 199, 0.12);
     }
 
-    .user-profile-info {
-      display: flex; align-items: center; gap: 14px;
-    }
+    .user-profile-info { display: flex; align-items: center; gap: 12px; }
 
     .user-avatar {
-      width: 48px; height: 48px; border-radius: 14px;
-      background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+      width: 44px; height: 44px; border-radius: 12px;
+      background: linear-gradient(135deg, #0284c7, #2563eb);
       display: flex; justify-content: center; align-items: center;
-      color: #fff; font-weight: 900; font-size: 1.3rem;
-      box-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+      color: #fff; font-weight: 900; font-size: 1.25rem;
+      box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3);
     }
 
-    .user-details h3 {
-      font-size: 1.1rem; font-weight: 800; color: var(--text-main); line-height: 1.2;
-    }
-
-    .user-details p {
-      font-size: 0.8rem; color: var(--neon-blue); font-weight: 600;
-      display: flex; align-items: center; gap: 4px; margin-top: 2px;
-    }
+    .user-details h3 { font-size: 1.05rem; font-weight: 800; color: var(--text-main); line-height: 1.2; }
+    .user-details p { font-size: 0.8rem; color: var(--primary-blue); font-weight: 700; display: flex; align-items: center; gap: 4px; margin-top: 2px; }
 
     .btn-logout {
-      padding: 9px 16px; border-radius: 12px;
-      border: 1px solid rgba(239, 68, 68, 0.4);
-      background: rgba(239, 68, 68, 0.1); color: #f87171;
-      font-family: 'Kanit'; font-weight: 700; font-size: 0.88rem;
-      cursor: pointer; display: flex; align-items: center; gap: 6px;
-      transition: all 0.2s;
+      padding: 8px 14px; border-radius: 12px; border: 2px solid #fecdd3;
+      background: #fff1f2; color: #e11d48; font-family: 'Kanit'; font-weight: 700; font-size: 0.85rem;
+      cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s;
     }
+    .btn-logout:hover { background: #ffe4e6; border-color: #fda4af; }
 
-    .btn-logout:hover {
-      background: #ef4444; color: #fff;
-      box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
-    }
-
-    /* Section Banner */
+    /* Banner & Overall Progress */
     .hub-banner {
-      background: linear-gradient(135deg, rgba(2, 132, 199, 0.2) 0%, rgba(112, 0, 255, 0.2) 100%);
-      border: 1px solid var(--card-border);
-      border-radius: 24px; padding: 24px;
+      background: #ffffff; border: 2px solid var(--card-border);
+      border-radius: 22px; padding: 20px 24px;
       display: flex; justify-content: space-between; align-items: center;
-      position: relative; overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05); gap: 16px; flex-wrap: wrap;
     }
 
-    .banner-text h2 {
-      font-family: 'Chakra Petch'; font-size: 1.8rem; font-weight: 800;
-      color: #fff; margin-bottom: 4px;
+    .banner-text h2 { font-family: 'Chakra Petch'; font-size: 1.6rem; font-weight: 800; color: var(--primary-blue); margin-bottom: 2px; }
+    .banner-text p { font-size: 0.88rem; color: var(--text-muted); font-weight: 500; }
+
+    .progress-pill-badge {
+      background: #fef3c7; border: 2px solid #fde047; color: #b45309;
+      padding: 8px 16px; border-radius: 999px; font-weight: 800; font-size: 0.9rem;
+      display: flex; align-items: center; gap: 8px; white-space: nowrap;
     }
 
-    .banner-text p {
-      font-size: 0.92rem; color: var(--text-muted);
-    }
-
-    /* Grid Layout for Lessons */
+    /* Grid Layout */
     .units-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 20px; width: 100%;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 18px; width: 100%;
     }
 
     .unit-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 22px; padding: 22px;
-      display: flex; flex-direction: column; justify-content: space-between;
-      gap: 16px; position: relative; overflow: hidden;
-      backdrop-filter: blur(10px);
-      transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      background: #ffffff; border: 2px solid #e2e8f0; border-radius: 20px; padding: 20px;
+      display: flex; flex-direction: column; justify-content: space-between; gap: 14px;
+      position: relative; transition: all 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.04);
     }
 
-    .unit-card:hover {
-      transform: translateY(-6px);
-      border-color: var(--neon-blue);
-      box-shadow: 0 12px 30px rgba(0, 240, 255, 0.15);
-    }
+    .unit-card.unlocked { border-color: #38bdf8; }
+    .unit-card.completed { border-color: #10b981; background: #f0fdf4; }
+    .unit-card.locked { opacity: 0.75; background: #f8fafc; border-color: #cbd5e1; }
 
-    .unit-card-header {
-      display: flex; justify-content: space-between; align-items: flex-start;
-    }
+    .unit-card-top { display: flex; justify-content: space-between; align-items: center; }
 
     .unit-badge {
-      background: rgba(0, 240, 255, 0.1); color: var(--neon-blue);
-      border: 1px solid rgba(0, 240, 255, 0.3);
       font-family: 'Chakra Petch'; font-weight: 800; font-size: 0.8rem;
-      padding: 4px 12px; border-radius: 999px; letter-spacing: 1px;
+      padding: 3px 10px; border-radius: 8px; letter-spacing: 0.5px;
     }
+    .unit-card.unlocked .unit-badge { background: #e0f2fe; color: #0284c7; }
+    .unit-card.completed .unit-badge { background: #d1fae5; color: #047857; }
+    .unit-card.locked .unit-badge { background: #e2e8f0; color: #64748b; }
 
-    .unit-title-text {
-      font-size: 1.1rem; font-weight: 800; color: #fff;
-      line-height: 1.45; margin-top: 10px;
+    .status-tag {
+      font-size: 0.78rem; font-weight: 800; display: flex; align-items: center; gap: 4px;
     }
+    .status-tag.locked { color: #94a3b8; }
+    .status-tag.unlocked { color: #0284c7; }
+    .status-tag.completed { color: #059669; }
 
-    .unit-actions-group {
-      display: grid; grid-template-columns: 1fr 1.2fr; gap: 10px;
-    }
+    .unit-title-text { font-size: 1.02rem; font-weight: 800; color: var(--text-main); line-height: 1.4; margin-top: 6px; }
+
+    .unit-actions-group { display: grid; grid-template-columns: 1fr 1.2fr; gap: 8px; }
 
     .btn-act {
-      padding: 11px 14px; border-radius: 12px; border: none;
-      font-family: 'Kanit', sans-serif; font-size: 0.9rem; font-weight: 700;
+      padding: 10px; border-radius: 12px; border: none;
+      font-family: 'Kanit', sans-serif; font-size: 0.88rem; font-weight: 700;
       cursor: pointer; display: flex; align-items: center; justify-content: center;
-      gap: 8px; transition: all 0.2s;
+      gap: 6px; transition: all 0.15s;
     }
 
-    .btn-study {
-      background: rgba(255, 255, 255, 0.05); color: var(--text-main);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+    .btn-study { background: #f0f9ff; color: #0284c7; border: 1.5px solid #bae6fd; }
+    .btn-study:hover { background: #e0f2fe; }
+
+    .btn-quiz { background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%); color: #fff; box-shadow: 0 3px 0 #075985; }
+    .btn-quiz:active { transform: translateY(2px); box-shadow: 0 1px 0 #075985; }
+
+    .btn-disabled { background: #e2e8f0 !important; color: #94a3b8 !important; border: none !important; box-shadow: none !important; cursor: not-allowed; }
+
+    /* Grand Final Boss Game Card */
+    .final-game-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+      border: 3px solid #facc15; border-radius: 22px; padding: 22px;
+      color: #fff; display: flex; justify-content: space-between; align-items: center;
+      box-shadow: 0 15px 35px rgba(15, 23, 42, 0.3); gap: 16px; flex-wrap: wrap; margin-top: 10px;
     }
 
-    .btn-study:hover {
-      background: rgba(255, 255, 255, 0.15); border-color: #fff;
+    .btn-start-3dgame {
+      padding: 14px 28px; border-radius: 16px; border: none;
+      background: linear-gradient(180deg, #facc15 0%, #eab308 100%);
+      color: #713f12; font-family: 'Chakra Petch'; font-size: 1.15rem; font-weight: 900;
+      cursor: pointer; box-shadow: 0 5px 0 #ca8a04; display: flex; align-items: center; gap: 8px;
+    }
+    .btn-start-3dgame:active { transform: translateY(3px); box-shadow: 0 2px 0 #ca8a04; }
+
+    /* ==========================================================================
+       3. MINIGAME QUIZ MODAL (3 QUESTIONS TO UNLOCK)
+       ========================================================================== */
+    #quiz-modal {
+      position: fixed; inset: 0; background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(10px); display: none; justify-content: center; align-items: center;
+      padding: 16px; z-index: 300;
     }
 
-    .btn-race {
-      background: linear-gradient(135deg, var(--neon-green) 0%, #059669 100%);
-      color: #fff; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    .quiz-box {
+      background: #ffffff; border: 4px solid var(--primary-blue);
+      border-radius: 26px; padding: 24px; max-width: 550px; width: 100%;
+      color: var(--text-main); box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      animation: popIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    .btn-race:hover {
-      box-shadow: 0 6px 18px rgba(16, 185, 129, 0.5); transform: translateY(-1px);
+    .quiz-top {
+      display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 2px dashed #e2e8f0; padding-bottom: 12px; margin-bottom: 16px;
     }
 
-    /* Responsive Layout Controls */
-    @media (max-width: 768px) {
-      body { padding: 16px 12px; }
-      .hub-banner { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .q-step-badge {
+      background: #e0f2fe; color: #0284c7; font-weight: 800; font-size: 0.85rem;
+      padding: 4px 12px; border-radius: 20px; display: inline-flex; align-items: center; gap: 6px;
+    }
+
+    .q-title { font-size: 1.1rem; font-weight: 800; line-height: 1.45; color: #0f172a; margin-bottom: 16px; }
+
+    .quiz-interactive-area {
+      background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 16px;
+      padding: 16px; margin-bottom: 16px; min-height: 150px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+    }
+
+    /* Custom Interactives */
+    .ribbon-bar-mini { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+    .btn-ribbon-item {
+      padding: 10px 16px; border-radius: 10px; border: 2px solid #cbd5e1;
+      background: #fff; font-weight: 700; cursor: pointer; color: #334155; transition: 0.15s;
+    }
+    .btn-ribbon-item:hover { background: #e0f2fe; border-color: #38bdf8; }
+
+    .match-mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; }
+    .match-card-mini {
+      background: #fff; border: 2px solid #cbd5e1; border-radius: 10px; padding: 10px;
+      font-size: 0.88rem; font-weight: 700; text-align: center; cursor: pointer;
+    }
+    .match-card-mini.selected { border-color: #0284c7; background: #e0f2fe; color: #0284c7; }
+    .match-card-mini.paired { border-color: #10b981; background: #ecfdf5; color: #059669; pointer-events: none; }
+
+    .choices-list-mini { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+    .btn-choice-item {
+      width: 100%; padding: 12px; border-radius: 12px; border: 2px solid #cbd5e1;
+      background: #fff; text-align: left; font-family: 'Kanit'; font-size: 0.92rem;
+      font-weight: 700; color: #334155; cursor: pointer; transition: 0.15s;
+    }
+    .btn-choice-item:hover { border-color: #0284c7; background: #f0f9ff; }
+
+    @media (max-width: 640px) {
+      body { padding: 14px 10px; }
+      .hub-banner { flex-direction: column; align-items: flex-start; }
       .units-grid { grid-template-columns: 1fr; }
     }
   </style>
@@ -310,19 +326,18 @@
 <body>
 
   <!-- ==========================================================================
-       1. AUTHENTICATION SCREEN (REGISTER / LOGIN)
+       1. AUTH SCREEN (LOGIN / REGISTER)
        ========================================================================== -->
   <div id="auth-screen">
     <div class="auth-card">
       <div class="auth-header">
-        <div class="game-title-neon">WORD ROAD 3D</div>
+        <div class="game-title-bright">WORD ROAD 3D</div>
         <div class="game-subtitle">
           <svg class="icon" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
           Cyberpunk Learning Hub
         </div>
       </div>
 
-      <!-- Tab Switcher -->
       <div class="auth-tabs">
         <button class="auth-tab-btn active" id="tab-login-btn" onclick="switchTab('login')">เข้าสู่ระบบ</button>
         <button class="auth-tab-btn" id="tab-register-btn" onclick="switchTab('register')">ลงทะเบียนผู้ใช้</button>
@@ -333,15 +348,15 @@
         <div class="input-group">
           <div class="input-wrapper">
             <svg class="icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-            <input type="text" id="login-username" class="cyber-input" placeholder="ชื่อผู้ใช้ / เลขที่..." required autocomplete="off" />
+            <input type="text" id="login-username" class="bright-input" placeholder="ชื่อผู้ใช้ / เลขที่..." required autocomplete="off" />
           </div>
           <div class="input-wrapper">
             <svg class="icon" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
-            <input type="password" id="login-password" class="cyber-input" placeholder="รหัสผ่าน..." required />
+            <input type="password" id="login-password" class="bright-input" placeholder="รหัสผ่าน..." required />
           </div>
         </div>
 
-        <button type="submit" class="btn-cyber-submit">
+        <button type="submit" class="btn-bright-submit">
           <svg class="icon" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5v10z"/></svg>
           <span>เข้าสู่ระบบ (LOGIN)</span>
         </button>
@@ -352,19 +367,19 @@
         <div class="input-group">
           <div class="input-wrapper">
             <svg class="icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-            <input type="text" id="reg-fullname" class="cyber-input" placeholder="ชื่อ - นามสกุล หรือ เลขที่..." required autocomplete="off" />
+            <input type="text" id="reg-fullname" class="bright-input" placeholder="ชื่อ - นามสกุล หรือ เลขที่..." required autocomplete="off" />
           </div>
           <div class="input-wrapper">
             <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
-            <input type="text" id="reg-username" class="cyber-input" placeholder="ตั้งชื่อผู้ใช้ (Username)..." required autocomplete="off" />
+            <input type="text" id="reg-username" class="bright-input" placeholder="ตั้งชื่อผู้ใช้ (Username)..." required autocomplete="off" />
           </div>
           <div class="input-wrapper">
             <svg class="icon" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
-            <input type="password" id="reg-password" class="cyber-input" placeholder="ตั้งรหัสผ่าน (Password)..." required />
+            <input type="password" id="reg-password" class="bright-input" placeholder="ตั้งรหัสผ่าน (Password)..." required />
           </div>
         </div>
 
-        <button type="submit" class="btn-cyber-submit">
+        <button type="submit" class="btn-bright-submit">
           <svg class="icon" viewBox="0 0 24 24"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
           <span>ยืนยันการลงทะเบียน</span>
         </button>
@@ -377,7 +392,7 @@
        ========================================================================== -->
   <div id="hub-screen">
     
-    <!-- User Navbar -->
+    <!-- Navbar -->
     <div class="hub-navbar">
       <div class="user-profile-info">
         <div class="user-avatar" id="user-avatar-text">U</div>
@@ -396,20 +411,60 @@
       </button>
     </div>
 
-    <!-- Section Banner -->
+    <!-- Hub Banner & Progress -->
     <div class="hub-banner">
       <div class="banner-text">
-        <h2>เลือกบทเรียน Microsoft Word ม.1</h2>
-        <p>ศึกษาเนื้อหาหรือลงเข้าแข่งขันในสนามแข่ง 3D เพื่อสะสมคะแนน</p>
+        <h2>ศูนย์รวมการเรียนรู้ Microsoft Word ม.1</h2>
+        <p>ผ่านแบบทดสอบย่อย 3 ข้อประจำบท เพื่อปลดล็อกด่านถัดไป!</p>
+      </div>
+      <div class="progress-pill-badge">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/></svg>
+        <span id="progress-text">ความคืบหน้า: 1 / 12 บท</span>
       </div>
     </div>
 
-    <!-- Units Cards Grid -->
+    <!-- Units Grid -->
     <div class="units-grid" id="units-grid"></div>
+
+    <!-- Final Boss Game Unlocking Banner -->
+    <div class="final-game-card">
+      <div>
+        <div style="font-family:'Chakra Petch'; font-size:1.3rem; font-weight:800; color:#facc15; display:flex; align-items:center; gap:8px;">
+          <svg class="icon" style="width:24px; height:24px; fill:#facc15;" viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+          WORD ROAD 3D: GRAND PRIX (สนามแข่งจริง 20 ข้อ)
+        </div>
+        <div style="font-size:0.85rem; color:#94a3b8; margin-top:4px;" id="final-lock-desc">
+          🔒 ต้องปลดล็อกให้ครบทั้ง 12 บทก่อน จึงจะสามารถปลดล็อกสนามแข่งหลักได้
+        </div>
+      </div>
+      <button class="btn-start-3dgame btn-disabled" id="btn-final-game" onclick="openFinalGame()">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <span>เข้าสู่สนามแข่ง GRAND PRIX</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       3. MINIGAME QUIZ MODAL
+       ========================================================================== -->
+  <div id="quiz-modal">
+    <div class="quiz-box">
+      <div class="quiz-top">
+        <span class="q-step-badge" id="quiz-badge">ข้อที่ 1 / 3</span>
+        <span style="font-weight:800; color:#0284c7;" id="quiz-unit-title">บทที่ 1</span>
+      </div>
+      
+      <div class="q-title" id="quiz-q-text">คำถามทดสอบ...</div>
+
+      <div class="quiz-interactive-area" id="quiz-interactive-area"></div>
+
+      <div style="font-size:0.8rem; color:#64748b; text-align:center;">
+        ตอบถูกครบทั้ง 3 ข้อเพื่อปลดล็อกบทเรียนถัดไป
+      </div>
+    </div>
   </div>
 
   <script>
-    // รายชื่อบทเรียนทั้งหมด 12 บท
     const unitsList = [
       { id: 1, title: "บทที่ 1: รู้จักหน้าตาและส่วนประกอบของ Microsoft Word" },
       { id: 2, title: "บทที่ 2: การจัดการไฟล์เอกสารและคีย์ลัดพื้นฐาน" },
@@ -425,67 +480,107 @@
       { id: 12, title: "บทที่ 12: การส่งออกไฟล์และการพิมพ์เอกสาร (Print & Export)" }
     ];
 
-    // ตรวจสอบการสลับสลับ Tab หน้า Auth
-    function switchTab(tab) {
-      const loginForm = document.getElementById("login-form");
-      const regForm = document.getElementById("register-form");
-      const tabLoginBtn = document.getElementById("tab-login-btn");
-      const tabRegBtn = document.getElementById("tab-register-btn");
+    // คลังคำถามปลดล็อกประจำแต่ละบท (บทละ 3 ข้อ แบบ Interactive)
+    const unitQuizzes = {
+      1: [
+        { type: "ribbon", q: "ข้อ 1/3: แถบ Ribbon ใดใช้เป็นศูนย์รวมคำสั่งเปลี่ยนฟอนต์และปรับขนาดตัวอักษร?", target: "Home", options: ["File", "Home", "Insert", "Layout"] },
+        { type: "choice", q: "ข้อ 2/3: แถบสถานะ (Status Bar) แสดงข้อมูลใดที่ด้านล่างหน้าจอ?", target: "จำนวนหน้าและจำนวนคำ", options: ["จำนวนหน้าและจำนวนคำ", "ชื่อไฟล์เอกสาร", "ปุ่มปิดโปรแกรม Word"] },
+        { type: "choice", q: "ข้อ 3/3: หากต้องการย่อ/ขยายหน้าเอกสาร ต้องใช้เครื่องมือใด?", target: "Zoom Slider มุมขวาล่าง", options: ["Ruler ไม้บรรทัด", "Zoom Slider มุมขวาล่าง", "Scroll Bar"] }
+      ],
+      2: [
+        { type: "match", q: "ข้อ 1/3: จับคู่คำสั่งบันทึกไฟล์และสร้างไฟล์ใหม่กับคีย์ลัด:", pairs: [{ a: "บันทึกเอกสาร", k: "Ctrl + S" }, { a: "สร้างไฟล์ใหม่", k: "Ctrl + N" }] },
+        { type: "choice", q: "ข้อ 2/3: คีย์ลัดใดใช้เปิดไฟล์เก่าที่เคยบันทึกไว้ (Open)?", target: "Ctrl + O", options: ["Ctrl + P", "Ctrl + O", "Ctrl + F"] },
+        { type: "choice", q: "ข้อ 3/3: หากเผลอลบข้อความสำคัญ สามารถกดคีย์ลัดใดเพื่อย้อนกลับ (Undo)?", target: "Ctrl + Z", options: ["Ctrl + Z", "Ctrl + Y", "Ctrl + X"] }
+      ],
+      3: [
+        { type: "choice", q: "ข้อ 1/3: ปุ่มใดบนคีย์บอร์ดใช้สำหรับสลับภาษาไทย/อังกฤษในการพิมพ์?", target: "ปุ่มเปลี่ยนภาษา (~ Grave Accent)", options: ["ปุ่ม Shift", "ปุ่ม Spacebar", "ปุ่มเปลี่ยนภาษา (~ Grave Accent)"] },
+        { type: "choice", q: "ข้อ 2/3: ปุ่ม Enter ใช้สำหรับหน้าที่ใดในการพิมพ์ข้อความ?", target: "ขึ้นย่อหน้าใหม่", options: ["เคาะเว้นวรรค", "ขึ้นย่อหน้าใหม่", "ลบอักษรด้านซ้าย"] },
+        { type: "choice", q: "ข้อ 3/3: ปุ่ม Delete ต่างจาก Backspace อย่างไร?", target: "Delete ลบตัวอักษรทางขวา", options: ["Delete ลบตัวอักษรทางขวา", "Delete ลบทั้งบรรทัด", "ไม่มีความต่างกัน"] }
+      ],
+      4: [
+        { type: "match", q: "ข้อ 1/3: จับคู่รูปแบบสไตล์ฟอนต์กับคีย์ลัด:", pairs: [{ a: "ตัวหนา (Bold)", k: "Ctrl + B" }, { a: "ตัวเอียง (Italic)", k: "Ctrl + I" }] },
+        { type: "choice", q: "ข้อ 2/3: ไอคอนรูปแปรงทาสี (Format Painter) มีหน้าที่อะไร?", target: "คัดลอกสไตล์และรูปแบบข้อความ", options: ["คัดลอกสไตล์และรูปแบบข้อความ", "ระบายสีพื้นหลัง", "ลบข้อความทั้งหมด"] },
+        { type: "choice", q: "ข้อ 3/3: คำสั่ง ขีดเส้นใต้ข้อความ (Underline) ใช้คีย์ลัดใด?", target: "Ctrl + U", options: ["Ctrl + U", "Ctrl + D", "Ctrl + K"] }
+      ],
+      5: [
+        { type: "choice", q: "ข้อ 1/3: หากต้องการจัดข้อความให้อยู่กึ่งกลางหน้ากระดาษ ต้องเลือกคีย์ลัดใด?", target: "Ctrl + E", options: ["Ctrl + L", "Ctrl + E", "Ctrl + R"] },
+        { type: "choice", q: "ข้อ 2/3: การจัดย่อหน้าแบบ Justify มีลักษณะอย่างไร?", target: "จัดข้อความให้เรียบเท่ากันทั้งซ้ายและขวา", options: ["ชิดซ้ายอย่างเดียว", "จัดข้อความให้เรียบเท่ากันทั้งซ้ายและขวา", "จัดชิดขวาอย่างเดียว"] },
+        { type: "choice", q: "ข้อ 3/3: ระยะเว้นบรรทัดมาตรฐานของ Word เรียกว่าอะไร?", target: "Line Spacing", options: ["Line Spacing", "Page Margin", "Tab Stop"] }
+      ],
+      6: [
+        { type: "choice", q: "ข้อ 1/3: หากต้องการสร้างรายการสินค้าที่ไม่มีลำดับก่อนหลัง ควรใช้สัญลักษณ์ใด?", target: "Bullets (สัญลักษณ์หัวข้อย่อย)", options: ["Bullets (สัญลักษณ์หัวข้อย่อย)", "Numbering (ลำดับเลข)", "Multilevel List"] },
+        { type: "choice", q: "ข้อ 2/3: หากทำขั้นตอนการทำอาหาร 1, 2, 3 ควรใช้เครื่องมือใด?", target: "Numbering", options: ["Bullets", "Numbering", "Caption"] },
+        { type: "choice", q: "ข้อ 3/3: ปุ่ม Tab บนคีย์บอร์ด ช่วยอะไรในการทำรายการหัวข้อย่อย?", target: "เพิ่มระดับย่อหน้าเข้าไปข้างใน", options: ["ลบรายการ", "เพิ่มระดับย่อหน้าเข้าไปข้างใน", "เปลี่ยนสีสัญลักษณ์"] }
+      ],
+      7: [
+        { type: "choice", q: "ข้อ 1/3: คำสั่ง Wrap Text แบบ Square ทำให้รูปภาพวางอย่างไร?", target: "ข้อความล้อมรอบรูปภาพเป็นทรงสี่เหลี่ยม", options: ["ข้อความล้อมรอบรูปภาพเป็นทรงสี่เหลี่ยม", "รูปภาพทับบนข้อความ", "รูปภาพไปอยู่หลังข้อความ"] },
+        { type: "choice", q: "ข้อ 2/3: คำสั่ง Behind Text เหมาะสำหรับงานแบบใด?", target: "วางรูปภาพเป็นฉากหลังให้ข้อความลอยทับ", options: ["วางรูปภาพเป็นฉากหลังให้ข้อความลอยทับ", "แทรกรูปภาพบรรทัดเดียวกับอักษร", "ตัดรูปภาพออก"] },
+        { type: "choice", q: "ข้อ 3/3: เมนูใดใช้สำหรับหมุนหรือตัดขอบรูปภาพ (Crop)?", target: "Picture Format", options: ["Picture Format", "Table Design", "Page Layout"] }
+      ],
+      8: [
+        { type: "choice", q: "ข้อ 1/3: ตารางขนาด 3 x 4 หมายถึงอะไร?", target: "3 คอลัมน์ (แนวตั้ง) x 4 แถว (แนวนอน)", options: ["3 คอลัมน์ (แนวตั้ง) x 4 แถว (แนวนอน)", "3 แถว x 4 คอลัมน์", "ตาราง 12 หน้า"] },
+        { type: "choice", q: "ข้อ 2/3: หากต้องการรวมช่องตาราง 2 ช่องเข้าด้วยกัน ต้องใช้คำสั่งใด?", target: "Merge Cells", options: ["Split Cells", "Merge Cells", "Delete Cells"] },
+        { type: "choice", q: "ข้อ 3/3: คำสั่ง Split Cells มีไว้ทำอะไร?", target: "แบ่งช่องตารางออกเป็นหลายช่อง", options: ["รวมตาราง", "แบ่งช่องตารางออกเป็นหลายช่อง", "ลบตาราง"] }
+      ],
+      9: [
+        { type: "choice", q: "ข้อ 1/3: หากต้องการตั้งค่ากระดาษเป็น แนวนอน ต้องเลือกเมนู Orientation เป็นแบบใด?", target: "Landscape", options: ["Portrait", "Landscape", "Columns"] },
+        { type: "choice", q: "ข้อ 2/3: ระยะขอบกระดาษ ภาษาอังกฤษเรียกว่าอะไร?", target: "Margins", options: ["Margins", "Indent", "Border"] },
+        { type: "choice", q: "ข้อ 3/3: ขนาดกระดาษมาตรฐานที่นิยมใช้พิมพ์รายงานคือขนาดใด?", target: "A4", options: ["A4", "A3", "Letter"] }
+      ],
+      10: [
+        { type: "choice", q: "ข้อ 1/3: เส้นหยักสีแดงใต้ข้อความ หมายถึงอะไร?", target: "สะกดคำผิด", options: ["สะกดคำผิด", "ไวยากรณ์ผิด", "เว้นวรรคผิด"] },
+        { type: "choice", q: "ข้อ 2/3: คีย์ลัดสำหรับค้นหาข้อความในเอกสาร (Find) คืออะไร?", target: "Ctrl + F", options: ["Ctrl + F", "Ctrl + H", "Ctrl + G"] },
+        { type: "choice", q: "ข้อ 3/3: หากต้องการแทนที่คำผิดทั้งเอกสารด้วยคำใหม่ ต้องใช้คำสั่งใด?", target: "Replace (Ctrl + H)", options: ["Find", "Replace (Ctrl + H)", "Select All"] }
+      ],
+      11: [
+        { type: "choice", q: "ข้อ 1/3: การทำสารบัญอัตโนมัติ (Table of Contents) ต้องกำหนดสไตล์หัวข้อเป็นแบบใด?", target: "Heading 1 / Heading 2", options: ["Normal", "Heading 1 / Heading 2", "Title"] },
+        { type: "choice", q: "ข้อ 2/3: แถบเมนูใดเป็นที่อยู่ของคำสั่ง Table of Contents (สารบัญ)?", target: "References (การอ้างอิง)", options: ["References (การอ้างอิง)", "Insert", "View"] },
+        { type: "choice", q: "ข้อ 3/3: ข้อดีของสารบัญอัตโนมัติคืออะไร?", target: "อัปเดตเลขหน้าตามจริงให้อัตโนมัติ", options: ["อัปเดตเลขหน้าตามจริงให้อัตโนมัติ", "เปลี่ยนสีฟอนต์ได้", "พิมพ์ง่ายขึ้น"] }
+      ],
+      12: [
+        { type: "choice", q: "ข้อ 1/3: นามสกุลไฟล์ใดที่ช่วยล็อกหน้ากระดาษและฟอนต์ไม่ให้เคลื่อนเมื่อนำไปเปิดเครื่องอื่น?", target: ".pdf", options: [".docx", ".pdf", ".txt"] },
+        { type: "choice", q: "ข้อ 2/3: คีย์ลัดสำหรับสั่งพิมพ์เอกสาร (Print) คืออะไร?", target: "Ctrl + P", options: ["Ctrl + P", "Ctrl + S", "Ctrl + E"] },
+        { type: "choice", q: "ข้อ 3/3: เมนู Save As ต่างจาก Save อย่างไร?", target: "Save As ใช้ตั้งชื่อหรือเปลี่ยนสถานที่บันทึกใหม่", options: ["เหมือนกันทุกประการ", "Save As ใช้ตั้งชื่อหรือเปลี่ยนสถานที่บันทึกใหม่", "Save As ใช้ลบไฟล์"] }
+      ]
+    };
 
-      if (tab === 'login') {
-        loginForm.style.display = "block";
-        regForm.style.display = "none";
-        tabLoginBtn.classList.add("active");
-        tabRegBtn.classList.remove("active");
-      } else {
-        loginForm.style.display = "none";
-        regForm.style.display = "block";
-        tabRegBtn.classList.add("active");
-        tabLoginBtn.classList.remove("active");
-      }
+    let activeQuizUnit = 1;
+    let quizStep = 0;
+    let selectedMatchMiniAction = null;
+    let miniPairsSolved = 0;
+
+    function switchTab(tab) {
+      document.getElementById("login-form").style.display = tab === 'login' ? 'block' : 'none';
+      document.getElementById("register-form").style.display = tab === 'register' ? 'block' : 'none';
+      document.getElementById("tab-login-btn").classList.toggle("active", tab === 'login');
+      document.getElementById("tab-register-btn").classList.toggle("active", tab === 'register');
     }
 
-    // ดึงฐานข้อมูลผู้ใช้จาก LocalStorage
     function getUsersDB() {
       const db = localStorage.getItem("word_road_users_db");
       return db ? JSON.parse(db) : {};
     }
 
-    // บันทึกฐานข้อมูลผู้ใช้ลง LocalStorage
     function saveUsersDB(db) {
       localStorage.setItem("word_road_users_db", JSON.stringify(db));
     }
 
-    // สมัครสมาชิกใหม่
     function handleRegister(e) {
       e.preventDefault();
       const fullname = document.getElementById("reg-fullname").value.trim();
       const username = document.getElementById("reg-username").value.trim().toLowerCase();
       const password = document.getElementById("reg-password").value.trim();
 
-      if (!fullname || !username || !password) {
-        alert("กรุณากรอกข้อมูลให้ครบทุกช่องครับ");
-        return;
-      }
-
       const db = getUsersDB();
-      if (db[username]) {
-        alert("Username นี้มีผู้ใช้งานแล้ว กรุณาใช้ชื่ออื่นครับ");
-        return;
-      }
+      if (db[username]) { alert("Username นี้มีผู้ใช้งานแล้วครับ"); return; }
 
-      // บันทึกข้อมูล
-      db[username] = { fullname, password };
+      db[username] = { fullname, password, unlockedUnit: 1 };
       saveUsersDB(db);
 
-      alert("ลงทะเบียนสำเร็จแล้ว! ระบบจะนำท่านเข้าสู่ระบบทันที");
-      
-      // Auto Login หลังสมัคร
       setCurrentSession({ username, fullname });
       loadHubScreen();
     }
 
-    // เข้าสู่ระบบ
     function handleLogin(e) {
       e.preventDefault();
       const username = document.getElementById("login-username").value.trim().toLowerCase();
@@ -498,11 +593,10 @@
         setCurrentSession({ username, fullname: user.fullname });
         loadHubScreen();
       } else {
-        alert("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง กรุณาตรวจสอบอีกครั้งครับ");
+        alert("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้องครับ");
       }
     }
 
-    // จัดการ Session ผู้ใช้งานปัจจุบัน
     function setCurrentSession(userObj) {
       localStorage.setItem("word_road_current_session", JSON.stringify(userObj));
     }
@@ -518,7 +612,25 @@
       document.getElementById("auth-screen").style.display = "flex";
     }
 
-    // โหลดหน้า Hub หลัก
+    function getUserUnlockedUnit() {
+      const session = getCurrentSession();
+      if (!session) return 1;
+      const db = getUsersDB();
+      return (db[session.username] && db[session.username].unlockedUnit) ? db[session.username].unlockedUnit : 1;
+    }
+
+    function setUserUnlockedUnit(unitNum) {
+      const session = getCurrentSession();
+      if (!session) return;
+      const db = getUsersDB();
+      if (db[session.username]) {
+        if (unitNum > (db[session.username].unlockedUnit || 1)) {
+          db[session.username].unlockedUnit = unitNum;
+          saveUsersDB(db);
+        }
+      }
+    }
+
     function loadHubScreen() {
       const session = getCurrentSession();
       if (!session) return;
@@ -533,18 +645,38 @@
       renderUnitsGrid();
     }
 
-    // สร้างการ์ดบทเรียน
     function renderUnitsGrid() {
       const container = document.getElementById("units-grid");
       container.innerHTML = "";
+      const userUnlocked = getUserUnlockedUnit();
+
+      document.getElementById("progress-text").innerText = `ความคืบหน้า: ${Math.min(userUnlocked, 12)} / 12 บท`;
 
       unitsList.forEach(u => {
+        const isUnlocked = u.id <= userUnlocked;
+        const isCompleted = u.id < userUnlocked;
+
+        let cardClass = "unit-card ";
+        let statusHtml = "";
+
+        if (isCompleted) {
+          cardClass += "completed";
+          statusHtml = `<span class="status-tag completed"><svg class="icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>ผ่านแล้ว</span>`;
+        } else if (isUnlocked) {
+          cardClass += "unlocked";
+          statusHtml = `<span class="status-tag unlocked"><svg class="icon" viewBox="0 0 24 24"><path d="M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6-5c1.71 0 3.1 1.39 3.1 3.1v2H8.9V6c0-1.71 1.39-3.1 3.1-3.1z"/></svg>กำลังเรียน</span>`;
+        } else {
+          cardClass += "locked";
+          statusHtml = `<span class="status-tag locked"><svg class="icon" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>ล็อกอยู่</span>`;
+        }
+
         const card = document.createElement("div");
-        card.className = "unit-card";
+        card.className = cardClass;
         card.innerHTML = `
           <div>
-            <div class="unit-card-header">
+            <div class="unit-card-top">
               <span class="unit-badge">UNIT ${u.id.toString().padStart(2, '0')}</span>
+              ${statusHtml}
             </div>
             <div class="unit-title-text">${u.title}</div>
           </div>
@@ -554,25 +686,157 @@
               <svg class="icon" viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
               <span>อ่านสรุป</span>
             </button>
-            <button class="btn-act btn-race" onclick="goToGame(${u.id})">
-              <svg class="icon" viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
-              <span>สนามแข่ง</span>
+            <button class="btn-act ${isUnlocked ? 'btn-quiz' : 'btn-disabled'}" ${isUnlocked ? `onclick="startUnitQuiz(${u.id})"` : 'disabled'}>
+              <svg class="icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              <span>${isCompleted ? 'ทำซ้ำ' : 'แบบทดสอบ'}</span>
             </button>
           </div>
         `;
         container.appendChild(card);
       });
+
+      // ปลดล็อกปุ่ม Final Game เมื่อผ่านครบ 12 บท
+      const finalBtn = document.getElementById("btn-final-game");
+      const finalDesc = document.getElementById("final-lock-desc");
+      if (userUnlocked > 12) {
+        finalBtn.classList.remove("btn-disabled");
+        finalDesc.innerText = "✅ คุณปลดล็อกครบทุกบทเรียบร้อยแล้ว! พร้อมเข้าแข่งสนามใหญ่";
+        finalDesc.style.color = "#4ade80";
+      } else {
+        finalBtn.classList.add("btn-disabled");
+        finalDesc.innerText = "🔒 ต้องปลดล็อกให้ครบทั้ง 12 บทก่อน จึงจะสามารถปลดล็อกสนามแข่งหลักได้";
+        finalDesc.style.color = "#94a3b8";
+      }
     }
 
     function goToStudy(unitId) {
       window.location.href = `study.html?unit=${unitId}`;
     }
 
-    function goToGame(unitId) {
-      window.location.href = `game.html?unit=${unitId}`;
+    function openFinalGame() {
+      const userUnlocked = getUserUnlockedUnit();
+      if (userUnlocked > 12) {
+        window.location.href = `game.html`;
+      } else {
+        alert("ต้องทำแบบทดสอบปลดล็อกให้ครบทั้ง 12 บทก่อนนะครับ!");
+      }
     }
 
-    // Auto Check Session เมื่อเปิดหน้าเว็บ
+    /* Quiz Modal Mechanics */
+    function startUnitQuiz(unitId) {
+      activeQuizUnit = unitId;
+      quizStep = 0;
+      document.getElementById("quiz-modal").style.display = "flex";
+      renderQuizQuestion();
+    }
+
+    function renderQuizQuestion() {
+      const qList = unitQuizzes[activeQuizUnit];
+      if (!qList || quizStep >= qList.length) {
+        // Complete Quiz
+        alert(`🎉 ยินดีด้วย! คุณผ่านแบบทดสอบบทที่ ${activeQuizUnit} เรียบร้อยแล้ว`);
+        setUserUnlockedUnit(activeQuizUnit + 1);
+        document.getElementById("quiz-modal").style.display = "none";
+        renderUnitsGrid();
+        return;
+      }
+
+      const currentQ = qList[quizStep];
+      document.getElementById("quiz-badge").innerText = `ข้อที่ ${quizStep + 1} / 3`;
+      document.getElementById("quiz-unit-title").innerText = `บทที่ ${activeQuizUnit}`;
+      document.getElementById("quiz-q-text").innerText = currentQ.q;
+
+      const area = document.getElementById("quiz-interactive-area");
+      area.innerHTML = "";
+
+      if (currentQ.type === "ribbon") {
+        const ribbonDiv = document.createElement("div");
+        ribbonDiv.className = "ribbon-bar-mini";
+        currentQ.options.forEach(opt => {
+          const btn = document.createElement("button");
+          btn.className = "btn-ribbon-item";
+          btn.innerText = opt;
+          btn.onclick = () => {
+            if (opt === currentQ.target) nextQuizStep();
+            else alert("ยังไม่ถูกต้อง ลองใหม่อีกครั้งครับ!");
+          };
+          ribbonDiv.appendChild(btn);
+        });
+        area.appendChild(ribbonDiv);
+      } 
+      else if (currentQ.type === "choice") {
+        const choicesDiv = document.createElement("div");
+        choicesDiv.className = "choices-list-mini";
+        currentQ.options.forEach(opt => {
+          const btn = document.createElement("button");
+          btn.className = "btn-choice-item";
+          btn.innerText = opt;
+          btn.onclick = () => {
+            if (opt === currentQ.target) nextQuizStep();
+            else alert("ยังไม่ถูกต้อง ลองใหม่อีกครั้งครับ!");
+          };
+          choicesDiv.appendChild(btn);
+        });
+        area.appendChild(choicesDiv);
+      }
+      else if (currentQ.type === "match") {
+        selectedMatchMiniAction = null;
+        miniPairsSolved = 0;
+        const grid = document.createElement("div");
+        grid.className = "match-mini-grid";
+
+        const colA = document.createElement("div");
+        colA.style.display = "flex"; colA.style.flexDirection = "column"; colA.style.gap = "8px";
+
+        const colB = document.createElement("div");
+        colB.style.display = "flex"; colB.style.flexDirection = "column"; colB.style.gap = "8px";
+
+        currentQ.pairs.forEach(p => {
+          const cA = document.createElement("div");
+          cA.className = "match-card-mini";
+          cA.innerText = p.a;
+          cA.dataset.match = p.k;
+          cA.onclick = () => {
+            colA.querySelectorAll(".match-card-mini").forEach(x => x.classList.remove("selected"));
+            cA.classList.add("selected");
+            selectedMatchMiniAction = cA;
+          };
+          colA.appendChild(cA);
+
+          const cB = document.createElement("div");
+          cB.className = "match-card-mini";
+          cB.innerText = p.k;
+          cB.dataset.key = p.k;
+          cB.onclick = () => {
+            if (!selectedMatchMiniAction) { alert("แตะเลือกฝั่งซ้ายก่อนครับ"); return; }
+            if (selectedMatchMiniAction.dataset.match === cB.dataset.key) {
+              selectedMatchMiniAction.classList.remove("selected");
+              selectedMatchMiniAction.classList.add("paired");
+              cB.classList.add("paired");
+              selectedMatchMiniAction = null;
+              miniPairsSolved++;
+              if (miniPairsSolved === currentQ.pairs.length) {
+                setTimeout(nextQuizStep, 300);
+              }
+            } else {
+              alert("คู่ไม่ถูกต้องครับ ลองใหม่!");
+              selectedMatchMiniAction.classList.remove("selected");
+              selectedMatchMiniAction = null;
+            }
+          };
+          colB.appendChild(cB);
+        });
+
+        grid.appendChild(colA); grid.appendChild(colB);
+        area.appendChild(grid);
+      }
+    }
+
+    function nextQuizStep() {
+      quizStep++;
+      renderQuizQuestion();
+    }
+
     window.addEventListener("DOMContentLoaded", () => {
       const session = getCurrentSession();
       if (session) {
