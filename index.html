@@ -12,10 +12,7 @@
       --bg-gradient: radial-gradient(circle at 50% 30%, #38bdf8 0%, #0369a1 100%);
       --card-bg: #ffffff;
       --border-blue: #38bdf8;
-      --primary-blue: #0284c7;
-      --text-main: #0f172a;
       --yellow: #facc15;
-      --green: #10b981;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-user-select: none; }
@@ -24,121 +21,70 @@
       min-height: 100vh;
       background: var(--bg-gradient);
       font-family: 'Kanit', sans-serif;
-      color: var(--text-main);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      color: #0f172a;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
       padding: 24px 16px;
     }
 
     .ico { width: 20px; height: 20px; fill: currentColor; display: inline-block; vertical-align: middle; }
 
-    /* ==========================================
-       1. LOGIN SCREEN (หน้าล็อกอินเข้าสู่ระบบ)
-    ========================================== */
+    /* Login Screen */
     #login-screen {
-      position: fixed; inset: 0;
-      background: var(--bg-gradient);
+      position: fixed; inset: 0; background: var(--bg-gradient);
       display: flex; justify-content: center; align-items: center;
       padding: 16px; z-index: 200;
     }
 
     .login-card {
-      background: var(--card-bg);
-      border: 5px solid var(--border-blue);
-      border-radius: 32px;
-      padding: 28px 24px;
-      max-width: 530px; width: 100%;
-      text-align: center;
-      box-shadow: 0 25px 60px rgba(2, 132, 199, 0.4), 0 0 0 8px rgba(255, 255, 255, 0.3);
-      animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    @keyframes popIn {
-      from { transform: scale(0.85); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
+      background: var(--card-bg); border: 5px solid var(--border-blue);
+      border-radius: 32px; padding: 28px 24px; max-width: 520px; width: 100%;
+      text-align: center; box-shadow: 0 25px 60px rgba(2, 132, 199, 0.4);
     }
 
     .login-header {
       background: linear-gradient(135deg, #0284c7, #2563eb);
-      margin: -28px -24px 20px -24px;
-      padding: 24px 16px 18px;
-      border-radius: 26px 26px 0 0;
-      border-bottom: 4px solid var(--yellow);
+      margin: -28px -24px 20px -24px; padding: 24px 16px 18px;
+      border-radius: 26px 26px 0 0; border-bottom: 4px solid var(--yellow);
     }
 
     .game-logo {
-      font-family: 'Chakra Petch', sans-serif;
-      font-size: 2.5rem; font-weight: 800; color: #ffffff;
-      text-shadow: 3px 3px 0px #0369a1, 0 0 18px rgba(250, 204, 21, 0.6);
-      line-height: 1.1;
+      font-family: 'Chakra Petch', sans-serif; font-size: 2.4rem; font-weight: 800; color: #ffffff;
+      text-shadow: 3px 3px 0px #0369a1, 0 0 18px rgba(250, 204, 21, 0.6); line-height: 1.1;
     }
-
-    .game-sub-badge {
-      display: inline-flex; align-items: center; gap: 6px; margin-top: 6px;
-      background: var(--yellow); color: #713f12; font-size: 0.85rem; font-weight: 800;
-      padding: 4px 14px; border-radius: 999px; box-shadow: 0 3px 0 #ca8a04;
-    }
-
-    .rule-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; text-align: left; }
-    .rule-card { background: #f0f9ff; border: 2px solid #bae6fd; border-radius: 14px; padding: 12px; font-size: 0.82rem; color: #475569; }
-    .rule-card.points { background: #fefce8; border-color: #fde047; }
-    .rule-header { font-size: 0.88rem; font-weight: 800; display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
 
     .player-input {
       width: 100%; padding: 14px 18px; border-radius: 16px;
       border: 3px solid #cbd5e1; background: #f8fafc; color: #0f172a;
-      font-size: 1.05rem; font-weight: 700; text-align: center; outline: none;
-      box-shadow: inset 0 2px 4px rgba(0,0,0,0.06); margin-bottom: 16px;
-      transition: all 0.2s;
+      font-size: 1.05rem; font-weight: 700; text-align: center; outline: none; margin-bottom: 16px;
     }
-    .player-input:focus { border-color: #0284c7; background: #fff; box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.25); }
 
     .btn-login-start {
       width: 100%; padding: 15px; border-radius: 18px; border: none;
       background: linear-gradient(180deg, #10b981 0%, #059669 100%);
       color: #ffffff; font-size: 1.2rem; font-weight: 900; cursor: pointer;
-      box-shadow: 0 6px 0 #047857, 0 10px 18px rgba(16, 185, 129, 0.35);
-      display: flex; justify-content: center; align-items: center; gap: 8px;
-      transition: transform 0.1s, box-shadow 0.1s;
+      box-shadow: 0 6px 0 #047857; display: flex; justify-content: center; align-items: center; gap: 8px;
     }
-    .btn-login-start:active { transform: translateY(4px); box-shadow: 0 2px 0 #047857; }
 
-    /* ==========================================
-       2. MAIN HUB SCREEN (หน้ารวมบทเรียน 12 บท)
-    ========================================== */
+    /* Hub Screen */
     #hub-screen { display: none; width: 100%; max-width: 860px; flex-direction: column; align-items: center; }
 
     .hub-header-card {
       background: var(--card-bg); border: 5px solid var(--border-blue); border-radius: 28px;
       padding: 20px 24px; width: 100%; box-shadow: 0 20px 50px rgba(2, 132, 199, 0.35);
       display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px;
-      flex-wrap: wrap; gap: 12px;
     }
-
-    .user-info-text { font-size: 1.1rem; font-weight: 800; color: #0284c7; }
-    .user-info-name { color: #0f172a; font-weight: 900; font-size: 1.2rem; margin-left: 6px; }
-
-    .btn-switch-user {
-      padding: 8px 16px; border-radius: 12px; border: 2px solid #cbd5e1;
-      background: #f8fafc; color: #475569; font-weight: 800; font-size: 0.88rem;
-      cursor: pointer; transition: all 0.15s;
-    }
-    .btn-switch-user:hover { background: #e2e8f0; color: #0f172a; }
 
     .units-grid { width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 18px; }
 
     .unit-card {
       background: #ffffff; border: 3px solid #e2e8f0; border-radius: 22px; padding: 20px;
       display: flex; flex-direction: column; justify-content: space-between;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08); transition: all 0.2s; text-align: left;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08); text-align: left;
     }
-    .unit-card:hover { transform: translateY(-4px); border-color: #38bdf8; box-shadow: 0 15px 30px rgba(2, 132, 199, 0.18); }
+    .unit-card:hover { transform: translateY(-4px); border-color: #38bdf8; }
 
-    .unit-card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-    .unit-tag { background: #0284c7; color: #fff; font-family: 'Chakra Petch', sans-serif; font-weight: 800; font-size: 0.82rem; padding: 3px 10px; border-radius: 8px; }
-    .unit-title-text { font-size: 1.08rem; font-weight: 800; color: #0f172a; margin-bottom: 16px; line-height: 1.45; }
+    .unit-tag { background: #0284c7; color: #fff; font-family: 'Chakra Petch'; font-weight: 800; font-size: 0.82rem; padding: 3px 10px; border-radius: 8px; }
+    .unit-title-text { font-size: 1.08rem; font-weight: 800; color: #0f172a; margin: 12px 0 16px; line-height: 1.45; }
 
     .btn-group { display: grid; grid-template-columns: 1fr 1.2fr; gap: 10px; }
 
@@ -149,54 +95,17 @@
     }
 
     .btn-read { background: #f0f9ff; color: #0284c7; border: 2px solid #bae6fd; }
-    .btn-read:hover { background: #e0f2fe; }
-
     .btn-play { background: linear-gradient(180deg, #10b981 0%, #059669 100%); color: #ffffff; box-shadow: 0 4px 0 #047857; }
-    .btn-play:active { transform: translateY(2px); box-shadow: 0 2px 0 #047857; }
-
-    /* Modal อ่านสรุปเนื้อหา */
-    .modal-backdrop {
-      position: fixed; inset: 0; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(10px);
-      display: none; justify-content: center; align-items: center; padding: 18px; z-index: 300;
-    }
-    .study-modal-box {
-      background: #ffffff; border: 4px solid #38bdf8; border-radius: 28px; padding: 26px;
-      max-width: 650px; width: 100%; color: #0f172a; max-height: 88vh; overflow-y: auto; text-align: left;
-    }
-    .btn-close-modal {
-      width: 100%; margin-top: 18px; padding: 12px; border-radius: 14px; border: none;
-      background: #ef4444; color: #fff; font-size: 1rem; font-weight: 800; cursor: pointer; box-shadow: 0 4px 0 #b91c1c;
-    }
   </style>
 </head>
 <body>
 
-  <!-- 1. LOGIN SCREEN (หน้าแรกสุด) -->
+  <!-- 1. LOGIN SCREEN -->
   <div id="login-screen">
     <div class="login-card">
       <div class="login-header">
         <div class="game-logo">WORD ROAD 3D</div>
-        <div class="game-sub-badge">
-          <svg class="ico" viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
-          <span>ระบบสื่อการเรียนรู้ Microsoft Word (ม.1)</span>
-        </div>
-      </div>
-
-      <div class="rule-grid">
-        <div class="rule-card">
-          <div class="rule-header" style="color:#0284c7;">
-            <svg class="ico" viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5z"/></svg>
-            <span>ทบทวนเนื้อหา</span>
-          </div>
-          <p>• สรุปประเด็นสำคัญครบทั้ง 12 บทเรียน<br>• มีภาพอินโฟกราฟิกประกอบเข้าใจง่าย</p>
-        </div>
-        <div class="rule-card points">
-          <div class="rule-header" style="color:#ca8a04;">
-            <svg class="ico" viewBox="0 0 24 24"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2z"/></svg>
-            <span>สนามแข่ง 3D</span>
-          </div>
-          <p>• ตะลุยขับรถปลดล็อกม่านเลเซอร์<br>• คำถาม 20 ข้อทบทวนความรู้</p>
-        </div>
+        <div style="color:#facc15; font-weight:800; font-size:0.9rem; margin-top:6px;">ศูนย์รวมการเรียนรู้ Microsoft Word ม.1</div>
       </div>
 
       <input type="text" id="player-input" class="player-input" placeholder="พิมพ์ชื่อ - นามสกุล หรือ เลขที่..." autocomplete="off" />
@@ -208,62 +117,45 @@
     </div>
   </div>
 
-  <!-- 2. MAIN HUB SCREEN (หน้ารวมบทเรียน 12 บท) -->
+  <!-- 2. MAIN HUB SCREEN -->
   <div id="hub-screen">
     <div class="hub-header-card">
-      <div class="user-info-text">
-        <span>ยินดีต้อนรับ:</span>
-        <span class="user-info-name" id="display-user-name">-</span>
+      <div>
+        <span style="color:#0284c7; font-weight:800;">ยินดีต้อนรับ:</span>
+        <span id="display-user-name" style="color:#0f172a; font-weight:900; font-size:1.15rem; margin-left:6px;">-</span>
       </div>
-      <button class="btn-switch-user" onclick="switchUser()">สลับผู้ใช้ / สลับชื่อ</button>
+      <button onclick="switchUser()" style="padding:8px 14px; border-radius:12px; border:2px solid #cbd5e1; background:#f8fafc; font-weight:800; cursor:pointer;">สลับชื่อ</button>
     </div>
 
     <div class="units-grid" id="units-grid"></div>
   </div>
 
-  <!-- Modal อ่านสรุปเนื้อหา -->
-  <div class="modal-backdrop" id="study-modal">
-    <div class="study-modal-box">
-      <h3 id="modal-title" style="color:#0284c7; font-size:1.3rem; margin-bottom:12px; border-bottom:2px solid #bae6fd; padding-bottom:8px;">สรุปเนื้อหา</h3>
-      <div id="modal-body" style="font-size:0.95rem; line-height:1.65; color:#334155;"></div>
-      <button class="btn-close-modal" onclick="closeStudyModal()">ปิดหน้าต่างสรุป</button>
-    </div>
-  </div>
-
   <script>
-    const fullUnitsData = [
-      { id: 1, title: "บทที่ 1: รู้จักหน้าตาและส่วนประกอบของ Microsoft Word", summary: "ส่วนประกอบสำคัญ ได้แก่ Quick Access Toolbar, Title Bar, แถบเมนู Ribbon, ไม้บรรทัด และ Status Bar" },
-      { id: 2, title: "บทที่ 2: การจัดการไฟล์เอกสารและคีย์ลัดพื้นฐาน", summary: "คีย์ลัดสำคัญ: Ctrl+N (สร้างใหม่), Ctrl+S (บันทึก), Ctrl+O (เปิดไฟล์) และ Ctrl+Z (ยกเลิก)" },
-      { id: 3, title: "บทที่ 3: การพิมพ์และการจัดการข้อความภาษาไทย/อังกฤษ", summary: "คำสั่งกลุ่มคลิปบอร์ด: Ctrl+C (คัดลอก), Ctrl+X (ตัด) และ Ctrl+V (วาง)" },
-      { id: 4, title: "บทที่ 4: การตกแต่งฟอนต์และรูปแบบตัวอักษร", summary: "Ctrl+B (ตัวหนา), Ctrl+I (ตัวเอียง), Ctrl+U (ขีดเส้นใต้) และเครื่องมือ Format Painter (แปรงทาสี)" },
-      { id: 5, title: "บทที่ 5: การจัดแนวย่อหน้าและการเว้นระยะบรรทัด", summary: "การจัดชิดซ้าย (Ctrl+L), กึ่งกลาง (Ctrl+E), ชิดขวา (Ctrl+R) และกระจายแบบ Thai Distributed" },
-      { id: 6, title: "บทที่ 6: การสร้างรายการหัวข้อย่อยและลำดับเลข", summary: "Bullets (สัญลักษณ์หัวข้อย่อยไม่มีลำดับ) และ Numbering (ลำดับเลข 1, 2, 3)" },
-      { id: 7, title: "บทที่ 7: การแทรกรูปภาพและการจัดตัดข้อความ (Wrap Text)", summary: "โหมด Wrap Text: Square (ล้อมรอบสี่เหลี่ยม) และ Behind Text (รูปภาพเป็นฉากหลัง)" },
-      { id: 8, title: "บทที่ 8: การสร้างและตกแต่งตารางข้อมูล", summary: "โครงสร้างตาราง: Column (คอลัมน์แนวตั้ง) และ Row (แถวแนวนอน) การผสานเซลล์ (Merge Cells)" },
-      { id: 9, title: "บทที่ 9: การตั้งค่าหน้ากระดาษและระยะขอบ (Page Setup)", summary: "Portrait (วางกระดาษแนวตั้ง) / Landscape (แนวนอน) และการตั้งระยะขอบกระดาษ (Margins)" },
-      { id: 10, title: "บทที่ 10: การตรวจคำผิดและการค้นหา/แทนที่คำ", summary: "สัญลักษณ์เตือน: เส้นหยักสีแดง (สะกดผิด) และเส้นหยักสีฟ้า (เว้นวรรค/ไวยากรณ์ผิด)" },
-      { id: 11, title: "บทที่ 11: การใช้งาน Style และการสร้างสารบัญอัตโนมัติ", summary: "กำหนด Heading 1 และ Heading 2 เพื่อดึงสารบัญอัตโนมัติ (Table of Contents)" },
-      { id: 12, title: "บทที่ 12: การส่งออกไฟล์และการพิมพ์เอกสาร (Print & Export)", summary: "การบันทึกไฟล์เป็น .PDF เพื่อล็อกการจัดหน้ากระดาษไม่ให้เคลื่อนเมื่อนำไปพิมพ์" }
+    const unitsList = [
+      { id: 1, title: "บทที่ 1: รู้จักหน้าตาและส่วนประกอบของ Microsoft Word" },
+      { id: 2, title: "บทที่ 2: การจัดการไฟล์เอกสารและคีย์ลัดพื้นฐาน" },
+      { id: 3, title: "บทที่ 3: การพิมพ์และการจัดการข้อความภาษาไทย/อังกฤษ" },
+      { id: 4, title: "บทที่ 4: การตกแต่งฟอนต์และรูปแบบตัวอักษร" },
+      { id: 5, title: "บทที่ 5: การจัดแนวย่อหน้าและการเว้นระยะบรรทัด" },
+      { id: 6, title: "บทที่ 6: การสร้างรายการหัวข้อย่อยและลำดับเลข" },
+      { id: 7, title: "บทที่ 7: การแทรกรูปภาพและการจัดตัดข้อความ (Wrap Text)" },
+      { id: 8, title: "บทที่ 8: การสร้างและตกแต่งตารางข้อมูล" },
+      { id: 9, title: "บทที่ 9: การตั้งค่าหน้ากระดาษและระยะขอบ (Page Setup)" },
+      { id: 10, title: "บทที่ 10: การตรวจคำผิดและการค้นหา/แทนที่คำ" },
+      { id: 11, title: "บทที่ 11: การใช้งาน Style และการสร้างสารบัญอัตโนมัติ" },
+      { id: 12, title: "บทที่ 12: การส่งออกไฟล์และการพิมพ์เอกสาร (Print & Export)" }
     ];
 
     const inputName = document.getElementById("player-input");
-
-    // ดึงชื่อเดิมถ้าเคยพิมพ์ไว้
     const savedName = localStorage.getItem("word_road_player_name");
     if (savedName) inputName.value = savedName;
 
     function handleLogin() {
       const name = inputName.value.trim();
-      if (!name) {
-        alert("กรุณาพิมพ์ชื่อ - นามสกุล หรือ เลขที่ก่อนเข้าสู่ระบบนะครับ!");
-        inputName.focus();
-        return;
-      }
+      if (!name) { alert("กรุณาพิมพ์ชื่อ - นามสกุล หรือ เลขที่ก่อนนะครับ!"); return; }
 
       localStorage.setItem("word_road_player_name", name);
       document.getElementById("display-user-name").innerText = name;
-
-      // ซ่อนหน้า Login และเปิดหน้า Hub 12 บทเรียน
       document.getElementById("login-screen").style.display = "none";
       document.getElementById("hub-screen").style.display = "flex";
       renderHubUnits();
@@ -277,45 +169,30 @@
     function renderHubUnits() {
       const container = document.getElementById("units-grid");
       container.innerHTML = "";
-      fullUnitsData.forEach(u => {
+      unitsList.forEach(u => {
         const card = document.createElement("div");
         card.className = "unit-card";
         card.innerHTML = `
           <div>
-            <div class="unit-card-top">
-              <span class="unit-tag">UNIT ${u.id}</span>
-            </div>
+            <span class="unit-tag">UNIT ${u.id}</span>
             <div class="unit-title-text">${u.title}</div>
           </div>
           <div class="btn-group">
-            <button class="btn-act btn-read" onclick="openStudyModal(${u.id})">
-              <svg class="ico" viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
-              <span>อ่านสรุป</span>
-            </button>
-            <button class="btn-act btn-play" onclick="playGameUnit(${u.id})">
-              <svg class="ico" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-              <span>ลุยสนามแข่ง</span>
-            </button>
+            <button class="btn-act btn-read" onclick="goToStudy(${u.id})">📖 อ่านสรุป</button>
+            <button class="btn-act btn-play" onclick="goToGame(${u.id})">🏎️ สนามแข่ง</button>
           </div>
         `;
         container.appendChild(card);
       });
     }
 
-    function openStudyModal(unitId) {
-      const u = fullUnitsData.find(item => item.id === unitId);
-      if (u) {
-        document.getElementById("modal-title").innerText = u.title;
-        document.getElementById("modal-body").innerHTML = `<p><b>📌 สรุปประเด็นสำคัญประจำบทเรียน:</b></p><p style="margin-top:6px;">${u.summary}</p>`;
-        document.getElementById("study-modal").style.display = "flex";
-      }
+    // กดแล้วเปลี่ยนหน้าไปยัง study.html?unit=X
+    function goToStudy(unitId) {
+      window.location.href = `study.html?unit=${unitId}`;
     }
 
-    function closeStudyModal() {
-      document.getElementById("study-modal").style.display = "none";
-    }
-
-    function playGameUnit(unitId) {
+    // กดแล้วเปลี่ยนหน้าไปยัง game.html?unit=X
+    function goToGame(unitId) {
       window.location.href = `game.html?unit=${unitId}`;
     }
   </script>
