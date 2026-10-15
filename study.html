@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Word Road 3D: สรุปบทเรียน</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700;800&family=Kanit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient: radial-gradient(circle at 50% 30%, #38bdf8 0%, #0369a1 100%);
+      --card-bg: #ffffff;
+      --border-blue: #38bdf8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg-gradient);
+      font-family: 'Kanit', sans-serif;
+      color: #0f172a;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 24px 16px 40px;
+    }
+
+    .study-container {
+      background: #ffffff; border: 5px solid var(--border-blue);
+      border-radius: 32px; padding: 28px; max-width: 780px; width: 100%;
+      box-shadow: 0 25px 60px rgba(2, 132, 199, 0.4); text-align: left;
+    }
+
+    .top-nav {
+      display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 3px solid #bae6fd; padding-bottom: 14px; margin-bottom: 20px;
+    }
+
+    .unit-badge {
+      background: #0284c7; color: #fff; font-family: 'Chakra Petch', sans-serif;
+      font-weight: 800; padding: 4px 14px; border-radius: 10px; font-size: 0.9rem;
+    }
+
+    .btn-back {
+      padding: 8px 16px; border-radius: 12px; border: 2px solid #cbd5e1;
+      background: #f8fafc; color: #475569; font-weight: 800; cursor: pointer; text-decoration: none;
+    }
+
+    .content-box {
+      font-size: 1rem; line-height: 1.7; color: #334155; margin-bottom: 24px;
+    }
+
+    .content-box h3 { color: #0284c7; margin-bottom: 12px; font-size: 1.3rem; }
+    .content-box ul { margin-left: 20px; margin-top: 8px; }
+
+    .img-demo-frame {
+      background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 16px;
+      padding: 16px; margin: 16px 0; text-align: center;
+    }
+
+    .btn-play-now {
+      width: 100%; padding: 15px; border-radius: 18px; border: none;
+      background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+      color: #ffffff; font-size: 1.15rem; font-weight: 900; cursor: pointer;
+      box-shadow: 0 6px 0 #047857; text-align: center; display: block; text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="study-container">
+    <div class="top-nav">
+      <span class="unit-badge" id="study-unit-tag">UNIT 1</span>
+      <a href="index.html" class="btn-back">← กลับหน้ารวมบทเรียน</a>
+    </div>
+
+    <div class="content-box">
+      <h3 id="study-title">กำลังโหลดเนื้อหา...</h3>
+      <div id="study-body"></div>
+    </div>
+
+    <a id="btn-start-game" class="btn-play-now" href="#">
+      🏎️ พร้อมแล้ว! เข้าสู่สนามแข่งบทนี้
+    </a>
+  </div>
+
+  <script>
+    // คลังสรุปเนื้อหาบทเรียนทั้ง 12 บท
+    const studyDatabase = {
+      1: {
+        title: "บทที่ 1: รู้จักหน้าตาและส่วนประกอบของ Microsoft Word",
+        html: `
+          <p><b>1. ส่วนประกอบสำคัญบนหน้าจอโปรแกรม:</b></p>
+          <ul>
+            <li><b>Title Bar (แถบชื่อเรื่อง):</b> แสดงชื่อไฟล์เอกสารที่กำลังเปิดใช้งาน</li>
+            <li><b>Ribbon (แถบเมนูคำสั่ง):</b> รวบรวมเครื่องมือจัดหมวดหมู่ เช่น หน้าแรก (Home), แทรก (Insert)</li>
+            <li><b>Status Bar (แถบสถานะ):</b> แสดงจำนวนหน้า จำนวนคำ และมุมมองย่อ/ขยาย</li>
+          </ul>
+          <div class="img-demo-frame">
+            <svg viewBox="0 0 300 100" width="100%" height="90">
+              <rect x="5" y="5" width="290" height="90" rx="8" fill="#f1f5f9" stroke="#0284c7" stroke-width="2"/>
+              <rect x="5" y="5" width="290" height="22" fill="#0284c7"/>
+              <text x="15" y="20" fill="#fff" font-size="11" font-weight="bold">Document1 - Microsoft Word (Title Bar)</text>
+              <rect x="15" y="35" width="270" height="30" fill="#e2e8f0" rx="4"/>
+              <text x="25" y="54" fill="#334155" font-size="11" font-weight="bold">[ แถบคำสั่ง Ribbon Bar ]</text>
+            </svg>
+          </div>
+        `
+      },
+      2: {
+        title: "บทที่ 2: การจัดการไฟล์เอกสารและคีย์ลัดพื้นฐาน",
+        html: `
+          <p><b>1. คีย์ลัดจัดการไฟล์ที่ต้องจำให้แม่น:</b></p>
+          <ul>
+            <li><b>Ctrl + N:</b> สร้างเอกสารใหม่ (New Document)</li>
+            <li><b>Ctrl + S:</b> บันทึกเอกสาร (Save)</li>
+            <li><b>Ctrl + O:</b> เปิดไฟล์เก่าที่เคยบันทึกไว้ (Open)</li>
+            <li><b>Ctrl + Z:</b> ย้อนกลับ / ยกเลิกคำสั่งล่าสุด (Undo)</li>
+          </ul>
+        `
+      },
+      3: {
+        title: "บทที่ 3: การพิมพ์และการจัดการข้อความภาษาไทย/อังกฤษ",
+        html: `
+          <p><b>1. คำสั่งกลุ่มคลิปบอร์ด (Clipboard):</b></p>
+          <ul>
+            <li><b>Ctrl + C:</b> คัดลอกข้อความ (Copy)</li>
+            <li><b>Ctrl + X:</b> ตัดข้อความออก (Cut)</li>
+            <li><b>Ctrl + V:</b> วางข้อความที่คัดลอกไว้ (Paste)</li>
+          </ul>
+        `
+      },
+      4: {
+        title: "บทที่ 4: การตกแต่งฟอนต์และรูปแบบตัวอักษร",
+        html: `
+          <p><b>1. สไตล์ตกแต่งข้อความ:</b></p>
+          <ul>
+            <li><b>Ctrl + B:</b> ตัวหนา (Bold)</li>
+            <li><b>Ctrl + I:</b> ตัวเอียง (Italic)</li>
+            <li><b>Ctrl + U:</b> ขีดเส้นใต้ (Underline)</li>
+            <li><b>Format Painter (แปรงทาสี):</b> คัดลอกสไตล์รูปแบบข้อความไปใช้ต่อ</li>
+          </ul>
+        `
+      },
+      5: {
+        title: "บทที่ 5: การจัดแนวย่อหน้าและการเว้นระยะบรรทัด",
+        html: `
+          <p><b>1. การจัดตำแหน่งย่อหน้า (Alignment):</b></p>
+          <ul>
+            <li><b>ชิดซ้าย (Left):</b> พิมพ์เนื้อหาทั่วไป</li>
+            <li><b>กึ่งกลาง (Center - Ctrl+E):</b> พิมพ์หัวข้อหรือชื่อรายงาน</li>
+            <li><b>ชิดขวา (Right):</b> พิมพ์วันที่หรือลายเซ็นท้ายเอกสาร</li>
+          </ul>
+        `
+      },
+      6: {
+        title: "บทที่ 6: การสร้างรายการหัวข้อย่อยและลำดับเลข",
+        html: `
+          <p><b>1. ความแตกต่างจำง่าย:</b></p>
+          <ul>
+            <li><b>Bullets (สัญลักษณ์หัวข้อย่อย):</b> ใช้ทำรายการที่ไม่มีลำดับก่อนหลัง</li>
+            <li><b>Numbering (ลำดับตัวเลข 1, 2, 3):</b> ใช้ทำรายการที่เป็นขั้นตอนเรียงลำดับ</li>
+          </ul>
+        `
+      },
+      7: {
+        title: "บทที่ 7: การแทรกรูปภาพและการจัดตัดข้อความ (Wrap Text)",
+        html: `
+          <p><b>1. รูปแบบการตัดข้อความ (Wrap Text):</b></p>
+          <ul>
+            <li><b>Square:</b> ข้อความล้อมรอบรูปภาพเป็นกรอบสี่เหลี่ยมพอดี</li>
+            <li><b>Behind Text:</b> รูปภาพลงไปเป็นฉากหลัง ลอยทับด้วยข้อความ</li>
+          </ul>
+        `
+      },
+      8: {
+        title: "บทที่ 8: การสร้างและตกแต่งตารางข้อมูล",
+        html: `
+          <p><b>1. โครงสร้างตาราง:</b></p>
+          <ul>
+            <li><b>Column (คอลัมน์):</b> ช่องตารางในแนวตั้ง</li>
+            <li><b>Row (แถว):</b> ช่องตารางในแนวนอน</li>
+            <li><b>Merge Cells:</b> การผสานรวมช่องตารางเข้าด้วยกัน</li>
+          </ul>
+        `
+      },
+      9: {
+        title: "บทที่ 9: การตั้งค่าหน้ากระดาษและระยะขอบ (Page Setup)",
+        html: `
+          <p><b>1. การวางทิศทางกระดาษ (Orientation):</b></p>
+          <ul>
+            <li><b>Portrait (แนวตั้ง):</b> พิมพ์เอกสารรายงานทั่วไป</li>
+            <li><b>Landscape (แนวนอน):</b> พิมพ์ตารางข้อมูลกว้างๆ หรือเกียรติบัตร</li>
+          </ul>
+        `
+      },
+      10: {
+        title: "บทที่ 10: การตรวจคำผิดและการค้นหา/แทนที่คำ",
+        html: `
+          <p><b>1. สัญลักษณ์เตือนข้อผิดพลาด:</b></p>
+          <ul>
+            <li><b style="color:#ef4444;">เส้นหยักสีแดง:</b> สะกดคำผิด</li>
+            <li><b style="color:#0284c7;">เส้นหยักสีฟ้า:</b> เคาะเว้นวรรคผิด หรือไวยากรณ์ผิด</li>
+          </ul>
+        `
+      },
+      11: {
+        title: "บทที่ 11: การใช้งาน Style และการสร้างสารบัญอัตโนมัติ",
+        html: `
+          <p><b>1. ขั้นตอนการสร้างสารบัญอัตโนมัติ:</b></p>
+          <ul>
+            <li>ตั้งค่าหัวข้อหลักด้วยสไตล์ <b>Heading 1</b></li>
+            <li>ไปที่แท็บ คำอ้างอิง (References) -> กดเลือก <b>สารบัญ (Table of Contents)</b></li>
+          </ul>
+        `
+      },
+      12: {
+        title: "บทที่ 12: การส่งออกไฟล์และการพิมพ์เอกสาร (Print & Export)",
+        html: `
+          <p><b>1. ทำไมต้องส่งออกเป็น .PDF?</b></p>
+          <ul>
+            <li>ล็อกการจัดหน้ากระดาษและฟอนต์ไม่ให้ขยับเคลื่อนเมื่อนำไปพิมพ์บนเครื่องอื่น</li>
+          </ul>
+        `
+      }
+    };
+
+    // ดึง Parameter unit จาก URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const unitId = parseInt(urlParams.get('unit')) || 1;
+
+    document.getElementById("study-unit-tag").innerText = `UNIT ${unitId}`;
+    document.getElementById("btn-start-game").href = `game.html?unit=${unitId}`;
+
+    const data = studyDatabase[unitId];
+    if (data) {
+      document.getElementById("study-title").innerText = data.title;
+      document.getElementById("study-body").innerHTML = data.html;
+    }
+  </script>
+</body>
+</html>
