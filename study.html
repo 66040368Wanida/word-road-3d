@@ -1,630 +1,226 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Word Road 3D: หนังสือเรียนดิจิทัล Microsoft Word (ม.1)</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,600;0,700;0,800;1,700&family=Kanit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  
-  <style>
-    :root {
-      --bg-light: #e0f2fe;
-      --grid-line: rgba(2, 132, 199, 0.12);
-      --word-blue-dark: #0369a1;
-      --word-blue-main: #0284c7;
-      --word-blue-bright: #38bdf8;
-      --card-bg: #ffffff;
-      --text-main: #0f172a;
-      --text-sub: #334155;
-      --text-muted: #64748b;
-      --gold-accent: #facc15;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Word Kart: หนังสือเรียนดิจิทัล Microsoft Word (ม.1)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,700;0,800;0,900;1,700;1,800;1,900&family=Kanit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#0284c7;--dark:#0369a1;--border:#38bdf8;--text:#0f172a;--sub:#334155;--gold:#facc15}
+*{box-sizing:border-box;margin:0;padding:0;user-select:none;-webkit-user-select:none;touch-action:manipulation}
+body{min-height:100vh;font-family:'Kanit',sans-serif;color:var(--text);padding:28px 16px 40px;overflow-x:hidden;position:relative;
+  background:linear-gradient(180deg,#bae6fd 0%,#e0f2fe 45%,#f0f9ff 100%);display:flex;flex-direction:column;align-items:center}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:linear-gradient(to right,rgba(2,132,199,.1) 2px,transparent 2px),linear-gradient(to bottom,rgba(2,132,199,.1) 2px,transparent 2px);
+  background-size:32px 32px;animation:drift 12s linear infinite;-webkit-mask-image:radial-gradient(ellipse at center,#000 40%,transparent 95%);mask-image:radial-gradient(ellipse at center,#000 40%,transparent 95%)}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(circle at 10% 15%,rgba(250,204,21,.26),transparent 28%),radial-gradient(circle at 90% 85%,rgba(37,99,235,.2),transparent 32%),radial-gradient(circle at 88% 10%,rgba(16,185,129,.16),transparent 25%)}
+@keyframes drift{to{background-position:32px 32px}}
+.ico{width:22px;height:22px;fill:currentColor;display:inline-block;vertical-align:middle;flex-shrink:0}
+.read-bar{position:fixed;top:0;left:0;height:6px;width:0;z-index:500;background:linear-gradient(90deg,#facc15,#10b981,#0284c7);border-radius:0 6px 6px 0}
 
-    * {
-      box-sizing: border-box; margin: 0; padding: 0;
-      user-select: none; -webkit-user-select: none;
-      touch-action: manipulation;
-    }
+.study-container{position:relative;z-index:1;width:100%;max-width:880px;margin:auto;background:linear-gradient(180deg,#fff,#f8fcff);
+  border:4px solid var(--blue);border-radius:32px;padding:40px 30px 30px;box-shadow:0 12px 0 var(--dark),0 28px 50px rgba(2,132,199,.28);animation:pop .3s cubic-bezier(.34,1.56,.64,1)}
+.study-container::before{content:'';position:absolute;left:30px;right:30px;top:-4px;height:10px;border-radius:0 0 8px 8px;background:repeating-conic-gradient(#0f172a 0 25%,#fff 0 50%) 0 0/10px 10px}
+@keyframes pop{from{transform:scale(.95) translateY(15px);opacity:0}to{transform:none;opacity:1}}
 
-    body {
-      min-height: 100vh;
-      background: var(--bg-light);
-      font-family: 'Kanit', sans-serif;
-      color: var(--text-main);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 24px 16px;
-      overflow-x: hidden;
-      position: relative;
-    }
+.top-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.unit-pill{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#0ea5e9,#2563eb);color:#fff;font:italic 800 1rem 'Chakra Petch',sans-serif;
+  padding:8px 22px;border-radius:999px;box-shadow:0 4px 0 var(--dark),inset 0 2px 0 rgba(255,255,255,.3)}
+.btn-back{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;border:2px solid var(--border);background:linear-gradient(180deg,#fff,#e0f2fe);
+  color:var(--blue);font-weight:800;font-size:.9rem;text-decoration:none;box-shadow:0 4px 0 var(--blue);transition:transform .15s}
+.btn-back:hover{transform:translateY(-2px)}.btn-back:active{transform:translateY(2px);box-shadow:0 1px 0 var(--blue)}
 
-    /* Bright Arcade Grid Background */
-    body::before {
-      content: ''; position: fixed; inset: 0;
-      background: 
-        linear-gradient(to right, var(--grid-line) 2px, transparent 2px),
-        linear-gradient(to bottom, var(--grid-line) 2px, transparent 2px);
-      background-size: 32px 32px;
-      pointer-events: none; z-index: 0;
-    }
+.track{display:flex;gap:6px;align-items:center;margin-bottom:24px;padding:10px 12px;background:#f0f9ff;border:2px solid #bae6fd;border-radius:999px;overflow-x:auto;scrollbar-width:none}
+.track::-webkit-scrollbar{display:none}
+.dot{flex:1 0 26px;min-width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:800 .74rem 'Chakra Petch',sans-serif;text-decoration:none;color:#64748b;background:#fff;border:2px solid #cbd5e1;transition:transform .15s}
+.dot:hover{transform:translateY(-2px)}
+.dot.done{background:#10b981;border-color:#047857;color:#fff}
+.dot.now{background:var(--gold);border-color:#d97706;color:#713f12;transform:scale(1.2);box-shadow:0 3px 0 #d97706}
+.dot.lock{opacity:.5;pointer-events:none;background:#e2e8f0}
+.dot .ico{width:13px;height:13px}
 
-    .ico {
-      width: 22px; height: 22px; fill: currentColor;
-      display: inline-block; vertical-align: middle; flex-shrink: 0;
-    }
+.lesson-title{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:1.65rem;font-weight:900;color:var(--blue);line-height:1.35;padding-bottom:16px;margin-bottom:22px;border-bottom:3px dashed #bae6fd}
+.chip{font:italic 900 1rem 'Chakra Petch',sans-serif;color:#fff;background:linear-gradient(135deg,#0ea5e9,#2563eb);padding:6px 16px;border-radius:14px;box-shadow:0 4px 0 var(--dark);white-space:nowrap}
 
-    /* Main Container Card */
-    .study-container {
-      background: var(--card-bg);
-      border: 4px solid var(--word-blue-main);
-      border-radius: 28px;
-      padding: 32px 28px;
-      max-width: 880px; width: 100%;
-      box-shadow: 0 12px 0 var(--word-blue-dark), 0 20px 40px rgba(2, 132, 199, 0.2);
-      text-align: left;
-      z-index: 1;
-      position: relative;
-      margin: auto;
-      animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
+.intro{display:flex;gap:14px;align-items:flex-start;background:linear-gradient(180deg,#f0f9ff,#e0f2fe);border-left:6px solid var(--gold);border-radius:0 20px 20px 0;padding:16px 20px;font-size:1.05rem;line-height:1.8;color:var(--text);margin-bottom:26px}
+.intro .ico{width:34px;height:34px;padding:7px;border-radius:12px;background:var(--gold);color:#713f12;box-shadow:0 3px 0 #d97706;margin-top:2px}
 
-    @keyframes popIn {
-      from { transform: scale(0.95) translateY(15px); opacity: 0; }
-      to { transform: scale(1) translateY(0); opacity: 1; }
-    }
+.ribbon{display:inline-flex;align-items:center;gap:10px;font-size:1.15rem;font-weight:800;color:#fff;background:linear-gradient(90deg,#0284c7,#38bdf8);padding:8px 20px;border-radius:16px;box-shadow:0 4px 0 var(--dark);margin-bottom:16px}
 
-    /* Top Navigation Header */
-    .top-nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 3px dashed #bae6fd;
-      padding-bottom: 16px;
-      margin-bottom: 24px;
-      gap: 12px; flex-wrap: wrap;
-    }
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:26px}
+.card{position:relative;background:linear-gradient(180deg,#fff,#f1f5f9);border:3px solid #e2e8f0;border-radius:20px;padding:16px 16px 16px 58px;line-height:1.6;color:var(--sub);box-shadow:0 4px 0 #cbd5e1;transition:transform .15s,border-color .15s}
+.card:hover{transform:translateY(-3px);border-color:var(--border)}
+.card::before{content:'';position:absolute;left:16px;top:18px;width:26px;height:26px;border-radius:8px;border:3px solid var(--blue);background:repeating-conic-gradient(#0284c7 0 25%,#fff 0 50%) 0 0/9px 9px}
+.card b{display:block;font-size:1.05rem;color:var(--text);margin-bottom:2px}
 
-    .unit-badge-pill {
-      background: linear-gradient(135deg, #0284c7, #2563eb);
-      color: #ffffff;
-      font-family: 'Chakra Petch', sans-serif;
-      font-weight: 800;
-      padding: 8px 20px;
-      border-radius: 14px;
-      font-size: 1rem;
-      box-shadow: 0 4px 0 #0369a1;
-      display: inline-flex; align-items: center; gap: 8px;
-    }
+.tip{background:linear-gradient(180deg,#fffbeb,#fef9c3);border:3px solid var(--gold);border-radius:22px;padding:20px 22px;box-shadow:0 6px 0 #eab308;line-height:1.95;color:#422006}
+.tip-title{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.08rem;color:#92400e;margin-bottom:8px}
+.tip-title .ico{width:34px;height:34px;padding:7px;border-radius:12px;background:var(--gold);color:#713f12;box-shadow:0 3px 0 #d97706}
+.key{display:inline-block;margin:2px 3px;padding:2px 10px;border-radius:9px;background:linear-gradient(180deg,#fff,#e2e8f0);color:var(--text);border:2px solid #94a3b8;box-shadow:0 3px 0 #64748b;font:800 .9rem 'Chakra Petch',sans-serif}
 
-    .btn-back-hub {
-      padding: 10px 18px;
-      border-radius: 14px;
-      border: 2px solid #38bdf8;
-      background: #f0f9ff;
-      color: var(--word-blue-main);
-      font-weight: 800;
-      font-size: 0.9rem;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-flex; align-items: center; gap: 8px;
-      transition: all 0.15s;
-      box-shadow: 0 4px 0 #0284c7;
-    }
-    .btn-back-hub:hover { background: #e0f2fe; }
-    .btn-back-hub:active { transform: translateY(2px); box-shadow: 0 1px 0 #0284c7; }
+.pager{display:flex;gap:12px;margin-top:30px}
+.pager a{flex:1;text-decoration:none;padding:12px 16px;border-radius:16px;background:#f0f9ff;border:2px solid var(--border);color:var(--dark);font-weight:800;font-size:.95rem;box-shadow:0 4px 0 var(--blue);transition:transform .15s;display:flex;align-items:center;gap:10px}
+.pager a.next{justify-content:flex-end;text-align:right}
+.pager a:hover{transform:translateY(-2px)}.pager a:active{transform:translateY(2px);box-shadow:0 1px 0 var(--blue)}
+.pager a.off{opacity:.4;pointer-events:none;filter:grayscale(1)}
+.pager small{display:block;font-weight:600;color:#64748b;font-size:.75rem}
 
-    /* Lesson Typography */
-    .lesson-header-title {
-      font-size: 1.65rem;
-      font-weight: 900;
-      color: var(--word-blue-main);
-      line-height: 1.35;
-      margin-bottom: 22px;
-      border-bottom: 3px solid #e0f2fe;
-      padding-bottom: 14px;
-      display: flex; align-items: center; gap: 12px;
-    }
+.footer{display:grid;grid-template-columns:1fr 1.5fr;gap:16px;margin-top:22px;padding-top:22px;border-top:3px dashed #bae6fd}
+.btn{padding:16px;border-radius:18px;border:none;font:italic 800 1.1rem 'Chakra Petch',sans-serif;cursor:pointer;display:flex;justify-content:center;align-items:center;gap:10px;text-decoration:none;transition:all .15s}
+.btn-home{background:#f1f5f9;color:#475569;border:2px solid #cbd5e1;box-shadow:0 5px 0 #94a3b8}
+.btn-home:active{transform:translateY(3px);box-shadow:0 1px 0 #94a3b8}
+.btn-game{color:#fff;background:linear-gradient(180deg,#34d399,#10b981);box-shadow:0 6px 0 #047857,0 10px 20px rgba(16,185,129,.25);position:relative;overflow:hidden}
+.btn-game::after{content:'';position:absolute;top:0;left:-70%;width:45%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.4),transparent);transform:skewX(-18deg);animation:sweep 2.8s ease-in-out infinite}
+@keyframes sweep{60%,100%{left:130%}}
+.btn-game:hover{filter:brightness(1.06)}.btn-game:active{transform:translateY(3px);box-shadow:0 2px 0 #047857}
+a:focus-visible{outline:4px solid var(--gold);outline-offset:3px}
 
-    .content-section {
-      font-size: 1.02rem;
-      line-height: 1.85;
-      color: var(--text-sub);
-      font-weight: 400;
-    }
-
-    .content-section h3 {
-      color: var(--text-main);
-      font-size: 1.2rem;
-      font-weight: 800;
-      margin: 28px 0 14px;
-      display: flex; align-items: center; gap: 10px;
-      border-left: 6px solid var(--word-blue-main);
-      padding-left: 14px;
-      background: linear-gradient(90deg, #e0f2fe 0%, transparent 100%);
-      padding-top: 6px; padding-bottom: 6px; border-radius: 0 12px 12px 0;
-    }
-
-    .content-section p { margin-bottom: 14px; text-indent: 1.5em; }
-    .content-section p.no-indent { text-indent: 0; }
-
-    .content-section ul, .content-section ol {
-      margin-left: 24px;
-      margin-bottom: 18px;
-    }
-
-    .content-section li {
-      margin-bottom: 10px;
-    }
-
-    /* Callout & Shortcut Boxes */
-    .key-callout-box {
-      background: #f0f9ff;
-      border: 3px solid #bae6fd;
-      border-radius: 20px;
-      padding: 22px;
-      margin: 24px 0;
-      box-shadow: 0 6px 0 #7dd3fc;
-    }
-
-    .key-callout-title {
-      font-weight: 800;
-      color: var(--word-blue-main);
-      font-size: 1.05rem;
-      margin-bottom: 12px;
-      display: flex; align-items: center; gap: 8px;
-    }
-
-    .shortcut-badge {
-      background: #fef08a;
-      color: #713f12;
-      border: 2px solid #facc15;
-      padding: 3px 10px;
-      border-radius: 8px;
-      font-family: 'Chakra Petch', sans-serif;
-      font-weight: 800;
-      font-size: 0.92rem;
-      box-shadow: 0 3px 0 #d97706;
-      display: inline-block;
-      margin: 2px 4px;
-    }
-
-    .ui-demo-box {
-      background: #ffffff;
-      border: 3px dashed #38bdf8;
-      border-radius: 20px;
-      padding: 22px;
-      margin: 24px 0;
-      text-align: center;
-      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.08);
-    }
-
-    .ui-demo-caption {
-      font-size: 0.9rem;
-      font-weight: 800;
-      color: var(--text-muted);
-      margin-top: 12px;
-    }
-
-    /* Action Buttons Group */
-    .action-footer-group {
-      display: grid;
-      grid-template-columns: 1fr 1.5fr;
-      gap: 16px;
-      margin-top: 36px;
-    }
-
-    .btn-action-footer {
-      padding: 16px;
-      border-radius: 18px;
-      border: none;
-      font-family: 'Chakra Petch', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 800;
-      cursor: pointer;
-      display: flex; justify-content: center; align-items: center; gap: 10px;
-      text-decoration: none;
-      transition: all 0.15s;
-    }
-
-    .btn-return-hub {
-      background: #f1f5f9;
-      color: #475569;
-      border: 2px solid #cbd5e1;
-      box-shadow: 0 5px 0 #94a3b8;
-    }
-    .btn-return-hub:hover { background: #e2e8f0; }
-    .btn-return-hub:active { transform: translateY(3px); box-shadow: 0 1px 0 #94a3b8; }
-
-    .btn-start-game {
-      background: linear-gradient(180deg, #10b981 0%, #059669 100%);
-      color: #ffffff;
-      box-shadow: 0 6px 0 #047857, 0 10px 20px rgba(16, 185, 129, 0.25);
-    }
-    .btn-start-game:hover { filter: brightness(1.06); }
-    .btn-start-game:active { transform: translateY(3px); box-shadow: 0 2px 0 #047857; }
-
-    /* Responsive Adjustments */
-    @media (max-width: 640px) {
-      body { padding: 14px 10px 32px; }
-      .study-container { padding: 22px 16px; border-radius: 22px; }
-      .lesson-header-title { font-size: 1.35rem; }
-      .action-footer-group { grid-template-columns: 1fr; }
-      .content-section { font-size: 0.96rem; }
-      .unit-badge-pill { font-size: 0.88rem; padding: 6px 14px; }
-      .btn-back-hub { font-size: 0.85rem; padding: 8px 12px; }
-    }
-  </style>
+@media (max-width:640px){body{padding:16px 10px 32px}.study-container{padding:32px 16px 22px;border-radius:24px}.lesson-title{font-size:1.35rem}.footer{grid-template-columns:1fr}.pager{flex-direction:column}.pager a.next{justify-content:flex-start;text-align:left}.intro{font-size:.98rem}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
 </head>
 <body>
+<div class="read-bar" id="read-bar"></div>
 
-  <div class="study-container">
-    <!-- Top Navigation -->
-    <div class="top-nav">
-      <div class="unit-badge-pill" id="study-unit-tag">
-        <svg class="ico" viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zm0 13.09L4.27 12 12 7.78 19.73 12 12 16.09z"/></svg>
-        <span>UNIT 1</span>
-      </div>
-      <a href="index.html" class="btn-back-hub">
-        <svg class="ico" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
-        <span>กลับหน้ารวมบทเรียน</span>
-      </a>
-    </div>
-
-    <!-- Main Content Area -->
-    <div class="content-section">
-      <h2 class="lesson-header-title" id="study-title">กำลังโหลดเนื้อหาหนังสือเรียน...</h2>
-      <div id="study-body"></div>
-    </div>
-
-    <!-- Bottom Action Group -->
-    <div class="action-footer-group">
-      <a href="index.html" class="btn-action-footer btn-return-hub">
-        <svg class="ico" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-        <span>กลับหน้าหลัก</span>
-      </a>
-      <a id="btn-start-game" class="btn-action-footer btn-start-game" href="#">
-        <svg class="ico" style="width:24px; height:24px;" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-        <span>ตะลุยด่านเกมสนามแข่ง (GAMEJA)</span>
-      </a>
-    </div>
+<div class="study-container">
+  <div class="top-nav">
+    <div class="unit-pill" id="unit-tag"></div>
+    <a href="index.html" class="btn-back"><svg class="ico" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg><span>กลับหน้ารวมบทเรียน</span></a>
   </div>
+  <div class="track" id="track"></div>
+  <h2 class="lesson-title" id="title"></h2>
+  <div id="body"></div>
+  <div class="pager" id="pager"></div>
+  <div class="footer">
+    <a href="index.html" class="btn btn-home"><svg class="ico" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg><span>กลับหน้าหลัก</span></a>
+    <a id="btn-game" class="btn btn-game" href="game.html"><svg class="ico" style="width:24px;height:24px" viewBox="0 0 24 24"><path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z"/></svg><span>ตะลุยด่านเกมสนามแข่ง</span></a>
+  </div>
+</div>
 
-  <script>
-    // คลังเนื้อหาหนังสือเรียนแบบรายละเอียดจัดเต็ม 12 บท (ใช้ Vector SVG Icons ทั้งหมด)
-    const bookDatabase = {
-      1: {
-        title: "บทที่ 1: รู้จักหน้าตาและส่วนประกอบของ Microsoft Word",
-        html: `
-          <p>โปรแกรม <b>Microsoft Word</b> จัดอยู่ในประเภทโปรแกรมประมวลผลคำ (Word Processor) ที่ได้รับความนิยมสูงสุดทั่วโลก ใช้สำหรับการพิมพ์งานเอกสาร ทำรายงานวิชาการ จัดทำตาราง ตลอดจนออกแบบรูปเล่มหนังสือ การเรียนรู้ตำแหน่งส่วนประกอบบนหน้าจอโปรแกรมถือเป็นหัวใจสำคัญที่จะช่วยให้เราใช้งานโปรแกรมได้อย่างคล่องแคล่ว</p>
+<script>
+const IC = {
+  book:"M12 3L1 9l11 6 9-4.91V17h2V9L12 3zm0 13.09L4.27 12 12 7.78 19.73 12 12 16.09z",
+  info:"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z",
+  key:"M20 5H4c-1.1 0-1.99.9-1.99 2L2 17c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-9 3h2v2h-2V8zm0 3h2v2h-2v-2zM8 8h2v2H8V8zm0 3h2v2H8v-2zm-3 0h2v2H5v-2zm0-3h2v2H5V8zm7 9H8v-2h4v2zm3-4h-2v-2h2v2zm0-3h-2V8h2v2zm3 3h-2v-2h2v2zm0-3h-2V8h2v2z",
+  copy:"M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z",
+  brush:"M7 14c-1.66 0-3 1.34-3 3 0 1.31-1.16 2-2 2 .92 1.22 2.49 2 4 2 2.21 0 4-1.79 4-4 0-1.66-1.34-3-3-3zm13.71-9.37l-1.34-1.34c-.39-.39-1.02-.39-1.41 0L9 12.25 11.75 15l8.96-8.96c.39-.39.39-1.02 0-1.41z",
+  align:"M3 21h18v-2H3v2zm0-4h18v-2H3v2zm0-4h18v-2H3v2zm0-4h18V7H3v2zm0-6v2h18V3H3z",
+  list:"M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-6C3.17 4.5 2.5 5.17 2.5 6s.67 1.5 1.5 1.5S5.5 6.83 5.5 6 4.83 4.5 4 4.5zm0 12c-.83 0-1.5.68-1.5 1.5s.68 1.5 1.5 1.5 1.5-.68 1.5-1.5-.67-1.5-1.5-1.5zM7 19h14v-2H7v2zm0-6h14v-2H7v2zm0-8v2h14V5H7z",
+  image:"M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z",
+  table:"M20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM8 20H4v-4h4v4zm0-6H4v-4h4v4zm0-6H4V4h4v4zm6 12h-4v-4h4v4zm0-6h-4v-4h4v4zm0-6h-4V4h4v4zm6 12h-4v-4h4v4zm0-6h-4v-4h4v4zm0-6h-4V4h4v4z",
+  page:"M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z",
+  search:"M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z",
+  toc:"M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z",
+  print:"M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z",
+  lock:"M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z",
+  check:"M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z",
+  left:"M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z",
+  right:"M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"
+};
+const svg = (n, s) => `<svg class="ico" ${s ? `style="${s}"` : ''} viewBox="0 0 24 24"><path d="${IC[n]}"/></svg>`;
+const K = s => s.replace(/\{(.+?)\}/g, '<span class="key">$1</span>');
 
-          <h3>1. ส่วนประกอบหลักบนหน้าจอโปรแกรม (Screen Elements)</h3>
-          <p class="no-indent">เมื่อเปิดโปรแกรม Microsoft Word ขึ้นมา จะพบกับหน้าจอทำงานที่มีส่วนประกอบสำคัญดังนี้:</p>
-          <ul>
-            <li><b>Title Bar (แถบชื่อเรื่อง):</b> ตั้งอยู่บริเวณบนสุดของหน้าจอ ทำหน้าที่แสดงชื่อไฟล์เอกสารที่เรากำลังเปิดทำงานอยู่ (เช่น Document1) รวมทั้งชื่อของโปรแกรม (Microsoft Word) และที่มุมขวาจะประกอบด้วยปุ่มควบคุมหน้าต่าง (System Buttons) ได้แก่ ปุ่มย่อ (Minimize), ปุ่มขยาย (Maximize/Restore Down) และปุ่มปิดโปรแกรม (Close)</li>
-            <li><b>Quick Access Toolbar (แถบเครื่องมือด่วน):</b> อยู่มุมบนซ้ายข้าง Title Bar รวบรวมคำสั่งที่ต้องใช้งานบ่อยๆ เพื่อให้กดใช้งานได้ทันที เช่น ปุ่มบันทึก (Save), ปุ่มย้อนกลับ (Undo) และปุ่มทำซ้ำ (Redo)</li>
-            <li><b>Ribbon (แถบคำสั่ง):</b> เป็นแถบศูนย์รวมเครื่องมือขนาดใหญ่ที่แบ่งออกเป็นแท็บเมนู (Tabs) เช่น แท็บหน้าแรก (Home), แท็บแทรก (Insert), แท็บเค้าโครง (Layout) ซึ่งแต่ละแท็บจะแบ่งเครื่องมือออกเป็นกลุ่มคำสั่งย่อยอย่างเป็นหมวดหมู่</li>
-            <li><b>Ruler (ไม้บรรทัด):</b> แสดงอยู่ด้านบนและด้านซ้ายของพื้นที่พิมพ์งาน ช่วยในการตั้งระยะกั้นหน้า-กั้นหลัง ตั้งค่าระยะย่อหน้า และจัดตำแหน่งวัตถุ</li>
-            <li><b>Status Bar (แถบสถานะ):</b> อยู่ล่างสุดของหน้าจอ แสดงข้อมูลสถิติของเอกสาร เช่น จำนวนหน้าทั้งหมด (Page Number), จำนวนคำที่พิมพ์ (Word Count), ภาษาที่กำลังใช้พิมพ์ รวมถึงเครื่องมือปรับเปลี่ยนมุมมองหน้ากระดาษและสไลเดอร์ย่อ-ขยายมุมมอง (Zoom Slider)</li>
-          </ul>
+// {…} = ปุ่มคีย์ลัด
+const lessons = {
+  1:{t:"รู้จักหน้าตาและส่วนประกอบของ Word",ic:"book",
+    intro:"Microsoft Word คือโปรแกรมประมวลผลคำ ใช้พิมพ์รายงาน ทำตาราง และจัดรูปเล่มเอกสาร การรู้ตำแหน่งเครื่องมือบนหน้าจอจะทำให้ใช้งานคล่องขึ้น",
+    h:"ส่วนประกอบหลักบนหน้าจอ",
+    pts:[["Title Bar","แถบชื่อเรื่อง แสดงชื่อไฟล์ และมีปุ่มย่อ ขยาย ปิดหน้าต่าง"],["Quick Access Toolbar","แถบเครื่องมือด่วน เช่น บันทึก ย้อนกลับ ทำซ้ำ"],["Ribbon","แถบคำสั่งแบ่งเป็นแท็บ เช่น Home, Insert, Layout"],["Ruler","ไม้บรรทัด ใช้ตั้งระยะกั้นหน้า-หลังและย่อหน้า"],["Status Bar","แถบสถานะ แสดงจำนวนหน้า จำนวนคำ และ Zoom"]],
+    tip:["info","เกร็ดความรู้","ถ้าไม้บรรทัดหายไป ให้ไปที่แท็บ View แล้วติ๊กช่อง Ruler"]},
+  2:{t:"จัดการไฟล์และคีย์ลัดพื้นฐาน",ic:"key",
+    intro:"รู้จักบันทึกไฟล์ให้ถูกวิธีและใช้คีย์ลัดบนแป้นพิมพ์ จะช่วยให้งานไม่หายและทำงานเร็วขึ้นมาก",
+    h:"Save กับ Save As",
+    pts:[["Save (บันทึก)","บันทึกทับลงไฟล์เดิม ควรกดบ่อย ๆ กันไฟดับ"],["Save As (บันทึกเป็น)","บันทึกเป็นไฟล์ใหม่ เปลี่ยนชื่อ เปลี่ยนที่เก็บ หรือเปลี่ยนเป็น PDF"]],
+    tip:["key","คีย์ลัดจัดการไฟล์","{Ctrl + N} สร้างใหม่<br>{Ctrl + O} เปิดไฟล์<br>{Ctrl + S} บันทึก<br>{Ctrl + Z} ย้อนกลับ &nbsp; {Ctrl + Y} ทำซ้ำ"]},
+  3:{t:"การพิมพ์และเลือกข้อความ",ic:"copy",
+    intro:"ก่อนจะแก้ไขข้อความ ต้องเลือกข้อความ (คลุมดำ) ให้เป็นก่อน แล้วจึงใช้คำสั่งตัด คัดลอก และวาง",
+    h:"เทคนิคเลือกข้อความ",
+    pts:[["ดับเบิลคลิก","เลือกเฉพาะคำที่คลิก"],["ทริปเปิลคลิก","เลือกทั้งย่อหน้า"],["Select All","เลือกทั้งเอกสารด้วย {Ctrl + A}"]],
+    tip:["copy","คำสั่งใน Clipboard","{Ctrl + C} คัดลอก (ต้นฉบับยังอยู่)<br>{Ctrl + X} ตัด (ต้นฉบับหาย รอวาง)<br>{Ctrl + V} วางที่ตำแหน่งเคอร์เซอร์"]},
+  4:{t:"ตกแต่งฟอนต์และตัวอักษร",ic:"brush",
+    intro:"ฟอนต์ ขนาด และสีที่เหมาะสมทำให้เอกสารอ่านง่ายและเน้นประเด็นสำคัญได้ชัด เครื่องมืออยู่ที่ Home > Font",
+    h:"สไตล์ตัวอักษรพื้นฐาน",
+    pts:[["ตัวหนา","{Ctrl + B} ใช้เน้นหัวข้อหรือข้อความสำคัญ"],["ตัวเอียง","{Ctrl + I} ใช้กับคำทับศัพท์หรือเน้นสั้น ๆ"],["ขีดเส้นใต้","{Ctrl + U} ใช้ขีดเส้นใต้เน้นความสำคัญ"]],
+    tip:["brush","แปรงทาสี (Format Painter)","คัดลอกเฉพาะรูปแบบไปใช้กับข้อความอื่น<br>คลิก 1 ครั้ง = ใช้ได้ 1 ครั้ง<br>ดับเบิลคลิก = ใช้ต่อเนื่อง กด {Esc} เพื่อเลิก"]},
+  5:{t:"จัดแนวย่อหน้าและระยะบรรทัด",ic:"align",
+    intro:"การจัดแนวย่อหน้าช่วยให้รายงานเป็นระเบียบ เครื่องมืออยู่ที่ Home > Paragraph",
+    h:"รูปแบบการจัดแนว",
+    pts:[["ชิดซ้าย","{Ctrl + L} เหมาะกับเนื้อหาทั่วไป"],["กึ่งกลาง","{Ctrl + E} เหมาะกับชื่อเรื่อง"],["ชิดขวา","{Ctrl + R} เหมาะกับวันที่หรือลายเซ็น"],["ชิดขอบ","{Ctrl + J} ขอบซ้ายขวาเรียบเท่ากัน"]],
+    tip:["align","ระยะห่างบรรทัดมาตรฐาน","รายงานภาษาไทยมักตั้งไว้ที่ 1.15 หรือ 1.5 บรรทัด เพื่อไม่ให้สระบนและสระล่างซ้อนกัน"]},
+  6:{t:"รายการหัวข้อย่อยและลำดับเลข",ic:"list",
+    intro:"สรุปข้อมูลเป็นข้อ ๆ ช่วยให้อ่านง่าย Word มีให้เลือก 2 แบบ ต้องเลือกให้ตรงกับลักษณะข้อมูล",
+    h:"Bullets กับ Numbering",
+    pts:[["Bullets","ใช้กับรายการที่ไม่ต้องเรียงลำดับ เช่น รายชื่ออุปกรณ์"],["Numbering","ใช้กับรายการที่ต้องเรียงลำดับ เช่น ขั้นตอนการทดลอง"]],
+    tip:["list","ปรับระดับหัวข้อ","{Tab} ย่นเป็นหัวข้อย่อยระดับล่าง<br>{Shift + Tab} ถอยกลับเป็นหัวข้อระดับบน"]},
+  7:{t:"แทรกรูปภาพและ Wrap Text",ic:"image",
+    intro:"รูปภาพทำให้เอกสารน่าสนใจ แทรกได้ที่ Insert > Pictures หากลากรูปไม่ได้ ให้ตั้งค่า Wrap Text",
+    h:"รูปแบบการตัดข้อความ",
+    pts:[["In Line with Text","รูปเป็นเหมือนตัวอักษรหนึ่งตัวในบรรทัด"],["Square","ข้อความล้อมรอบรูปเป็นสี่เหลี่ยม"],["Behind Text","รูปเป็นฉากหลัง ข้อความลอยอยู่ด้านบน"]],
+    tip:["image","ย่อ-ขยายรูปไม่ให้เบี้ยว","ลากที่มุมทั้ง 4 มุมเท่านั้น ห้ามลากจุดตรงกลางด้านข้างหรือบน-ล่าง"]},
+  8:{t:"สร้างและตกแต่งตาราง",ic:"table",
+    intro:"ตารางใช้จัดข้อมูลเป็นระบบ เช่น ตารางเรียนหรือตารางคะแนน แทรกได้ที่ Insert > Table",
+    h:"โครงสร้างและคำสั่งสำคัญ",
+    pts:[["Column / Row","คอลัมน์คือแนวตั้ง แถวคือแนวนอน"],["Cell","ช่องที่เกิดจากแถวและคอลัมน์ตัดกัน"],["Merge / Split","ผสานหลายเซลล์เป็นช่องเดียว หรือแยกเซลล์ออก"]],
+    tip:["table","เพิ่มแถวใหม่เร็ว ๆ","วางเคอร์เซอร์ในเซลล์ขวาล่างสุดของตาราง แล้วกด {Tab} จะได้แถวใหม่ทันที"]},
+  9:{t:"ตั้งค่าหน้ากระดาษ A4",ic:"page",
+    intro:"ควรตั้งค่าหน้ากระดาษก่อนพิมพ์งานจริง ที่แท็บ Layout > Page Setup",
+    h:"ทิศทางและระยะขอบ",
+    pts:[["Portrait","แนวตั้ง ใช้กับรายงานและหนังสือทั่วไป"],["Landscape","แนวนอน เหมาะกับตารางกว้างหรือเกียรติบัตร"],["Margins","ระยะขอบ เอกสารราชการมักเว้นบน 2.5 ซ้าย 3 ขวา 2 ล่าง 2 ซม."]],
+    tip:["page","ขนาดกระดาษมาตรฐาน","A4 กว้าง 21 ซม. สูง 29.7 ซม. เป็นขนาดที่ใช้มากที่สุดในโรงเรียน"]},
+  10:{t:"ตรวจคำผิดและค้นหา/แทนที่",ic:"search",
+    intro:"Word ช่วยตรวจคำผิดอัตโนมัติ และแก้คำผิดซ้ำหลายจุดได้ในครั้งเดียว",
+    h:"เส้นใต้เตือนข้อผิดพลาด",
+    pts:[["เส้นหยักสีแดง","สะกดผิด หรือไม่มีคำนี้ในพจนานุกรม"],["เส้นหยักสีฟ้า","เว้นวรรคผิด หรือผิดหลักไวยากรณ์"]],
+    tip:["search","ค้นหาและแทนที่","{Ctrl + F} ค้นหาคำ<br>{Ctrl + H} แทนที่คำผิดทั้งเอกสารในคลิกเดียว"]},
+  11:{t:"Style และสารบัญอัตโนมัติ",ic:"toc",
+    intro:"สารบัญอัตโนมัติทำให้เลขหน้าตรงกับเนื้อหาเสมอ แม้แก้ไขงานภายหลัง",
+    h:"สร้างสารบัญใน 2 ขั้น",
+    pts:[["กำหนดสไตล์หัวข้อ","คลุมดำหัวข้อ แล้วเลือก Heading 1 สำหรับหัวข้อใหญ่ และ Heading 2 สำหรับหัวข้อย่อย ที่ Home > Styles"],["แทรกสารบัญ","วางเคอร์เซอร์ในหน้าที่ต้องการ ไปที่ References > Table of Contents"]],
+    tip:["toc","อัปเดตสารบัญ","เมื่อเนื้อหาเปลี่ยน ให้คลิกสารบัญ แล้วเลือก Update Table > Update entire table"]},
+  12:{t:"ส่งออกเป็น PDF และสั่งพิมพ์",ic:"print",
+    intro:"ขั้นตอนสุดท้ายของรายงานคือส่งออกไฟล์หรือสั่งพิมพ์ ตรวจให้เรียบร้อยก่อนทุกครั้ง",
+    h:"PDF และการตั้งค่าพิมพ์",
+    pts:[["ไฟล์ PDF","ล็อกการจัดหน้าและฟอนต์ไว้ เปิดบนเครื่องไหนก็ไม่เพี้ยน"],["สั่งพิมพ์","กด {Ctrl + P} แล้วเลือกพิมพ์ทุกหน้า หน้าปัจจุบัน หรือระบุหน้า เช่น 1-5"]],
+    tip:["print","ก่อนสั่งพิมพ์จริง","ดู Print Preview ทุกครั้ง เพื่อไม่ให้เสียกระดาษและหมึก"]}
+};
+const TOTAL = 12;
+const uid = Math.min(TOTAL, Math.max(1, parseInt(new URLSearchParams(location.search).get('unit')) || 1));
 
-          <div class="ui-demo-box">
-            <svg viewBox="0 0 320 120" width="100%" height="110">
-              <rect x="5" y="5" width="310" height="110" rx="10" fill="#f8fafc" stroke="#0284c7" stroke-width="2"/>
-              <rect x="5" y="5" width="310" height="26" fill="#0284c7" rx="10 10 0 0"/>
-              <text x="15" y="22" fill="#fff" font-size="11" font-weight="bold">Document1 - Microsoft Word (Title Bar)</text>
-              <rect x="15" y="38" width="290" height="34" fill="#e0f2fe" rx="6"/>
-              <text x="25" y="59" fill="#0369a1" font-size="11" font-weight="bold">[ Ribbon: Home | Insert | Draw | Layout ]</text>
-              <rect x="5" y="95" width="310" height="20" fill="#cbd5e1" rx="0 0 10 10"/>
-              <text x="15" y="109" fill="#475569" font-size="10">Page 1 of 1 | 350 words | Thai | Zoom 100% (Status Bar)</text>
-            </svg>
-            <div class="ui-demo-caption">แผนผังโครงสร้างส่วนประกอบหลักบนหน้าจอ Microsoft Word</div>
-          </div>
+let reached = TOTAL;
+try {
+  const u = localStorage.getItem("word_kart_active_user"), db = JSON.parse(localStorage.getItem("word_kart_db") || "{}");
+  if (u && db[u]) reached = db[u].stage || 1;
+} catch (e) {}
+reached = Math.max(reached, uid);
 
-          <div class="key-callout-box">
-            <div class="key-callout-title">
-              <svg class="ico" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-              <span>เกร็ดความรู้สำหรับ ม.1</span>
-            </div>
-            <p class="no-indent">หากแถบไม้บรรทัด (Ruler) หายไปจากหน้าจอ สามารถเปิดกลับคืนมาได้ง่ายๆ โดยไปที่แท็บ <b>มุมมอง (View)</b> ในกลุ่มคำสั่ง แสดง (Show) แล้วทำเครื่องหมายถูกที่ช่อง <b>ไม้บรรทัด (Ruler)</b></p>
-          </div>
-        `
-      },
-      2: {
-        title: "บทที่ 2: การจัดการไฟล์เอกสารและคีย์ลัดพื้นฐาน",
-        html: `
-          <p>การจัดการไฟล์เอกสารอย่างถูกต้อง ทั้งการสร้าง การเปิด และการบันทึกข้อมูล เป็นสิ่งจำเป็นที่จะช่วยป้องกันปัญหางานสูญหาย นอกจากนี้ การฝึกใช้คีย์ลัดบนแป้นพิมพ์จะช่วยลดเวลาการทำงานลงได้เป็นอย่างมาก</p>
+document.getElementById("unit-tag").innerHTML = svg("book") + `<span>UNIT ${uid}</span>`;
+document.getElementById("btn-game").href = `game.html?stage=${uid}`;
 
-          <h3>1. ความแตกต่างระหว่าง Save และ Save As</h3>
-          <ul>
-            <li><b>บันทึก (Save):</b> ใช้สำหรับการบันทึกงานที่ทำเพิ่ม หรือแก้ไขทับลงในไฟล์เดิมที่เคยสร้างและตั้งชื่อไว้แล้ว การกด Save บ่อยๆ จะช่วยป้องกันงานหายเมื่อเกิดไฟฟ้าดับ</li>
-            <li><b>บันทึกเป็น (Save As):</b> ใช้สำหรับการบันทึกเอกสารเป็นไฟล์ใหม่ เช่น ต้องการเปลี่ยนชื่อไฟล์ เปลี่ยนโฟลเดอร์จัดเก็บ หรือเปลี่ยนชนิดของไฟล์ (เช่น บันทึกเป็น PDF)</li>
-          </ul>
+document.getElementById("track").innerHTML = Array.from({length: TOTAL}, (_, i) => {
+  const n = i + 1, cls = n === uid ? "now" : n < uid ? "done" : n > reached ? "lock" : "";
+  const inner = n === uid ? n : n < uid ? svg("check") : n > reached ? svg("lock") : n;
+  return `<a class="dot ${cls}" href="study.html?unit=${n}" title="บทที่ ${n}">${inner}</a>`;
+}).join("");
 
-          <h3>2. ชุดคีย์ลัดอัจฉริยะในการจัดการไฟล์</h3>
-          <p>แป้นพิมพ์มีคีย์ลัดผสมปุ่ม <span class="shortcut-badge">Ctrl</span> ที่ใช้บ่อยในชีวิตประจำวัน ดังนี้:</p>
+const L = lessons[uid];
+document.getElementById("title").innerHTML = `<span class="chip">บทที่ ${uid}</span><span>${L.t}</span>`;
+document.getElementById("body").innerHTML = `
+  <div class="intro">${svg(L.ic)}<div>${L.intro}</div></div>
+  <div class="ribbon">${svg("check")}<span>${L.h}</span></div>
+  <div class="cards">${L.pts.map(p => `<div class="card"><b>${p[0]}</b>${K(p[1])}</div>`).join("")}</div>
+  <div class="tip"><div class="tip-title">${svg(L.tip[0])}<span>${L.tip[1]}</span></div>${K(L.tip[2])}</div>`;
 
-          <div class="key-callout-box">
-            <div class="key-callout-title">
-              <svg class="ico" viewBox="0 0 24 24"><path d="M20 5H4c-1.1 0-1.99.9-1.99 2L2 17c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-9 3h2v2h-2V8zm0 3h2v2h-2v-2zM8 8h2v2H8V8zm0 3h2v2H8v-2zm-3 0h2v2H5v-2zm0-3h2v2H5V8zm7 9H8v-2h4v2zm3-4h-2v-2h2v2zm0-3h-2V8h2v2zm3 3h-2v-2h2v2zm0-3h-2V8h2v2z"/></svg>
-              <span>ตารางคีย์ลัดจัดการไฟล์ที่ออกสอบบ่อย</span>
-            </div>
-            <p class="no-indent">• <span class="shortcut-badge">Ctrl + N</span> = สร้างเอกสารฉบับใหม่ (New Document)</p>
-            <p class="no-indent">• <span class="shortcut-badge">Ctrl + O</span> = เปิดไฟล์เอกสารเก่าที่บันทึกไว้ (Open)</p>
-            <p class="no-indent">• <span class="shortcut-badge">Ctrl + S</span> = บันทึกเอกสาร (Save)</p>
-            <p class="no-indent">• <span class="shortcut-badge">Ctrl + W</span> = ปิดหน้าต่างเอกสารปัจจุบัน (Close Document)</p>
-            <p class="no-indent">• <span class="shortcut-badge">Ctrl + Z</span> = ย้อนกลับ / ยกเลิกคำสั่งที่เพิ่งทำล่าสุด (Undo)</p>
-            <p class="no-indent">• <span class="shortcut-badge">Ctrl + Y</span> = ทำซ้ำคำสั่งที่เพิ่งยกเลิกไป (Redo)</p>
-          </div>
-        `
-      },
-      3: {
-        title: "บทที่ 3: การพิมพ์และการจัดการข้อความภาษาไทย/อังกฤษ",
-        html: `
-          <p>การพิมพ์เอกสารในปัจจุบันต้องอาศัยเทคนิคการเลือกข้อความ (คลุมดำ) และการจัดการข้อความผ่านกลุ่มคำสั่งคลิปบอร์ด (Clipboard) เพื่อให้สามารถแก้ไข ตัด คัดลอก และย้ายข้อความได้อย่างรวดเร็ว</p>
+document.getElementById("pager").innerHTML = `
+  <a class="${uid <= 1 ? 'off' : ''}" href="study.html?unit=${uid - 1}">${svg("left")}<div><small>บทก่อนหน้า</small>บทที่ ${uid - 1}</div></a>
+  <a class="next ${uid >= TOTAL || uid + 1 > reached ? 'off' : ''}" href="study.html?unit=${uid + 1}"><div><small>บทถัดไป</small>บทที่ ${uid + 1}</div>${svg("right")}</a>`;
 
-          <h3>1. เทคนิคการเลือกข้อความ (Text Selection Tips)</h3>
-          <ul>
-            <li><b>เลือกเฉพาะคำ:</b> เลื่อนเมาส์ไปชี้ที่คำนั้นแล้ว <b>ดับเบิลคลิก (คลิกซ้าย 2 ครั้งติดกัน)</b></li>
-            <li><b>เลือกทั้งย่อหน้า (Paragraph):</b> เลื่อนเมาส์ไปชี้ในย่อหน้านั้นแล้ว <b>ทริปเปิลคลิก (คลิกซ้าย 3 ครั้งติดกัน)</b></li>
-            <li><b>เลือกข้อความทั้งหมดในเอกสาร:</b> กดคีย์ลัด <span class="shortcut-badge">Ctrl + A</span> (Select All)</li>
-          </ul>
-
-          <h3>2. การใช้งานคำสั่งในกลุ่มคลิปบอร์ด (Clipboard Group)</h3>
-          <p class="no-indent">เครื่องมือกลุ่มนี้จะอยู่ในแท็บ <b>หน้าแรก (Home)</b> บริเวณซ้ายสุด ประกอบด้วย:</p>
-
-          <div class="key-callout-box">
-            <div class="key-callout-title">
-              <svg class="ico" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
-              <span>คำสั่งย้ายและคัดลอกข้อความ</span>
-            </div>
-            <p class="no-indent"><b>1. คัดลอก (Copy - <span class="shortcut-badge">Ctrl + C</span>):</b> ใช้ทำสำเนาข้อความที่เลือก โดยข้อความต้นฉบับยังคงอยู่ที่เดิม</p>
-            <p class="no-indent"><b>2. ตัด (Cut - <span class="shortcut-badge">Ctrl + X</span>):</b> ใช้ย้ายข้อความ โดยข้อความต้นฉบับจะหายไปเพื่อรอการนำไปวางที่ใหม่</p>
-            <p class="no-indent"><b>3. วาง (Paste - <span class="shortcut-badge">Ctrl + V</span>):</b> นำข้อความที่อยู่ในหน่วยความจำจากการ Copy หรือ Cut มาวางลง ณ ตำแหน่งที่เคอร์เซอร์ปรากฏอยู่</p>
-          </div>
-        `
-      },
-      4: {
-        title: "บทที่ 4: การตกแต่งฟอนต์และรูปแบบตัวอักษร",
-        html: `
-          <p>เอกสารที่ดีต้องมีความอ่านง่าย สวยงาม และเน้นประเด็นสำคัญได้อย่างชัดเจน การปรับแต่งแบบฟอนต์ (Font) ขนาด สี และสไตล์ตัวอักษรจะช่วยเพิ่มความน่าสนใจให้กับเนื้อหา โดยคำสั่งทั้งหมดจะรวมอยู่ในแท็บ <b>หน้าแรก (Home) > กลุ่มฟอนต์ (Font)</b></p>
-
-          <h3>1. สไตล์ตกแต่งตัวอักษรพื้นฐาน</h3>
-          <ul>
-            <li><b>ตัวหนา (Bold - <span class="shortcut-badge">Ctrl + B</span>):</b> ใช้เน้นหัวข้อ หรือข้อความสำคัญให้เข้มเด่นชัด</li>
-            <li><b>ตัวเอียง (Italic - <span class="shortcut-badge">Ctrl + I</span>):</b> ใช้เน้นคำศัพท์ต่างประเทศ คำทับศัพท์ หรือเน้นข้อความสั้นๆ</li>
-            <li><b>ขีดเส้นใต้ (Underline - <span class="shortcut-badge">Ctrl + U</span>):</b> กำหนดเส้นใต้เน้นความสำคัญ</li>
-            <li><b>ตัวยก (Superscript - <span class="shortcut-badge">Ctrl + Shift + +</span>):</b> พิมพ์ตัวอักษรตัวเล็กไว้ด้านบน เช่น ตัวเลขยกกำลัง (X²)</li>
-            <li><b>ตัวเชิงอรรถ/ตัวกัมบัง (Subscript - <span class="shortcut-badge">Ctrl + =</span>):</b> พิมพ์ตัวอักษรตัวเล็กไว้ด้านล่าง เช่น สูตรเคมี (H₂O)</li>
-          </ul>
-
-          <h3>2. เครื่องมือพิเศษ: แปรงทาสี (Format Painter)</h3>
-          <p>เครื่องมือแปรงทาสีใช้สำหรับ <b>คัดลอกเฉพาะรูปแบบและสไตล์</b> (เช่น ฟอนต์ ขนาด สี ตัวหนา) ไปปรับใช้กับข้อความอื่น โดยไม่จำเป็นต้องตั้งค่าใหม่ทั้งหมด</p>
-
-          <div class="key-callout-box">
-            <div class="key-callout-title">
-              <svg class="ico" viewBox="0 0 24 24"><path d="M7 14c-1.66 0-3 1.34-3 3 0 1.31-1.16 2-2 2 .92 1.22 2.49 2 4 2 2.21 0 4-1.79 4-4 0-1.66-1.34-3-3-3zm13.71-9.37l-1.34-1.34c-.39-.39-1.02-.39-1.41 0L9 12.25 11.75 15l8.96-8.96c.39-.39.39-1.02 0-1.41z"/></svg>
-              <span>เคล็ดลับการใช้งานแปรงทาสี</span>
-            </div>
-            <p class="no-indent">• <b>คลิก 1 ครั้ง:</b> คัดลอกรูปแบบนำไปป้ายใส่ข้อความได้เพียง 1 ครั้งแล้วแปรงจะปิดตัวลง<br>• <b>ดับเบิลคลิก 2 ครั้ง:</b> ล็อกแปรงทาสี นำไปป้ายตกแต่งข้อความหลายๆ จุดได้อย่างต่อเนื่อง (เลิกล็อกโดยกดปุ่ม <span class="shortcut-badge">Esc</span>)</p>
-          </div>
-        `
-      },
-      5: {
-        title: "บทที่ 5: การจัดแนวย่อหน้าและการเว้นระยะบรรทัด",
-        html: `
-          <p>การจัดแนวย่อหน้า (Paragraph Alignment) และการตั้งระยะห่างบรรทัด เป็นขั้นตอนสำคัญในการจัดรูปเล่มรายงาน เครื่องมือทั้งหมดอยู่ในแท็บ <b>หน้าแรก (Home) > กลุ่มย่อหน้า (Paragraph)</b></p>
-
-          <h3>1. รูปแบบการจัดตำแหน่งย่อหน้า (Paragraph Alignments)</h3>
-          <ul>
-            <li><b>ชิดซ้าย (Align Left - <span class="shortcut-badge">Ctrl + L</span>):</b> จัดข้อความให้เรียบชิดขอบซ้าย เหมาะสำหรับพิมพ์เนื้อหาบทความทั่วไป</li>
-            <li><b>จัดกึ่งกลาง (Center - <span class="shortcut-badge">Ctrl + E</span>):</b> จัดข้อความให้อยู่กึ่งกลางหน้ากระดาษ เหมาะสำหรับชื่อเรื่องรายงาน หรือหัวข้อใหญ่</li>
-            <li><b>ชิดขวา (Align Right - <span class="shortcut-badge">Ctrl + R</span>):</b> จัดข้อความให้เรียบชิดขอบขวา เหมาะสำหรับพิมพ์วันที่ หรือลายเซ็นกำกับท้ายเอกสาร</li>
-            <li><b>ชิดขอบ (Justify - <span class="shortcut-badge">Ctrl + J</span>):</b> กระจายตัวอักษรให้ขอบซ้ายและขอบขวาเรียบเท่ากันทั้งสองข้าง</li>
-            <li><b>กระจายแบบไทย (Thai Distributed):</b> กระจายช่องไฟพยัญชนะสไตล์ภาษาไทยให้เต็มบรรทัดสวยงาม</li>
-          </ul>
-
-          <div class="key-callout-box">
-            <div class="key-callout-title">
-              <svg class="ico" viewBox="0 0 24 24"><path d="M3 21h18v-2H3v2zm0-4h18v-2H3v2zm0-4h18v-2H3v2zm0-4h18V7H3v2zm0-6v2h18V3H3z"/></svg>
-              <span>ระยะห่างบรรทัดมาตรฐาน (Line Spacing)</span>
-            </div>
-            <p class="no-indent">การกำหนดระยะห่างบรรทัดมาตรฐานในการพิมพ์รายงานวิชาการภาษาไทย มักกำหนดไว้ที่ <b>1.15 บรรทัด</b> หรือ <b>1.5 บรรทัด</b> เพื่อป้องกันไม่ให้ตัวอักษรซ้อนทับกันสระบน-สระล่าง</p>
-          </div>
-        `
-      },
-      6: {
-        title: "บทที่ 6: การสร้างรายการหัวข้อย่อยและลำดับเลข",
-        html: `
-          <p>การสรุปข้อมูลออกเป็นข้อๆ จะช่วยให้ผู้อ่านเข้าใจโครงสร้างของเนื้อหาได้ง่าย โปรแกรมมีเครื่องมือช่วยจัดทำรายการ 2 รูปแบบหลัก คือ Bullets และ Numbering</p>
-
-          <h3>1. สัญลักษณ์หัวข้อย่อย (Bullets)</h3>
-          <p>ใช้ทำรายการสรุปข้อมูลที่ <b>ไม่จำเป็นต้องเรียงลำดับก่อน-หลัง</b> เช่น รายชื่ออุปกรณ์การเรียน คุณสมบัติ หรือรายการสินค้า สามารถเลือกเปลี่ยนสัญลักษณ์เป็นจุด วงกลม หรือสี่เหลี่ยมได้ตามต้องการ</p>
-
-          <h3>2. ลำดับตัวเลข (Numbering)</h3>
-          <p>ใช้ทำรายการสรุปข้อมูลที่ <b>ต้องเรียงลำดับก่อน-หลังอย่างเคร่งครัด</b> เช่น ขั้นตอนการทดลองวิทยาศาสตร์ อันดับการแข่งขัน หรือขั้นตอนการผสมส่วนผสม (เช่น 1, 2, 3... หรือ ก, ข, ค...)</p>
-
-          <div class="key-callout-box">
-            <div class="key-callout-title">
-              <svg class="ico" viewBox="0 0 24 24"><path d="M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-6C3.17 4.5 2.5 5.17 2.5 6s.67 1.5 1.5 1.5S5.5 6.83 5.5 6 4.83 4.5 4 4.5zm0 12c-.83 0-1.5.68-1.5 1.5s.68 1.5 1.5 1.5 1.5-.68 1.5-1.5-.67-1.5-1.5-1.5zM7 19h14v-2H7v2zm0-6h14v-2H7v2zm0-8v2h14V5H7z"/></svg>
-              <span>เทคนิคการย่อหน้าลำดับหัวข้อ (Indent Level)</span>
-            </div>
-            <p class="no-indent">• กดปุ่ม <span class="shortcut-badge">Tab</span> = ย่นหัวข้อลงไปเป็นหัวข้อย่อยระดับล่าง (Increase Indent)<br>• กดปุ่ม <span class="shortcut-badge">Shift + Tab</span> = ถอยหัวข้อกลับขึ้นมาเป็นหัวข้อระดับบน (Decrease Indent)</p>
-          </div>
-        `
-      },
-      7: {
-        title: "บทที่ 7: การแทรกรูปภาพและการจัดตัดข้อความ (Wrap Text)",
-        html: `
-          <p>รูปภาพช่วยเพิ่มความน่าสนใจให้กับเอกสาร โดยสามารถแทรกได้จากแท็บ <b>แทรก (Insert) > รูปภาพ (Pictures)</b> ไม่ว่าจะเป็นรูปภาพจากเครื่องคอมพิวเตอร์ หรือรูปภาพออนไลน์</p>
-
-          <h3>1. รูปแบบการตัดข้อความรอบรูปภาพ (Wrap Text Modes)</h3>
-          <p class="no-indent">เมื่อแทรกรูปภาพเข้ามาแล้ว มักประสบปัญหาไม่สามารถคลิกลากย้ายรูปภาพได้ ให้คลิกที่รูปภาพแล้วกดปุ่ม <b>การตัดข้อความ (Wrap Text)</b> เพื่อเลือกโหมดดังนี้:</p>
-          <ul>
-            <li><b>In Line with Text (แบบประสานในแนวเดียวกับข้อความ):</b> รูปภาพจะถูกวางตัวเหมือนพยัญชนะตัวหนึ่งในบรรทัด</li>
-            <li><b>Square (แบบสี่เหลี่ยม):</b> ตัวหนังสือจะล้อมรอบรูปภาพเป็นกรอบสี่เหลี่ยมอย่างมีระเบียบ</li>
-            <li><b>Tight (แบบล้อมรอบแน่น):</b> ตัวหนังสือจะวิ่งล้อมรอบตามส่วนโค้งเว้าของรูปภาพ</li>
-            <li><b>Behind Text (แบบอยู่หลังข้อความ):</b> ย้ายรูปภาพลงไปเป็นฉากหลัง โดยมีตัวหนังสือลอยทับอยู่ด้านบน</li>
-            <li><b>In Front of Text (แบบอยู่ข้างหน้าข้อความ):</b> รูปภาพจะลอยทับอยู่บนตัวหนังสือ</li>
-          </ul>
-
-          <div class="key-callout-box">
-            <div class="key-callout-title">
-              <svg class="ico" viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-              <span>หลักการย่อ-ขยายรูปภาพไม่ให้เสียสัดส่วน</span>
-            </div>
-            <p class="no-indent">การย่อหรือขยายรูปภาพ ควรคลิกลากจุดดึงที่ <b>มุมทั้ง 4 มุมของรูปภาพเท่านั้น</b> ห้ามลากดึงจุดตรงกลางด้านข้างหรือด้านบน-ล่าง เพราะจะทำให้รูปภาพเบี้ยวสูญเสียสัดส่วนเดิม</p>
-          </div>
-        `
-      },
-      8: {
-        title: "บทที่ 8: การสร้างและตกแต่งตารางข้อมูล",
-        html: `
-          <p>ตาราง (Table) ใช้จัดเก็บข้อมูลที่เป็นโครงสร้างอย่างเป็นระบบ เช่น ตารางเรียน ตารางคะแนน หรือตารางเปรียบเทียบ โดยไปที่แท็บ <b>แทรก (Insert) > ตาราง (Table)</b></p>
-
-          <h3>1. โครงสร้างพื้นฐานของตาราง</h3>
-          <ul>
-            <li><b>คอลัมน์ (Column):</b> ช่องตารางในแนวตั้ง (นับเรียงจากซ้ายไปขวา)</li>
-            <li><b>แถว (Row):</b> ช่องตารางในแนวนอน (นับเรียงจากบนลงล่าง)</li>
-            <li><b>เซลล์ (Cell):</b> ช่องสี่เหลี่ยมแต่ละช่องที่เกิดจากการตัดกันของแถวและคอลัมน์</li>
-          </ul>
-
-          <h3>2. คำสั่งจัดการตารางที่สำคัญ</h3>
-          <ul>
-            <li><b>ผสานเซลล์ (Merge Cells):</b> รวมช่องเซลล์หลายๆ ช่องที่เลือกไว้ให้กลายเป็นช่องเดียวกัน</li>
-            <li><b>แยกเซลล์ (Split Cells):</b> แบ่งช่องเซลล์ 1 ช่องให้ออกเป็นหลายแถวหรือหลายคอลัมน์ย่อย</li>
-          </ul>
-
-          <div class="key-callout-box">
-            <div class="key-callout-title">
-              <svg class="ico" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM8 20H4v-4h4v4zm0-6H4v-4h4v4zm0-6H4V4h4v4zm6 12h-4v-4h4v4zm0-6h-4v-4h4v4zm0-6h-4V4h4v4zm6 12h-4v-4h4v4zm0-6h-4v-4h4v4zm0-6h-4V4h4v4z"/></svg>
-              <span>วิธีเพิ่มแถวใหม่ในตารางอย่างรวดเร็ว</span>
-            </div>
-            <p class="no-indent">เลื่อนเคอร์เซอร์ไปวางในช่องเซลล์สุดท้ายมุมขวาล่างสุดของตาราง แล้วกดปุ่ม <span class="shortcut-badge">Tab</span> บนแป้นพิมพ์ ระบบจะสร้างแถวใหม่เพิ่มต่อท้ายตารางให้อัตโนมัติทันที</p>
-          </div>
-        `
-      },
-      9: {
-        title: "บทที่ 9: การตั้งค่าหน้ากระดาษและระยะขอบ (Page Setup)",
-        html: `
-          <p>การตั้งค่าหน้ากระดาษเป็นสิ่งแรกที่ควรทำก่อนลงมือพิมพ์เอกสารจริง โดยเข้าไปที่แท็บ <b>เค้าโครง (Layout) > กลุ่มตั้งค่าหน้ากระดาษ (Page Setup)</b></p>
-
-          <h3>1. การกำหนดทิศทางกระดาษ (Orientation)</h3>
-          <ul>
-            <li><b>แนวตั้ง (Portrait):</b> ทิศทางมาตรฐานสำหรับพิมพ์รายงาน หนังสือ บทความ และงานเอกสารทั่วไป</li>
-            <li><b>แนวนอน (Landscape):</b> เหมาะสำหรับงานพิมพ์ที่มีตารางขนาดกว้าง เกียรติบัตร หรือแผนภูมิ</li>
-          </ul>
-
-          <h3>2. การตั้งระยะขอบกระดาษ (Margins)</h3>
-          <p>คือระยะเว้นว่างจากขอบกระดาษเข้ามาถึงพื้นที่เริ่มพิมพ์ข้อความ โดยระเบียบงานสารบรรณเอกสารราชการไทยมักกำหนดไว้ดังนี้:</p>
-          <ul>
-            <li>ขอบบน: 2.5 เซนติเมตร / ขอบซ้าย: 3 เซนติเมตร (เผื่อเย็บเล่ม)</li>
-            <li>ขอบขวา: 2 เซนติเมตร / ขอบล่าง: 2 เซนติเมตร</li>
-          </ul>
-
-          <div class="key-callout-box">
-            <div class="key-callout-title">
-              <svg class="ico" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z"/></svg>
-              <span>ขนาดกระดาษมาตรฐาน (Paper Size)</span>
-            </div>
-            <p class="no-indent">ขนาดกระดาษที่นิยมใช้แพร่หลายที่สุดในสถานศึกษาและหน่วยงานคือ <b>A4</b> (ขนาดกว้าง 21 เซนติเมตร x สูง 29.7 เซนติเมตร)</p>
-          </div>
-        `
-      },
-      10: {
-        title: "บทที่ 10: การตรวจคำผิดและการค้นหา/แทนที่คำ",
-        html: `
-          <p>Microsoft Word มีระบบพจนานุกรมช่วยตรวจคำผิดอัตโนมัติขณะพิมพ์งาน และมีเครื่องมือช่วยค้นหาแก้ไขคำผิดหลายๆ จุดพร้อมกันได้อย่างสะดวกรวดเร็ว</p>
-
-          <h3>1. สัญลักษณ์เส้นใต้เตือนข้อผิดพลาด (Spelling & Grammar Checks)</h3>
-          <ul>
-            <li><b style="color:#ef4444;">เส้นใต้หยักสีแดง:</b> แจ้งเตือนการสะกดคำผิด หรือคำนั้นไม่มีอยู่ในพจนานุกรมภาษาไทย/อังกฤษของระบบ</li>
-            <li><b style="color:#0284c7;">เส้นใต้หยักสีฟ้า:</b> แจ้งเตือนการเว้นวรรคผิดพลาด เช่น เคาะเว้นวรรคซ้ำกัน 2 ครั้ง หรือผิดหลักไวยากรณ์</li>
-          </ul>
-
-          <h3>2. เครื่องมือค้นหาและแทนที่คำ (Find & Replace)</h3>
-          <p>หากเราพิมพ์คำผิดซ้ำกันหลายสิบจุดในรายงานความยาวหลายหน้า สามารถใช้เครื่องมือ <b>ค้นหาและแทนที่</b> เพื่อเปลี่ยนคำผิดเป็นคำที่ถูกต้องทั้งหมดได้ในการคลิกครั้งเดียว</p>
-
-          <div class="key-callout-box">
-            <div class="key-callout-title">
-              <svg class="ico" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-              <span>คีย์ลัดการค้นหาและแทนที่</span>
-            </div>
-            <p class="no-indent">• <span class="shortcut-badge">Ctrl + F</span> = เปิดหน้าต่างค้นหาคำในเอกสาร (Find)<br>• <span class="shortcut-badge">Ctrl + H</span> = เปิดหน้าต่างค้นหาและแทนที่คำผิด (Replace)</p>
-          </div>
-        `
-      },
-      11: {
-        title: "บทที่ 11: การใช้งาน Style และการสร้างสารบัญอัตโนมัติ",
-        html: `
-          <p>การจัดทำสารบัญอัตโนมัติ (Table of Contents) ช่วยประหยัดเวลา และทำให้เลขหน้าในสารบัญตรงกับเนื้อหาจริงเสมอ แม้จะมีการแก้ไขเพิ่ม-ลดเนื้อหาในภายหลัง</p>
-
-          <h3>1. ขั้นตอนสร้างสารบัญอัตโนมัติ 2 สเต็ปง่ายๆ</h3>
-          <ul>
-            <li><b>สเต็ปที่ 1 (กำหนดสไตล์หัวข้อ):</b> คลุมดำข้อความที่เป็นหัวข้อ แล้วเลือกสไตล์จากแท็บ <b>หน้าแรก (Home) > กลุ่มลักษณะ (Styles)</b> โดยหัวข้อใหญ่เลือกเป็น <b>Heading 1 (หัวเรื่อง 1)</b> และหัวข้อย่อยเลือกเป็น <b>Heading 2 (หัวเรื่อง 2)</b></li>
-            <li><b>สเต็ปที่ 2 (ดึงตารางสารบัญ):</b> วางเคอร์เซอร์ในหน้าที่ต้องการสร้างสารบัญ ไปที่แท็บ <b>คำอ้างอิง (References) > สารบัญ (Table of Contents)</b> แล้วเลือกรูปแบบสารบัญที่ต้องการ</li>
-          </ul>
-
-          <div class="key-callout-box">
-            <div class="key-callout-title">
-              <svg class="ico" viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
-              <span>การอัปเดตสารบัญเมื่อเนื้อหาเปลี่ยน</span>
-            </div>
-            <p class="no-indent">หากมีการพิมพ์เนื้อหาเพิ่มจนเลขหน้าเคลื่อน ให้คลิกที่สารบัญแล้วกดปุ่ม <b>อัปเดตสารบัญ (Update Table)</b> เลือกคำสั่ง <b>อัปเดตทั้งตาราง</b> เลขหน้าทั้งหมดจะถูกปรับปรุงให้ถูกต้องทันที</p>
-          </div>
-        `
-      },
-      12: {
-        title: "บทที่ 12: การส่งออกไฟล์และการพิมพ์เอกสาร (Print & Export)",
-        html: `
-          <p>ขั้นตอนสุดท้ายของการทำรายงานคือการส่งออกไฟล์เพื่อนำไปใช้งาน หรือสั่งพิมพ์งานออกทางเครื่องพิมพ์ (Printer)</p>
-
-          <h3>1. ทำไมต้องส่งออกไฟล์เป็น .PDF?</h3>
-          <p>ไฟล์นามสกุล <b>.PDF (Portable Document Format)</b> มีจุดเด่นคือจะช่วย <b>ล็อกการจัดหน้ากระดาษ ล็อกฟอนต์ และวัตถุทุกอย่างให้อยู่คงที่</b> ไม่ว่าจะนำไปเปิดบนมือถือ แท็บเล็ต หรือคอมพิวเตอร์เครื่องอื่น หน้ากระดาษจะไม่เด้งขยับเคลื่อน</p>
-
-          <h3>2. การตั้งค่าสั่งพิมพ์ (Print Settings)</h3>
-          <p class="no-indent">กดคีย์ลัด <span class="shortcut-badge">Ctrl + P</span> เพื่อเข้าสู่หน้าต่างการพิมพ์ โดยมีตัวเลือกการสั่งพิมพ์ดังนี้:</p>
-          <ul>
-            <li><b>Print All Pages:</b> สั่งพิมพ์เอกสารทั้งหมดทุกหน้า</li>
-            <li><b>Print Current Page:</b> สั่งพิมพ์เฉพาะหน้าปัจจุบันที่เคอร์เซอร์ปรากฏอยู่เพียงหน้าเดียว</li>
-            <li><b>Pages (กำหนดหน้าพิมพ์):</b> เช่น พิมพ์ <span class="shortcut-badge">1-5</span> (พิมพ์หน้า 1 ถึงหน้า 5) หรือ <span class="shortcut-badge">1, 4, 8</span> (พิมพ์เฉพาะหน้า 1, หน้า 4 และหน้า 8)</li>
-          </ul>
-
-          <div class="key-callout-box">
-            <div class="key-callout-title">
-              <svg class="ico" viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
-              <span>คำแนะนำก่อนสั่งพิมพ์จริง</span>
-            </div>
-            <p class="no-indent">ควรตรวจสอบความเรียบร้อยของหน้าเอกสารผ่านมุมมอง <b>ตัวอย่างก่อนพิมพ์ (Print Preview)</b> ทุกครั้ง เพื่อป้องกันการพิมพ์งานออกมาผิดพลาดซึ่งจะทำให้สิ้นเปลืองกระดาษและหมึกพิมพ์</p>
-          </div>
-        `
-      }
-    };
-
-    // ดึง Parameter unit จาก URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const unitId = parseInt(urlParams.get('unit')) || 1;
-
-    // อัปเดต Tag แสดงบทเรียน
-    document.getElementById("study-unit-tag").innerHTML = `
-      <svg class="ico" viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zm0 13.09L4.27 12 12 7.78 19.73 12 12 16.09z"/></svg>
-      <span>UNIT ${unitId}</span>
-    `;
-    
-    // ลิงก์ปุ่มไปยัง gameja.html ตามด่านที่เลือก
-    document.getElementById("btn-start-game").href = `gameja.html?stage=${unitId}`;
-
-    const currentBookLesson = bookDatabase[unitId];
-    if (currentBookLesson) {
-      document.getElementById("study-title").innerText = currentBookLesson.title;
-      document.getElementById("study-body").innerHTML = currentBookLesson.html;
-    } else {
-      document.getElementById("study-title").innerText = `บทที่ ${unitId}: สรุปเนื้อหาหนังสือเรียน`;
-      document.getElementById("study-body").innerHTML = `<p>กำลังเตรียมข้อมูลหนังสือเรียนบทนี้...</p>`;
-    }
-  </script>
+addEventListener("scroll", () => {
+  const h = document.documentElement.scrollHeight - innerHeight;
+  document.getElementById("read-bar").style.width = (h > 0 ? Math.min(100, scrollY / h * 100) : 0) + "%";
+}, { passive: true });
+</script>
 </body>
 </html>
