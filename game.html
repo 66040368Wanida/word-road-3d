@@ -322,6 +322,52 @@ function playNitroSound() {
   } catch(e) {}
 }
 
+/* ---------- BACKGROUND MUSIC (BGM) SYSTEM ---------- */
+let bgmInterval = null;
+let isBgmPlaying = false;
+
+function startBackgroundMusic() {
+  if (isBgmPlaying) return;
+  try {
+    const ctx = getAudioContext();
+    if (!ctx) return;
+    isBgmPlaying = true;
+    const notes = [261.63, 329.63, 392.00, 523.25, 392.00, 329.63]; // โน้ตฟังกี้อาร์เคด
+    let step = 0;
+
+    bgmInterval = setInterval(() => {
+      if (!isBgmPlaying || !audioCtx) return;
+      try {
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc.type = "triangle";
+        osc.frequency.setValueAtTime(notes[step], now);
+
+        gain.gain.setValueAtTime(0.04, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start(now);
+        osc.stop(now + 0.18);
+
+        step = (step + 1) % notes.length;
+      } catch (e) {}
+    }, 220);
+  } catch (e) {}
+}
+
+function stopBackgroundMusic() {
+  isBgmPlaying = false;
+  if (bgmInterval) {
+    clearInterval(bgmInterval);
+    bgmInterval = null;
+  }
+}
+
 function init() {
   scene = new THREE.Scene();
   const skyC = TH.sky[1];
@@ -342,7 +388,6 @@ function init() {
 
   buildSky(); buildTrack(); buildScenery(); buildItems(); buildStartArch();
 
-  // รถผู้เล่นใช้สีที่ซื้อ/เลือกไว้ในหน้า Custom Garage
   car = makeKart(getCarColor(), 0xdc2626, true);
   scene.add(car);
   [[50,-6,0x8b5cf6,0x1e1b4b,0,"Rider"],[32,6,0x10b981,0x065f46,1,"Dino"],[16,-9,0xf97316,0x7c2d12,0,"Bolt"],
@@ -388,6 +433,7 @@ function startCountdown() {
       $("cd-text").innerText = "GO! 🏁"; $("cd-text").style.color = "#4ade80";
       $("lamp-1").className = "cd-lamp green"; $("lamp-2").className = "cd-lamp green"; $("lamp-3").className = "cd-lamp green";
       isCountingDown = false; playBeepHigh(); showToast("START RACE! 🏁", "#facc15");
+      startBackgroundMusic(); // เริ่มเล่นเพลงประกอบฉากสนุกๆ เมื่อปล่อยตัว
     } else { clearInterval(cdInterval); $("countdown-screen").style.display = "none"; }
   }, 1000);
 }
@@ -702,6 +748,7 @@ function stepAI(a) {
 }
 
 function finishRace() {
+  stopBackgroundMusic(); // หยุดเพลงเมื่อเข้าเส้นชัย
   isCleared = true; P.fin = raceF / 60; showToast("FINISH! 🏁", "#facc15");
   let g = 0; while (ais.some(a => a.fin == null) && g++ < 400000) { raceF++; ais.forEach(stepAI); }
   setTimeout(showResult, 1300);
@@ -718,14 +765,12 @@ function saveProgress(reward) {
     d.coins = (d.coins || 0) + reward;
 
     if (stageId < 13) {
-      // ผ่านด่านนี้ → ปลดล็อกด่านถัดไป (ผ่านด่าน 12 → ปลดล็อกเกมพิเศษที่ 13)
       if (before <= stageId) { d.stage = stageId + 1; info.unlockedNext = stageId + 1; }
       if (stageId === 12 && before <= 12) info.unlock13 = true;
     } else if (before >= 13) {
       d.cleared13 = true;
     }
 
-    // สถิติเวลาดีที่สุด
     if (!d.bestSec || P.fin < d.bestSec) { d.bestSec = P.fin; d.bestTime = fmt(P.fin); }
 
     db[user] = d;
@@ -738,7 +783,7 @@ function saveProgress(reward) {
 function showResult() {
   const L = [{ n: "คุณ", t: P.fin, me: 1 }, ...ais.map(a => ({ n: a.name, t: a.fin }))].sort((a, b) => a.t - b.t);
   $("res-list").innerHTML = L.map((r, i) => `<div class="rrow${r.me ? " me" : ""}"><b>${["🥇", "🥈", "🥉"][i] || i + 1}</b>${r.n}<span class="t">${fmt(r.t)}</span></div>`).join("");
-  const place = L.findIndex(r => r.me), reward = [20, 15, 10][place] || 5;
+  const place = L.findIndex(r => r.me), reward = [20, 15, 10][place] || 5; // อันดับ 1 ได้ 20, อันดับ 2 ได้ 15, อันดับ 3 ได้ 10, อันดับ 4 เป็นต้นไปได้ 5
   $("res-title").innerText = place === 0 ? "คุณชนะ! 🏆" : `เข้าเส้นชัยอันดับ ${place + 1}`;
   const info = saveProgress(reward);
   let html = `+${reward} Coins 🪙`;
@@ -866,6 +911,7 @@ function pick2Missions() {
 }
 
 function startBonus() {
+  stopBackgroundMusic(); // หยุดเพลงชั่วคราวเมื่อเข้าโหมดตอบคำถาม
   for (const k in keys) keys[k] = false;
   P.speed = 0; P.vx = 0; P.vz = 0;
 
@@ -905,19 +951,16 @@ function renderBonusUI() {
         </div>`;
       work.querySelectorAll(".tool-btn").forEach(btn => btn.onclick = () => checkRibbonTab(m.opts[+btn.dataset.i], m.target));
     }
-    // คำถามข้อความ → ตอบเป็นรูป (ใช้ index แทน data-v เพราะ SVG มีเครื่องหมาย " )
     else if (m.mode === "pic_choice") {
       const shown = shuf(m.opts);
       work.innerHTML = `<div class="pic-grid">${shown.map((o, i) => `<button class="pic-btn" data-i="${i}">${o}</button>`).join("")}</div>`;
       work.querySelectorAll(".pic-btn").forEach(btn => btn.onclick = () => shown[+btn.dataset.i] === m.target ? handleBonusSuccess() : handleBonusFail());
     }
-    // คำถามเป็นรูป → ตอบเป็นข้อความ
     else if (m.mode === "img_q") {
       const shown = shuf(m.opts);
       work.innerHTML = `<div class="big-pic">${m.pic}</div><div class="txt-grid">${shown.map((o, i) => `<button class="tool-btn" data-i="${i}">${o}</button>`).join("")}</div>`;
-      work.querySelectorAll(".tool-btn").forEach(btn => btn.onclick = () => shown[+btn.dataset.i] === m.target ? handleBonusSuccess() : handleBonusFail());
+      work.querySelectorAll(".txt-grid .tool-btn").forEach(btn => btn.onclick = () => shown[+btn.dataset.i] === m.target ? handleBonusSuccess() : handleBonusFail());
     }
-    // ลากคำตอบมาวาง (Drag & Drop)
     else if (m.mode === "drag") {
       const shown = shuf(m.opts);
       work.innerHTML = `
@@ -932,7 +975,6 @@ function renderBonusUI() {
   if (st === "done") $("b-wait").innerHTML = "🎉 ภารกิจสำเร็จ! ได้รับ N2O ไนโตรบูสต์เต็มหลอด ⚡<br>กดปุ่มด้านล่างเพื่อออกตัวลุยรอบต่อไปพร้อมกัน!";
 }
 
-/* ---------- ระบบลากวาง รองรับเมาส์ / ทัชสกรีน / แท็บเล็ต ---------- */
 function setupDrag(root, m, shown) {
   const slot = root.querySelector("#dslot");
   let selected = null, locked = false;
@@ -973,7 +1015,6 @@ function setupDrag(root, m, shown) {
 
 function checkRibbonTab(selected, target) { selected.includes(target) ? handleBonusSuccess() : handleBonusFail(); }
 
-// ตอบถูก: ไปข้อถัดไป / ถ้าครบ 2 ข้อ รับ N2O เต็มหลอด
 function handleBonusSuccess() {
   if (!bonus || bonus.state !== "play") return;
   if (bonus.qi < bonus.qs.length - 1) {
