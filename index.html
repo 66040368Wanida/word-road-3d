@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
 <title>Word Kart: Rush Championship</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -271,6 +271,61 @@ body::after{
   .hero-strip{flex-wrap:wrap;gap:14px}.hero-pct{display:none}.btn-continue{width:100%;justify-content:center}
   .stats-row{grid-template-columns:1fr;gap:12px}
 }
+
+/* ===== FULL-WIDTH TOP BAR + ALL-DEVICE RESPONSIVE ===== */
+body{justify-content:flex-start;min-height:100vh;min-height:100dvh;
+  padding:max(20px,env(safe-area-inset-top)) max(18px,env(safe-area-inset-right)) max(24px,env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-left))}
+.top-bar{position:relative;z-index:2;width:100%;max-width:none;margin:0 0 22px;justify-content:space-between}
+.user-profile-badge{min-width:0}
+#hud-username{max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.btn-logout-small,.btn-close,.btn-continue,.mode-card{-webkit-tap-highlight-color:transparent}
+
+@media (max-width:820px){
+  .app-viewport-wrapper{max-width:640px}
+  .console-screen-frame{padding:22px}
+}
+@media (max-width:560px){
+  body{padding-left:max(12px,env(safe-area-inset-left));padding-right:max(12px,env(safe-area-inset-right))}
+  .top-bar{gap:8px;margin-bottom:16px}
+  .user-profile-badge{gap:8px;padding:6px 12px 6px 7px;border-radius:18px}
+  .avatar-circle{width:38px;height:38px;border-radius:12px}
+  .avatar-circle .svg-icon{width:20px;height:20px}
+  #hud-username{max-width:84px;font-size:.92rem}
+  .btn-logout-small{margin-left:6px;padding:2px 8px;font-size:.7rem}
+  #hud-license{font-size:.72rem!important}
+  .currency-pill{padding:8px 14px;font-size:1.05rem;gap:6px;border-radius:18px}
+  .currency-pill .svg-icon{width:20px!important;height:20px!important}
+  .console-screen-frame{padding:16px;border-radius:24px}
+  .console-screen-frame::before{left:20px;right:20px}
+  .select-mode-title{font-size:1.25rem}
+  .season-tag{font-size:.78rem;padding:4px 12px}
+  .hero-strip{padding:14px 16px;border-radius:20px}
+  .hero-title{font-size:1.15rem}
+  .modes-grid{grid-template-columns:1fr;gap:14px}
+  .card-story,.card-timetrial{grid-column:auto;grid-row:auto}
+  .card-story{min-height:170px}
+  .mode-card{min-height:120px;padding:18px}
+  .card-title-text{font-size:1.4rem}
+  .footer-ribbon{font-size:1.15rem;letter-spacing:1.5px;gap:8px}
+  .road{height:52px}.kart{width:60px;height:34px}
+  .modal-backdrop{padding:12px}
+  .modal-box{padding:18px;border-radius:24px}
+  .modal-header{flex-wrap:wrap}
+  .stage-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+  .auth-card{padding:26px 18px}
+  .stat-tile{padding:12px 14px}
+}
+@media (max-width:360px){
+  #hud-username{max-width:64px}
+  .btn-logout-small{display:none}
+}
+@media (max-height:520px) and (orientation:landscape){
+  body{justify-content:flex-start}
+  .modal-box{max-height:94vh}
+}
+@media (min-width:1400px){
+  .app-viewport-wrapper{max-width:1120px}
+}
 </style>
 </head>
 <body>
@@ -287,8 +342,6 @@ body::after{
     <div><span class="auth-toggle-link" onclick="toggleAuthMode()" id="auth-toggle-text">ยังไม่มีบัญชี? สมัครสมาชิกที่นี่</span></div>
   </div>
 </div>
-
-<div class="app-viewport-wrapper">
 
   <!-- TOP BAR -->
   <div class="top-bar">
@@ -309,6 +362,8 @@ body::after{
       <span id="hud-coins">0</span>
     </div>
   </div>
+
+<div class="app-viewport-wrapper">
 
   <!-- MAIN CONSOLE -->
   <div class="console-screen-frame">
