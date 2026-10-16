@@ -593,7 +593,7 @@ function openStageSelect() {
 
   stagesInfo.forEach(s => {
     const isUnlocked = s.id <= (data.stage || 1);
-    const isCompleted = s.id < (data.stage || 1);
+    const isCompleted = s.id < (data.stage || 1) || (s.id === 13 && data.cleared13);
 
     const card = document.createElement("div");
     card.className = `stage-btn-card ${isCompleted ? 'completed' : (isUnlocked ? '' : 'locked')}`;
@@ -627,7 +627,7 @@ function closeStageSelect() {
 
 function goToStage(stageNum) {
   if (stageNum === 13) {
-    window.location.href = `game.html`;
+    window.location.href = `game.html?stage=13`;
   } else {
     window.location.href = `study.html?unit=${stageNum}`;
   }
@@ -640,14 +640,15 @@ function openGarageModal() {
 
   carSkins.forEach(skin => {
     const isActive = (data.skin || "default") === skin.id;
+    const owned = skin.price === 0 || isActive || (data.owned || []).includes(skin.id);
     const div = document.createElement("div");
     div.className = `garage-item ${isActive ? 'active' : ''}`;
     div.innerHTML = `
       <div style="width:40px; height:40px; border-radius:50%; background:${skin.color}; margin:0 auto 8px;"></div>
       <div style="font-weight:800; font-size:0.95rem; color:#0f172a;">${skin.name}</div>
-      <div style="font-size:0.85rem; color:#d97706; font-weight:800; margin-bottom:8px;">${skin.price} Coins</div>
+      <div style="font-size:0.85rem; color:#d97706; font-weight:800; margin-bottom:8px;">${owned ? 'เป็นเจ้าของแล้ว' : skin.price + ' Coins'}</div>
       <button class="btn-stage-action btn-action-play" onclick="selectSkin('${skin.id}', ${skin.price})">
-        ${isActive ? 'กำลังใช้งาน' : 'เลือกใช้'}
+        ${isActive ? 'กำลังใช้งาน' : (owned ? 'เลือกใช้' : 'ซื้อ')}
       </button>
     `;
     grid.appendChild(div);
@@ -662,11 +663,14 @@ function closeGarageModal() {
 
 function selectSkin(skinId, price) {
   const data = getUserData();
-  if (data.coins < price && data.skin !== skinId) {
-    alert("เหรียญทองของคุณไม่เพียงพอ");
-    return;
+  const owned = price === 0 || (data.owned || []).includes(skinId);
+  if (owned) {
+    saveUserData({ skin: skinId });
+  } else {
+    if ((data.coins || 0) < price) { alert("เหรียญทองของคุณไม่เพียงพอ"); return; }
+    if (!confirm(`ซื้อสีนี้ด้วย ${price} เหรียญ?`)) return;
+    saveUserData({ coins: (data.coins || 0) - price, owned: [...(data.owned || []), skinId], skin: skinId });
   }
-  saveUserData({ skin: skinId });
   closeGarageModal();
 }
 
@@ -686,10 +690,10 @@ function closeTimeTrialModal() {
 }
 
 function refreshExtras(data) {
-  const st = Math.min(data.stage || 1, 13), done = st - 1, pct = Math.round(done / 13 * 100);
+  const st = Math.min(data.stage || 1, 13), done = data.cleared13 ? 13 : st - 1, pct = Math.round(done / 13 * 100);
   const next = stagesInfo.find(x => x.id === st) || stagesInfo[0];
   const set = (id, v) => { const e = document.getElementById(id); if (e) e.innerText = v; };
-  set("hud-next-title", next.isSecret ? "ด่าน 13: ปริศนาลับ" : next.title);
+  set("hud-next-title", data.cleared13 ? "ผ่านครบทุกด่านแล้ว" : (next.isSecret ? "ด่าน 13: ปริศนาลับ" : next.title));
   set("hud-pct", pct + "%");
   set("hud-stat-stage", done + " / 13");
   set("hud-stat-coins", data.coins || 0);
