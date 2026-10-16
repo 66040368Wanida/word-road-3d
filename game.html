@@ -738,7 +738,7 @@ function saveProgress(reward) {
 function showResult() {
   const L = [{ n: "คุณ", t: P.fin, me: 1 }, ...ais.map(a => ({ n: a.name, t: a.fin }))].sort((a, b) => a.t - b.t);
   $("res-list").innerHTML = L.map((r, i) => `<div class="rrow${r.me ? " me" : ""}"><b>${["🥇", "🥈", "🥉"][i] || i + 1}</b>${r.n}<span class="t">${fmt(r.t)}</span></div>`).join("");
-  const place = L.findIndex(r => r.me), reward = [150, 100, 70][place] || 40;
+  const place = L.findIndex(r => r.me), reward = [20, 15, 10][place] || 5;
   $("res-title").innerText = place === 0 ? "คุณชนะ! 🏆" : `เข้าเส้นชัยอันดับ ${place + 1}`;
   const info = saveProgress(reward);
   let html = `+${reward} Coins 🪙`;
