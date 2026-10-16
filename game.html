@@ -216,6 +216,7 @@ let sky, clouds;
 const TOTAL_LAPS = 5, BONUS_SEC = 45;
 let raceF = 0, bonus = null, acc = 0, lastT = 0, lastBonusLap = 0;
 let isCountingDown = true, countdownTimer = 3;
+let totalCorrectAnswers = 0; // ตัวแปรนับจำนวนข้อที่ตอบถูกสะสม
 
 const fmt = t => { const ms = Math.round(t * 1000); return String(Math.floor(ms / 60000)).padStart(2, "0") + ":" + String(Math.floor(ms / 1000) % 60).padStart(2, "0") + "." + String(ms % 1000).padStart(3, "0"); };
 
@@ -369,6 +370,7 @@ function stopBackgroundMusic() {
 }
 
 function init() {
+  totalCorrectAnswers = 0; // รีเซ็ตคะแนนเมื่อเริ่มเล่นใหม่
   scene = new THREE.Scene();
   const skyC = TH.sky[1];
   scene.background = new THREE.Color(skyC);
@@ -754,28 +756,34 @@ function finishRace() {
   setTimeout(showResult, 1300);
 }
 
-/* ---------- บันทึกด่าน เหรียญ สถิติเวลา และปลดล็อกด่านถัดไป ---------- */
-function saveProgress(reward) {
-  const info = { unlockedNext: 0, unlock13: false, saved: false };
+/* ---------- บันทึกด่าน เหรียญ สถิติเวลา และเงื่อนไขผ่านด่านจากคะแนนตอบถูก 6 ข้อขึ้นไป ---------- */
+function saveProgress() {
+  const info = { unlockedNext: 0, unlock13: false, saved: false, correctCount: totalCorrectAnswers, passed: false };
   try {
     const rec = getUserRecord();
     if (!rec) return info;
     const { user, db, d } = rec;
-    const before = d.stage || 1;
-    d.coins = (d.coins || 0) + reward;
 
-    if (stageId < 13) {
-      if (before <= stageId) { d.stage = stageId + 1; info.unlockedNext = stageId + 1; }
-      if (stageId === 12 && before <= 12) info.unlock13 = true;
-    } else if (before >= 13) {
-      d.cleared13 = true;
+    // เงื่อนไขผ่านด่าน: ต้องตอบคำถามถูก 6 ข้อขึ้นไปจากทั้งหมด 8 ข้อ
+    if (totalCorrectAnswers >= 6) {
+      info.passed = true;
+      const before = d.stage || 1;
+      const reward = 20;
+      d.coins = (d.coins || 0) + reward;
+
+      if (stageId < 13) {
+        if (before <= stageId) { d.stage = stageId + 1; info.unlockedNext = stageId + 1; }
+        if (stageId === 12 && before <= 12) info.unlock13 = true;
+      } else if (before >= 13) {
+        d.cleared13 = true;
+      }
+
+      if (!d.bestSec || P.fin < d.bestSec) { d.bestSec = P.fin; d.bestTime = fmt(P.fin); }
+
+      db[user] = d;
+      localStorage.setItem("word_kart_db", JSON.stringify(db));
+      info.saved = true;
     }
-
-    if (!d.bestSec || P.fin < d.bestSec) { d.bestSec = P.fin; d.bestTime = fmt(P.fin); }
-
-    db[user] = d;
-    localStorage.setItem("word_kart_db", JSON.stringify(db));
-    info.saved = true;
   } catch (e) {}
   return info;
 }
@@ -783,14 +791,27 @@ function saveProgress(reward) {
 function showResult() {
   const L = [{ n: "คุณ", t: P.fin, me: 1 }, ...ais.map(a => ({ n: a.name, t: a.fin }))].sort((a, b) => a.t - b.t);
   $("res-list").innerHTML = L.map((r, i) => `<div class="rrow${r.me ? " me" : ""}"><b>${["🥇", "🥈", "🥉"][i] || i + 1}</b>${r.n}<span class="t">${fmt(r.t)}</span></div>`).join("");
-  const place = L.findIndex(r => r.me), reward = [20, 15, 10][place] || 5; // อันดับ 1 ได้ 20, อันดับ 2 ได้ 15, อันดับ 3 ได้ 10, อันดับ 4 เป็นต้นไปได้ 5
-  $("res-title").innerText = place === 0 ? "คุณชนะ! 🏆" : `เข้าเส้นชัยอันดับ ${place + 1}`;
-  const info = saveProgress(reward);
-  let html = `+${reward} Coins 🪙`;
-  if (info.unlock13) html += `<br>🔓 ปลดล็อก <b>เกมพิเศษที่ 13</b> แล้ว!`;
-  else if (info.unlockedNext) html += `<br>🔓 ปลดล็อกด่าน ${info.unlockedNext} แล้ว`;
-  if (stageId === 13 && info.saved) html += `<br>🏆 พิชิตด่านปริศนาสำเร็จ!`;
-  if (!info.saved) html += `<br><span style="font-size:.85rem;color:#fca5a5">ยังไม่ได้เข้าสู่ระบบ จึงไม่บันทึกข้อมูล</span>`;
+  
+  const info = saveProgress();
+  
+  $("res-title").innerText = info.passed ? "ผ่านภารกิจ! 🏆" : "ไม่ผ่านเกณฑ์ (ตอบคำถามไม่ถึง 6 ข้อ)";
+  
+  let html = `ตอบคำถามถูกสะสม: <b>${info.correctCount} / 8 ข้อ</b><br>`;
+  if (info.passed) {
+    html += `+20 Coins 🪙<br>`;
+    if (info.unlock13) html += `🔓 ปลดล็อก <b>เกมพิเศษที่ 13</b> แล้ว!`;
+    else if (info.unlockedNext) html += `🔓 ปลดล็อกด่าน ${info.unlockedNext} แล้ว`;
+    if (stageId === 13 && info.saved) html += `<br>🏆 พิชิตด่านปริศนาสำเร็จ!`;
+  } else {
+    html += `<span style="color:#fca5a5">ต้องตอบคำถามให้ถูกอย่างน้อย 6 ข้อจึงจะผ่านด่านนี้ (ลองเล่นใหม่อีกครั้ง!)</span>`;
+  }
+
+  if (!info.saved && !info.passed) {
+    html += `<br><span style="font-size:.85rem;color:#fca5a5">คะแนนไม่ถึงเกณฑ์ 6 ข้อ จึงไม่บันทึกความคืบหน้า</span>`;
+  } else if (!info.saved) {
+    html += `<br><span style="font-size:.85rem;color:#fca5a5">ยังไม่ได้เข้าสู่ระบบ จึงไม่บันทึกข้อมูล</span>`;
+  }
+
   $("res-reward").innerHTML = html;
   $("victory-modal").style.display = "flex";
 }
@@ -1017,6 +1038,7 @@ function checkRibbonTab(selected, target) { selected.includes(target) ? handleBo
 
 function handleBonusSuccess() {
   if (!bonus || bonus.state !== "play") return;
+  totalCorrectAnswers++; // บันทึกสะสมว่าตอบถูกเพิ่ม 1 ข้อ
   if (bonus.qi < bonus.qs.length - 1) {
     bonus.qi++; bonus.m = bonus.qs[bonus.qi]; bonus.state = "play";
     showToast("ถูกต้อง! ไปข้อต่อไป ✅", "#4ade80");
