@@ -76,9 +76,11 @@ html,body{width:100vw;height:100vh;height:100dvh;overflow:hidden;background:#60a
 
 /* คำถามแบบใหม่: เลือกรูป / ดูรูปตอบข้อความ / ลากวาง */
 .pic-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(86px,1fr));gap:10px}
-.pic-btn{font-size:2.6rem;padding:10px;background:#f1f5f9;border:3px solid #cbd5e1;border-radius:16px;cursor:pointer;line-height:1.2}
+.pic-btn{font-size:2.6rem;padding:10px;background:#f1f5f9;border:3px solid #cbd5e1;border-radius:16px;cursor:pointer;line-height:1.2;display:flex;justify-content:center;align-items:center}
 .pic-btn:active{transform:scale(.93);border-color:#38bdf8}
-.big-pic{font-size:3.6rem;line-height:1.2;margin:4px 0 14px;color:#0f172a;font-weight:800}
+.pic-btn svg{width:56px;height:56px;pointer-events:none}
+.big-pic{font-size:3.6rem;line-height:1.2;margin:4px 0 14px;color:#0f172a;font-weight:800;display:flex;justify-content:center}
+.big-pic svg{width:80px;height:80px}
 .txt-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .txt-grid .tool-btn{padding:12px 8px;font-family:'Kanit';font-size:1rem}
 .drag-slot{display:inline-block;min-width:130px;min-height:44px;border:3px dashed #94a3b8;border-radius:12px;padding:4px 12px;color:#0284c7;font-weight:900;margin-left:8px;line-height:1.6}
@@ -754,15 +756,6 @@ const PC = (st, q, opts, target, know) => ({ mode: "pic_choice", st, q, opts, ta
 const IQ = (st, pic, q, opts, target, know) => ({ mode: "img_q", st, pic, q, opts, target, know });
 const DR = (st, q, pre, opts, target, know) => ({ mode: "drag", st, q, pre, opts, target, know });
 
-const TBL32 = '<table style="margin:0 auto;border-collapse:collapse;font-size:1.3rem">' +
-  '<tr><td style="border:2px solid #475569;padding:6px 16px">ก</td><td style="border:2px solid #475569;padding:6px 16px">ข</td><td style="border:2px solid #475569;padding:6px 16px">ค</td></tr>' +
-  '<tr><td style="border:2px solid #475569;padding:6px 16px">1</td><td style="border:2px solid #475569;padding:6px 16px">2</td><td style="border:2px solid #475569;padding:6px 16px">3</td></tr></table>';
-const CENTER_PIC = '<div style="max-width:260px;margin:0 auto 6px;border:2px solid #94a3b8;border-radius:8px;padding:8px;text-align:center;font-size:1.1rem;letter-spacing:2px">▬▬▬<br>▬▬▬▬▬▬▬<br>▬▬▬▬</div>';
-
-// =========================================================================
-// คลังคำถามคละรูปแบบ 12 ด่าน (ใช้ SVG Icons แทน Emoji ทั้งหมด)
-// =========================================================================
-
 // --- SVG Icons System ---
 const SVG_ICONS = {
   word_doc: `<svg viewBox="0 0 24 24" width="32" height="32" fill="#0284c7"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>`,
@@ -783,73 +776,77 @@ const SVG_ICONS = {
   printer_icon: `<svg viewBox="0 0 24 24" width="32" height="32" fill="#0284c7"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>`
 };
 
-// --- ด่านที่ 1: รู้จักหน้าตาและส่วนประกอบของ Microsoft Word ---
+// =========================================================================
+// คลังคำถามคละรูปแบบ 12 ด่าน
+// =========================================================================
+const MISSIONS = [
+// --- ด่านที่ 1 ---
 PC(1, "โปรแกรม Microsoft Word มีไอคอนสัญลักษณ์ประจำชนิดไฟล์งานตรงกับภาพใด?", [SVG_ICONS.word_doc, SVG_ICONS.excel_sheet, SVG_ICONS.ppt_slide, SVG_ICONS.pdf_file], SVG_ICONS.word_doc, "Word มีเอกลักษณ์เป็นสีน้ำเงินและสัญลักษณ์ตัว W (Document)"),
 IQ(1, SVG_ICONS.word_doc, "จากรูปภาพสัญลักษณ์ไอคอนที่แสดง พื้นที่สีขาวสำหรับพิมพ์งานในโปรแกรม Word เรียกว่าอะไร?", ["Ribbon", "เอกสาร (Document)", "Status Bar", "แท็บ File"], "เอกสาร (Document)", "พื้นที่สีขาวตรงกลางคือหน้าเอกสารสำหรับพิมพ์และจัดทำเนื้อหา"),
 DR(1, "ลากชื่อส่วนประกอบโปรแกรมลงในช่องว่างให้ถูกต้อง", "แถบคำสั่งขนาดใหญ่ที่รวมแท็บ Home, Insert ฯลฯ เรียกว่า", ["Ribbon", "Status Bar", "Cursor"], "Ribbon", "Ribbon คือแถบรวมคำสั่งด้านบนที่แบ่งออกเป็นแท็บและกลุ่มเครื่องมือ"),
 { mode: "action_ribbon", st: 1, q: "หากต้องการ 'แทรกรูปภาพ ตาราง หรือรูปร่าง' ลงในเอกสาร ต้องคลิกเปิดที่แท็บ Ribbon ใด?", target: "Insert", opts: ["Home (หน้าแรก)", "Insert (แทรก)", "Layout (เค้าโครง)", "View (มุมมอง)"], know: "แท็บ Insert (แทรก) เป็นศูนย์รวมคำสั่งสำหรับเพิ่มวัตถุ ตาราง และรูปภาพลงในเอกสาร" },
 
-// --- ด่านที่ 2: การจัดการไฟล์เอกสารและคีย์ลัดพื้นฐาน ---
+// --- ด่านที่ 2 ---
 PC(2, "ไอคอนสัญลักษณ์คำสั่งสำหรับการ 'บันทึกเอกสาร (Save)' ตรงกับรูปใด?", [SVG_ICONS.save_disk, SVG_ICONS.open_folder, SVG_ICONS.printer_icon, SVG_ICONS.search_find], SVG_ICONS.save_disk, "สัญลักษณ์รูปแผ่นดิสก์ใช้แทนคำสั่ง บันทึก (Save)"),
 IQ(2, SVG_ICONS.save_disk, "จากรูปภาพสัญลักษณ์แผ่นดิสก์นี้ การกดคีย์ลัดบนแป้นพิมพ์ตรงกับคำสั่งใด?", ["Ctrl + N", "Ctrl + S", "Ctrl + O", "Ctrl + Z"], "Ctrl + S", "Ctrl + S คือคีย์ลัดอัจฉริยะในการสั่งบันทึกเอกสาร (Save)"),
 DR(2, "ลากคีย์ลัดจัดการไฟล์ไปวางในช่องว่างให้ถูกต้อง", "หากต้องการสร้างไฟล์เอกสารใหม่ (New Document) ต้องกดปุ่มคีย์ลัด", ["Ctrl + N", "Ctrl + S", "Ctrl + O"], "Ctrl + N", "Ctrl + N ใช้สำหรับสร้างเอกสารใหม่ (New)"),
 { mode: "action_ribbon", st: 2, q: "เมื่อต้องการจัดการไฟล์ เช่น เปิดเอกสารใหม่ หรือบันทึกเป็น (Save As) ต้องคลิกที่แท็บใด?", target: "File", opts: ["File (ไฟล์)", "Home (หน้าแรก)", "Insert (แทรก)", "Review (ตรวจทาน)"], know: "แท็บ File เป็นศูนย์รวมการจัดการไฟล์ เช่น New, Open, Save, Save As และ Print" },
 
-// --- ด่านที่ 3: การพิมพ์และการจัดการข้อความภาษาไทย/อังกฤษ ---
+// --- ด่านที่ 3 ---
 PC(3, "สัญลักษณ์คลิปบอร์ดสำหรับคำสั่ง 'ตัดข้อความ (Cut)' ตรงกับไอคอนใด?", [SVG_ICONS.scissors_cut, SVG_ICONS.paint_brush, SVG_ICONS.image_pic, SVG_ICONS.search_find], SVG_ICONS.scissors_cut, "กรรไกรใช้แทนคำสั่ง ตัดข้อความ (Cut) ย้ายข้อความเดิมไปวางจุดใหม่"),
 IQ(3, SVG_ICONS.scissors_cut, "จากสัญลักษณ์รูปภาพกรรไกร ข้อความต้นฉบับจะเกิดผลอย่างไรเมื่อใช้คำสั่งนี้?", ["ข้อความต้นฉบับยังอยู่ที่เดิม", "ข้อความต้นฉบับจะหายไป (ย้ายข้อความ)", "เปลี่ยนสีตัวอักษร", "เพิ่มขนาดฟอนต์"], "ข้อความต้นฉบับจะหายไป (ย้ายข้อความ)", "คำสั่งตัด (Cut) จะลบข้อความต้นฉบับออกเพื่อนำไปวางในตำแหน่งใหม่"),
 DR(3, "ลากเทคนิคการเลือกข้อความไปวางในช่องคำตอบ", "การคลิกเมาส์ซ้ายติดกัน 2 ครั้ง (ดับเบิลคลิก) บนคำ มีผลอย่างไร?", ["เลือกเฉพาะคำนั้น", "เลือกทั้งย่อหน้า", "เลือกทั้งเอกสาร"], "เลือกเฉพาะคำนั้น", "ดับเบิลคลิกเพื่อเลือกคำ ทริปเปิลคลิกเพื่อเลือกทั้งย่อหน้า"),
 { mode: "action_ribbon", st: 3, q: "กลุ่มคำสั่ง คัดลอก ตัด และวาง (Clipboard) รวมตัวกันอยู่ที่แท็บ Ribbon ใด?", target: "Home", opts: ["Home (หน้าแรก)", "Insert (แทรก)", "Layout (เค้าโครง)", "View (มุมมอง)"], know: "แท็บ Home รวมคำสั่งพื้นฐานในการพิมพ์ จัดการข้อความ คลิปบอร์ด และกลุ่มฟอนต์" },
 
-// --- ด่านที่ 4: การตกแต่งฟอนต์และรูปแบบตัวอักษร ---
+// --- ด่านที่ 4 ---
 PC(4, "ไอคอนแปรงทาสีสัญลักษณ์คัดลอกรูปแบบ (Format Painter) ตรงกับรูปภาพใด?", [SVG_ICONS.paint_brush, SVG_ICONS.scissors_cut, SVG_ICONS.bullet_list, SVG_ICONS.table_grid], SVG_ICONS.paint_brush, "แปรงทาสีใช้แทนเครื่องมือ Format Painter สำหรับคัดลอกสไตล์ฟอนต์"),
 IQ(4, SVG_ICONS.paint_brush, "จากรูปแปรงทาสี การ 'ดับเบิลคลิก 2 ครั้ง' ที่เครื่องมือนี้มีประโยชน์อย่างไร?", ["ล็อกแปรงใช้ตกแต่งได้หลายจุดต่อเนื่อง", "ลบรูปแบบตัวอักษรทั้งหมด", "ขยายขนาดฟอนต์ให้ใหญ่ขึ้น", "บันทึกไฟล์อัตโนมัติ"], "ล็อกแปรงใช้ตกแต่งได้หลายจุดต่อเนื่อง", "ดับเบิลคลิกเพื่อล็อกแปรงทาสี นำไปป้ายตกแต่งข้อความหลายๆ จุดได้อย่างต่อเนื่อง"),
 DR(4, "ลากคีย์ลัดสไตล์ตัวอักษรไปวางในช่องว่างให้ถูกต้อง", "คำสั่งทำตัวอักษรเอียง (Italic) ตรงกับคีย์ลัดบนแป้นพิมพ์ใด?", ["Ctrl + I", "Ctrl + B", "Ctrl + U"], "Ctrl + I", "Ctrl + I ใช้ทำตัวเอียง (Italic) ส่วน Ctrl + B ทำตัวหนา"),
 { mode: "action_ribbon", st: 4, q: "ต้องการเปลี่ยนขนาดฟอนต์ สีตัวอักษร และใส่ตัวหนา ต้องไปที่กลุ่ม Font ในแท็บใด?", target: "Home", opts: ["Home (หน้าแรก)", "Draw (วาด)", "Layout (เค้าโครง)", "Design (ออกแบบ)"], know: "แท็บ Home รวบรวมคำสั่งตกแต่งสไตล์ตัวอักษรครบถ้วนในกลุ่ม Font" },
 
-// --- ด่านที่ 5: การจัดแนวย่อหน้าและการเว้นระยะบรรทัด ---
+// --- ด่านที่ 5 ---
 PC(5, "สัญลักษณ์การจัดย่อหน้าให้อยู่กึ่งกลางหน้ากระดาษ (Center) ตรงกับไอคอนใด?", [SVG_ICONS.align_center, SVG_ICONS.bullet_list, SVG_ICONS.table_of_contents, SVG_ICONS.page_landscape], SVG_ICONS.align_center, "สัญลักษณ์เส้นกึ่งกลางใช้แทนการจัดตำแหน่งข้อความให้อยู่กึ่งกลางหน้ากระดาษ"),
 IQ(5, SVG_ICONS.align_center, "จากรูปภาพสัญลักษณ์การจัดย่อหน้านี้ เหมาะสำหรับนำไปใช้กับข้อความส่วนใดของรายงาน?", ["ชื่อเรื่อง หรือหัวข้อรายงาน", "เนื้อหาบรรยายทั่วไป", "อ้างอิงท้ายเล่ม", "ตารางข้อมูล"], "ชื่อเรื่อง หรือหัวข้อรายงาน", "การจัดกึ่งกลาง (Center) ใช้เน้นชื่อเรื่องหรือหัวข้อรายงานให้โดดเด่นสะดุดตา"),
 DR(5, "ลากระยะห่างบรรทัดมาตรฐานไปวางในช่องว่าง", "ระยะห่างบรรทัดมาตรฐานที่นิยมใช้พิมพ์รายงานวิชาการภาษาไทยคือ", ["1.15 บรรทัด", "2.5 บรรทัด", "0.5 บรรทัด"], "1.15 บรรทัด", "1.15 หรือ 1.5 บรรทัดช่วยป้องกันสระบน-ล่างซ้อนทับกัน"),
 { mode: "action_ribbon", st: 5, q: "การตั้งค่าระยะห่างบรรทัดและการจัดแนวย่อหน้า รวมอยู่ในกลุ่ม Paragraph บนแท็บใด?", target: "Home", opts: ["Home (หน้าแรก)", "Insert (แทรก)", "Page Setup", "References"], know: "กลุ่มคำสั่ง Paragraph จัดการแนวย่อหน้าและระยะบรรทัดจะตั้งอยู่ในแท็บ Home" },
 
-// --- ด่านที่ 6: การสร้างรายการหัวข้อย่อยและลำดับเลข ---
+// --- ด่านที่ 6 ---
 PC(6, "ไอคอนสัญลักษณ์สร้างรายการหัวข้อย่อย (Bullets) ตรงกับรูปภาพใด?", [SVG_ICONS.bullet_list, SVG_ICONS.table_of_contents, SVG_ICONS.align_center, SVG_ICONS.table_grid], SVG_ICONS.bullet_list, "Bullets คือจุดสัญลักษณ์จัดทำรายการข้อมูลที่ไม่ต้องเรียงลำดับเลข"),
 IQ(6, SVG_ICONS.bullet_list, "จากรูปภาพสัญลักษณ์ Bullets เหมาะสำหรับจัดทำข้อมูลในลักษณะใด?", ["รายการที่ไม่ต้องเรียงลำดับก่อน-หลัง", "ขั้นตอนทดลองวิทยาศาสตร์", "ลำดับคิวเข้าสอบ", "เกรดเฉลี่ยเรียน"], "รายการที่ไม่ต้องเรียงลำดับก่อน-หลัง", "Bullets ใช้สรุปหัวข้อที่ไม่มีความสำคัญเรื่องลำดับก่อน-หลัง เช่น อุปกรณ์การเรียน"),
 DR(6, "ลากปุ่มบนแป้นพิมพ์ไปวางในช่องคำตอบ", "หากต้องการย่นหัวข้อลงไปเป็นหัวข้อย่อยระดับล่าง (Increase Indent) ต้องกดปุ่มใด?", ["Tab", "Shift", "Enter"], "Tab", "กด Tab เพื่อย่อยหัวข้อลงไปหนึ่งระดับ และกด Shift + Tab เพื่อถอยกลับขึ้นมา"),
 { mode: "action_ribbon", st: 6, q: "ปุ่มสร้างสัญลักษณ์หัวข้อย่อย (Bullets) และลำดับเลข (Numbering) อยู่ในแท็บใด?", target: "Home", opts: ["Home (หน้าแรก)", "Insert (แทรก)", "Layout (เค้าโครง)", "View (มุมมอง)"], know: "แท็บ Home มีกลุ่มเครื่องมือ Paragraph สำหรับเปิดใช้งาน Bullets และ Numbering" },
 
-// --- ด่านที่ 7: การแทรกรูปภาพและการจัดตัดข้อความ (Wrap Text) ---
+// --- ด่านที่ 7 ---
 PC(7, "สัญลักษณ์ไอคอนคำสั่งแทรกรูปภาพ (Pictures) ตรงกับรูปใด?", [SVG_ICONS.image_pic, SVG_ICONS.paint_brush, SVG_ICONS.table_grid, SVG_ICONS.search_find], SVG_ICONS.image_pic, "รูปภาพวิวธรรมชาติใช้แทนเครื่องมือแทรกรูปภาพ (Pictures)"),
 IQ(7, SVG_ICONS.image_pic, "เมื่อแทรกรูปภาพเข้ามาในเอกสารแล้วขยับย้ายไม่ได้ ต้องเข้าไปตั้งค่าที่คำสั่งใด?", ["Wrap Text (ตัดข้อความ)", "Format Painter", "Page Break", "Save As"], "Wrap Text (ตัดข้อความ)", "การตั้งค่า Wrap Text ช่วยให้ลากย้ายรูปภาพตำแหน่งต่างๆ ได้ตามต้องการ"),
 DR(7, "ลากรูปแบบการตัดข้อความไปวางในช่องคำตอบ", "การตั้งค่า Wrap Text รูปแบบใดที่ย้ายรูปภาพไปเป็น 'ฉากหลังตัวหนังสือ'?", ["Behind Text", "In Front of Text", "Square"], "Behind Text", "Behind Text ซ่อนรูปไว้ด้านหลังข้อความ ส่วน In Front of Text ให้รูปบังข้อความ"),
 { mode: "action_ribbon", st: 7, q: "เมื่อต้องการแทรกรูปภาพ (Pictures) เข้ามาประกอบรายงาน ต้องเปิดไปที่แท็บใด?", target: "Insert", opts: ["Insert (แทรก)", "Home (หน้าแรก)", "Design (ออกแบบ)", "Layout (เค้าโครง)"], know: "การนำรูปภาพ ตาราง หรือแผนภูมิเข้ามาในงาน ต้องไปที่แท็บ Insert" },
 
-// --- ด่านที่ 8: การสร้างและตกแต่งตารางข้อมูล ---
+// --- ด่านที่ 8 ---
 PC(8, "สัญลักษณ์เครื่องมือสร้างตารางข้อมูล (Table) ตรงกับไอคอนใด?", [SVG_ICONS.table_grid, SVG_ICONS.page_landscape, SVG_ICONS.align_center, SVG_ICONS.search_find], SVG_ICONS.table_grid, "ตารางข้อมูลประกอบด้วยแถวนอนและคอลัมน์แนวตั้งตัดกันเป็นช่องเซลล์"),
 IQ(8, SVG_ICONS.table_grid, "ช่องสี่เหลี่ยมแต่ละช่องที่เกิดจากการตัดกันของแถวและคอลัมน์ในตาราง เรียกว่าอะไร?", ["เซลล์ (Cell)", "ริบบอน (Ribbon)", "ฟอนต์ (Font)", "เคอร์เซอร์ (Cursor)"], "เซลล์ (Cell)", "ช่องแต่ละช่องในตารางเรียกว่า เซลล์ (Cell)"),
 DR(8, "ลากคำสั่งตารางไปวางในช่องคำตอบให้ถูกต้อง", "การรวมช่องเซลล์หลายๆ ช่องที่เลือกไว้ให้กลายเป็นช่องเดียวกัน เรียกว่า", ["Merge Cells", "Split Cells", "Insert Row"], "Merge Cells", "Merge Cells = ผสานเซลล์เป็นช่องเดียว / Split Cells = แยกช่องเซลล์"),
 { mode: "action_ribbon", st: 8, q: "ต้องการสร้างตาราง (Table) ใส่ตารางเรียนหรือตารางคะแนน ต้องคลิกแท็บใด?", target: "Insert", opts: ["Insert (แทรก)", "Home (หน้าแรก)", "Layout (เค้าโครง)", "View (มุมมอง)"], know: "สร้างตารางข้อมูลผ่านกลุ่มคำสั่ง Tables ในแท็บ Insert" },
 
-// --- ด่านที่ 9: การตั้งค่าหน้ากระดาษและระยะขอบ (Page Setup) ---
+// --- ด่านที่ 9 ---
 PC(9, "สัญลักษณ์ทิศทางกระดาษแนวนอน (Landscape) ตรงกับไอคอนรูปใด?", [SVG_ICONS.page_landscape, SVG_ICONS.word_doc, SVG_ICONS.table_of_contents, SVG_ICONS.printer_icon], SVG_ICONS.page_landscape, "กระดาษแนวนอนวางตัวในทิศทางกว้าง เหมาะกับเกียรติบัตรและตารางขนาดใหญ่"),
 IQ(9, SVG_ICONS.page_landscape, "ทิศทางกระดาษแบบแนวนอน (Landscape) เหมาะสำหรับการพิมพ์งานประเภทใด?", ["เกียรติบัตร หรือตารางกว้าง", "จดหมายราชการ", "รายงานเล่มวิชาการ", "บทความทั่วไป"], "เกียรติบัตร หรือตารางกว้าง", "แนวนอนเพิ่มพื้นที่ความกว้าง เหมาะกับพิมพ์เกียรติบัตร ตาราง หรือแผนภูมิขนาดใหญ่"),
 DR(9, "ลากขนาดกระดาษมาตรฐานไปวางในช่องคำตอบ", "ขนาดกระดาษมาตรฐานที่นิยมใช้พิมพ์งานในสถานศึกษาและหน่วยงานคือ", ["A4", "A3", "Letter"], "A4", "A4 (21 x 29.7 ซม.) เป็นขนาดกระดาษมาตรฐานยอดนิยม"),
 { mode: "action_ribbon", st: 9, q: "หากต้องการปรับทิศทางกระดาษ (Orientation) หรือตั้งระยะขอบ (Margins) ต้องเปิดแท็บใด?", target: "Layout", opts: ["Layout (เค้าโครง)", "Home (หน้าแรก)", "Insert (แทรก)", "Design (ออกแบบ)"], know: "แท็บ Layout รวมชุดเครื่องมือ Page Setup จัดการระยะขอบ ทิศทาง และขนาดกระดาษ" },
 
-// --- ด่านที่ 10: การตรวจคำผิดและการค้นหา/แทนที่คำ ---
+// --- ด่านที่ 10 ---
 PC(10, "ไอคอนเครื่องมือค้นหาคำในเอกสาร (Find) ตรงกับรูปใด?", [SVG_ICONS.search_find, SVG_ICONS.scissors_cut, SVG_ICONS.paint_brush, SVG_ICONS.printer_icon], SVG_ICONS.search_find, "แว่นขยายใช้แทนเครื่องมือค้นหาข้อความในเอกสาร (Find)"),
 IQ(10, SVG_ICONS.search_find, "หากต้องการเปิดหน้าต่างค้นหาและแทนที่คำผิดซ้ำทั้งเอกสาร (Replace) ต้องใช้คีย์ลัดใด?", ["Ctrl + H", "Ctrl + F", "Ctrl + G", "Ctrl + P"], "Ctrl + H", "Ctrl + H = แทนที่คำ (Replace) / Ctrl + F = ค้นหาคำ (Find)"),
 DR(10, "ลากสีเส้นใต้เตือนข้อผิดพลาดไปวางในช่องคำตอบ", "เส้นใต้หยักเตือนการสะกดคำผิดในโปรแกรม Microsoft Word จะแสดงเป็นสีอะไร?", ["สีแดง", "สีฟ้า", "สีเขียว"], "สีแดง", "เส้นหยักสีแดงเตือนการสะกดคำผิด ส่วนเส้นหยักสีฟ้าเตือนการเว้นวรรคผิด"),
 { mode: "action_ribbon", st: 10, q: "เครื่องมือตรวจคำผิดภาษาไทยและไวยากรณ์ (Spelling & Grammar) อยู่ในแท็บใด?", target: "Review", opts: ["Review (ตรวจทาน)", "Home (หน้าแรก)", "View (มุมมอง)", "Layout (เค้าโครง)"], know: "แท็บ Review เป็นศูนย์รวมการตรวจทานภาษา ตรวจคำผิด และการนับจำนวนคำ" },
 
-// --- ด่านที่ 11: การใช้งาน Style และการสร้างสารบัญอัตโนมัติ ---
+// --- ด่านที่ 11 ---
 PC(11, "สัญลักษณ์ไอคอนการสร้างตารางสารบัญอัตโนมัติ (Table of Contents) ตรงกับรูปใด?", [SVG_ICONS.table_of_contents, SVG_ICONS.bullet_list, SVG_ICONS.table_grid, SVG_ICONS.open_folder], SVG_ICONS.table_of_contents, "สัญลักษณ์สารบัญแสดงโครงสร้างระดับหัวข้อและลำดับหน้าเอกสาร"),
 IQ(11, SVG_ICONS.table_of_contents, "การดึงตารางสารบัญอัตโนมัติมาใช้งาน ข้อความที่เป็น 'หัวข้อใหญ่' ต้องเลือกสไตล์แบบใด?", ["Heading 1", "Heading 2", "Normal", "Title"], "Heading 1", "Heading 1 ใช้สำหรับหัวข้อใหญ่ และ Heading 2 ใช้สำหรับหัวข้อย่อย"),
 DR(11, "ลากคำสั่งอัปเดตสารบัญไปวางในช่องคำตอบ", "เมื่อพิมพ์เนื้อหาเพิ่มจนเลขหน้าเคลื่อน ต้องกดปุ่มใดเพื่ออัปเดตสารบัญให้ตรงกับความจริง?", ["Update Table", "Refresh Page", "Save As"], "Update Table", "กด Update Table เพื่ออัปเดตตัวเลขหน้าในสารบัญให้ตรงตามเนื้อหาจริงอัตโนมัติ"),
 { mode: "action_ribbon", st: 11, q: "เมื่อต้องการดึงตารางสารบัญอัตโนมัติ (Table of Contents) มาวาง ต้องไปที่แท็บใด?", target: "References", opts: ["References (การอ้างอิง)", "Home (หน้าแรก)", "Insert (แทรก)", "View (มุมมอง)"], know: "แท็บ References รวมเครื่องมือสร้างสารบัญอัตโนมัติ ดรรชนี และการอ้างอิง" },
 
-// --- ด่านที่ 12: การส่งออกไฟล์และการพิมพ์เอกสาร (Print & Export) ---
+// --- ด่านที่ 12 ---
 PC(12, "สัญลักษณ์ไอคอนคำสั่งพิมพ์เอกสารออกทางเครื่องพิมพ์ (Printer) ตรงกับรูปใด?", [SVG_ICONS.printer_icon, SVG_ICONS.save_disk, SVG_ICONS.pdf_file, SVG_ICONS.word_doc], SVG_ICONS.printer_icon, "สัญลักษณ์เครื่องพิมพ์ใช้แทนคำสั่งสั่งพิมพ์เอกสาร (Print)"),
 IQ(12, SVG_ICONS.printer_icon, "ก่อนสั่งพิมพ์เอกสารออกทางเครื่องพิมพ์ ควรตรวจสอบความเรียบร้อยผ่านมุมมองใด?", ["ตัวอย่างก่อนพิมพ์ (Print Preview)", "มุมมองเค้าโครงเว็บ", "มุมมองแบบร่าง", "การอ่านเต็มหน้า"], "ตัวอย่างก่อนพิมพ์ (Print Preview)", "การตรวจสอบ Print Preview ช่วยป้องกันการพิมพ์งานผิดพลาดและสิ้นเปลืองกระดาษ"),
 DR(12, "ลากนามสกุลไฟล์ไปวางในช่องคำตอบให้ถูกต้อง", "การเซฟไฟล์ส่งครูเพื่อ 'ล็อกหน้ากระดาษและฟอนต์ไม่ให้เด้งเคลื่อน' ต้องใช้ไฟล์นามสกุล", [".pdf", ".docx", ".txt"], ".pdf", "ไฟล์ .pdf ล็อกการจัดหน้ากระดาษและฟอนต์ให้คงที่ทุกอุปกรณ์"),
@@ -901,67 +898,33 @@ function renderBonusUI() {
   work.innerHTML = "";
 
   if (st === "play") {
-    if (m.mode === "action_spellcheck") {
-      work.innerHTML = `
-        <div style="font-size:0.95rem; color:#64748b; margin-bottom:8px;">แตะที่คำที่มีเส้นหยักสีแดงเพื่อแก้ไข:</div>
-        <div class="doc-sheet">
-          โปรแกรม&nbsp;<span id="spell-target" style="text-decoration:underline wavy #ef4444; color:#ef4444; cursor:pointer; font-weight:900;" onclick="fixSpelling()">${m.wrongWord}</span>&nbsp;Word 3D
-        </div>`;
-    }
-    else if (m.mode === "action_wraptext") {
-      work.innerHTML = `
-        <div style="font-size:0.95rem; color:#64748b; margin-bottom:12px;">เลือกรูปแบบการตัดข้อความรอบรูปภาพ:</div>
-        <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
-          ${m.opts.map(o => `<button class="tool-btn" onclick="checkWrapOption('${o}', '${m.target}')">${o}</button>`).join("")}
-        </div>`;
-    }
-    else if (m.mode === "action_table") {
-      let gridHtml = '<div style="font-size:0.95rem; color:#64748b;">แตะเลือกช่องเพื่อกำหนดขนาดตาราง:</div><div class="table-grid-box" id="tbl-grid">';
-      for (let r = 1; r <= 3; r++) for (let c = 1; c <= 4; c++) gridHtml += `<div class="tbl-cell" data-r="${r}" data-c="${c}" onclick="selectTableSize(${c}, ${r})"></div>`;
-      gridHtml += '</div><div id="tbl-status" style="font-size:0.9rem; font-weight:800; color:#0284c7;">เลือก: 1 x 1</div>';
-      work.innerHTML = gridHtml;
-    }
-    else if (m.mode === "action_ribbon") {
+    if (m.mode === "action_ribbon") {
       work.innerHTML = `
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-          ${m.opts.map(t => `<button class="tool-btn" style="padding:14px; font-size:1.05rem;" onclick="checkRibbonTab('${t}', '${m.target}')">${t}</button>`).join("")}
+          ${m.opts.map((t, i) => `<button class="tool-btn" data-i="${i}" style="padding:14px; font-size:1.05rem;">${t}</button>`).join("")}
         </div>`;
+      work.querySelectorAll(".tool-btn").forEach(btn => btn.onclick = () => checkRibbonTab(m.opts[+btn.dataset.i], m.target));
     }
-    else if (m.mode === "action_style") {
-      work.innerHTML = `
-        <div class="word-ribbon-bar">
-          <button class="tool-btn" onclick="applyInteractiveStyle('B')"><b>B</b></button>
-          <button class="tool-btn" onclick="applyInteractiveStyle('I')"><i>I</i></button>
-          <button class="tool-btn" onclick="applyInteractiveStyle('U')"><u>U</u></button>
-        </div>
-        <div class="doc-sheet" id="sample-text">เอกสารรายงาน Microsoft Word</div>`;
-    }
-    else if (m.mode === "action_align") {
-      work.innerHTML = `
-        <div class="word-ribbon-bar">
-          <button class="tool-btn" onclick="applyInteractiveAlign('left')">ชิดซ้าย</button>
-          <button class="tool-btn" onclick="applyInteractiveAlign('center')">กึ่งกลาง</button>
-          <button class="tool-btn" onclick="applyInteractiveAlign('right')">ชิดขวา</button>
-        </div>
-        <div class="doc-sheet" id="sample-text" style="text-align:left; display:block;">หัวข้อรายงาน ม.1</div>`;
-    }
-    // คำถามข้อความ → ตอบเป็นรูป
+    // คำถามข้อความ → ตอบเป็นรูป (ใช้ index แทน data-v เพราะ SVG มีเครื่องหมาย " )
     else if (m.mode === "pic_choice") {
-      work.innerHTML = `<div class="pic-grid">${shuf(m.opts).map(o => `<button class="pic-btn" data-v="${o}">${o}</button>`).join("")}</div>`;
-      work.querySelectorAll(".pic-btn").forEach(btn => btn.onclick = () => btn.dataset.v === m.target ? handleBonusSuccess() : handleBonusFail());
+      const shown = shuf(m.opts);
+      work.innerHTML = `<div class="pic-grid">${shown.map((o, i) => `<button class="pic-btn" data-i="${i}">${o}</button>`).join("")}</div>`;
+      work.querySelectorAll(".pic-btn").forEach(btn => btn.onclick = () => shown[+btn.dataset.i] === m.target ? handleBonusSuccess() : handleBonusFail());
     }
     // คำถามเป็นรูป → ตอบเป็นข้อความ
     else if (m.mode === "img_q") {
-      work.innerHTML = `<div class="big-pic">${m.pic}</div><div class="txt-grid">${shuf(m.opts).map(o => `<button class="tool-btn" data-v="${o}">${o}</button>`).join("")}</div>`;
-      work.querySelectorAll(".tool-btn").forEach(btn => btn.onclick = () => btn.dataset.v === m.target ? handleBonusSuccess() : handleBonusFail());
+      const shown = shuf(m.opts);
+      work.innerHTML = `<div class="big-pic">${m.pic}</div><div class="txt-grid">${shown.map((o, i) => `<button class="tool-btn" data-i="${i}">${o}</button>`).join("")}</div>`;
+      work.querySelectorAll(".tool-btn").forEach(btn => btn.onclick = () => shown[+btn.dataset.i] === m.target ? handleBonusSuccess() : handleBonusFail());
     }
     // ลากคำตอบมาวาง (Drag & Drop)
     else if (m.mode === "drag") {
+      const shown = shuf(m.opts);
       work.innerHTML = `
         <div class="doc-sheet" style="font-size:1.1rem;flex-wrap:wrap;">${m.pre}<span class="drag-slot" id="dslot">?</span></div>
-        <div class="drag-bank">${shuf(m.opts).map(o => `<div class="chip" data-v="${o}">${o}</div>`).join("")}</div>
+        <div class="drag-bank">${shown.map((o, i) => `<div class="chip" data-i="${i}">${o}</div>`).join("")}</div>
         <div style="font-size:.85rem;color:#64748b;margin-top:10px">ลากคำตอบไปวางในช่องว่าง (หรือแตะคำตอบ แล้วแตะช่องว่าง)</div>`;
-      setupDrag(work, m);
+      setupDrag(work, m, shown);
     }
   }
 
@@ -970,7 +933,7 @@ function renderBonusUI() {
 }
 
 /* ---------- ระบบลากวาง รองรับเมาส์ / ทัชสกรีน / แท็บเล็ต ---------- */
-function setupDrag(root, m) {
+function setupDrag(root, m, shown) {
   const slot = root.querySelector("#dslot");
   let selected = null, locked = false;
   const answer = v => {
@@ -979,7 +942,7 @@ function setupDrag(root, m) {
     setTimeout(() => v === m.target ? handleBonusSuccess() : handleBonusFail(), 350);
   };
   const inSlot = (x, y, pad) => { const r = slot.getBoundingClientRect(); return x > r.left - pad && x < r.right + pad && y > r.top - pad && y < r.bottom + pad; };
-  slot.onclick = () => { if (selected) answer(selected.dataset.v); };
+  slot.onclick = () => { if (selected) answer(shown[+selected.dataset.i]); };
 
   root.querySelectorAll(".chip").forEach(chip => {
     let ghost = null, moved = false, sx = 0, sy = 0;
@@ -998,7 +961,7 @@ function setupDrag(root, m) {
     chip.addEventListener("pointerup", e => {
       if (!ghost) return;
       ghost.remove(); ghost = null; slot.classList.remove("over");
-      if (moved && inSlot(e.clientX, e.clientY, 14)) answer(chip.dataset.v);
+      if (moved && inSlot(e.clientX, e.clientY, 14)) answer(shown[+chip.dataset.i]);
       else if (!moved) {
         root.querySelectorAll(".chip").forEach(c => c.classList.remove("sel"));
         chip.classList.add("sel"); selected = chip;
@@ -1008,33 +971,7 @@ function setupDrag(root, m) {
   });
 }
 
-function fixSpelling() {
-  const el = $("spell-target");
-  el.innerText = bonus.m.correctWord; el.style.color = "#15803d"; el.style.textDecoration = "none";
-  setTimeout(handleBonusSuccess, 450);
-}
-function checkWrapOption(selected, target) { selected === target ? handleBonusSuccess() : handleBonusFail(); }
-function selectTableSize(cols, rows) {
-  document.querySelectorAll(".tbl-cell").forEach(cell => {
-    const c = parseInt(cell.dataset.c), r = parseInt(cell.dataset.r);
-    if (c <= cols && r <= rows) cell.classList.add("sel"); else cell.classList.remove("sel");
-  });
-  $("tbl-status").innerText = `เลือก: ${cols} คอลัมน์ x ${rows} แถว`;
-  if (cols === bonus.m.targetCols && rows === bonus.m.targetRows) setTimeout(handleBonusSuccess, 400);
-  else setTimeout(handleBonusFail, 400);
-}
 function checkRibbonTab(selected, target) { selected.includes(target) ? handleBonusSuccess() : handleBonusFail(); }
-function applyInteractiveStyle(style) {
-  const txt = $("sample-text");
-  if (style === 'B') txt.style.fontWeight = txt.style.fontWeight === '900' ? '400' : '900';
-  if (style === 'I') txt.style.fontStyle = txt.style.fontStyle === 'italic' ? 'normal' : 'italic';
-  if (style === 'U') txt.style.textDecoration = txt.style.textDecoration === 'underline' ? 'none' : 'underline';
-  style === bonus.m.target ? handleBonusSuccess() : handleBonusFail();
-}
-function applyInteractiveAlign(align) {
-  $("sample-text").style.textAlign = align;
-  align === bonus.m.target ? handleBonusSuccess() : handleBonusFail();
-}
 
 // ตอบถูก: ไปข้อถัดไป / ถ้าครบ 2 ข้อ รับ N2O เต็มหลอด
 function handleBonusSuccess() {
