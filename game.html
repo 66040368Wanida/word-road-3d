@@ -2,36 +2,36 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
 <title>Word Kart: Rush Drift Circuit</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,700;0,800;0,900;1,800;1,900&family=Kanit:wght@500;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;user-select:none;touch-action:manipulation}
-html,body{width:100vw;height:100vh;overflow:hidden;background:#60a5fa;position:fixed;inset:0;font-family:'Kanit',sans-serif;color:#fff}
+*{box-sizing:border-box;margin:0;padding:0;user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+html,body{width:100vw;height:100vh;height:100dvh;overflow:hidden;background:#60a5fa;position:fixed;inset:0;font-family:'Kanit',sans-serif;color:#fff}
 #three-container{position:absolute;inset:0;z-index:1}
-#mission-banner{position:fixed;top:12px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,rgba(15,23,42,.92),rgba(30,58,138,.95));border:3px solid #38bdf8;border-radius:22px;padding:6px 22px;text-align:center;z-index:45;box-shadow:0 8px 24px rgba(0,0,0,.45);min-width:300px}
+#mission-banner{position:fixed;top:max(12px,env(safe-area-inset-top));left:50%;transform:translateX(-50%);background:linear-gradient(135deg,rgba(15,23,42,.92),rgba(30,58,138,.95));border:3px solid #38bdf8;border-radius:22px;padding:6px 22px;text-align:center;z-index:45;box-shadow:0 8px 24px rgba(0,0,0,.45);min-width:300px;max-width:60vw}
 .mission-badge{font:900 .8rem 'Chakra Petch';color:#facc15}
 .mission-target{font-size:1.1rem;font-weight:900;text-shadow:0 0 12px rgba(56,189,248,.8)}
-#rank-list{position:fixed;top:12px;left:12px;width:150px;z-index:45}
+#rank-list{position:fixed;top:max(12px,env(safe-area-inset-top));left:max(12px,env(safe-area-inset-left));width:150px;z-index:45}
 .rk{display:flex;gap:6px;align-items:center;background:rgba(15,23,42,.78);font:800 .85rem 'Kanit';padding:1px 8px 1px 4px;border-left:4px solid #38bdf8;margin-bottom:3px;border-radius:6px}
 .rk b{font:900 .95rem 'Chakra Petch';background:#1e3a8a;border-radius:4px;min-width:20px;text-align:center}
 .rk.me{background:#facc15;color:#0f172a;border-color:#fff}.rk.me b{background:#0f172a;color:#facc15}
-#right-hud{position:fixed;top:12px;right:12px;z-index:50;display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+#right-hud{position:fixed;top:max(12px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));z-index:50;display:flex;flex-direction:column;align-items:flex-end;gap:6px}
 .hud-pill{background:rgba(15,23,42,.9);border:2px solid rgba(255,255,255,.3);border-radius:18px;padding:3px 14px;font:900 1.1rem 'Chakra Petch';box-shadow:0 5px 14px rgba(0,0,0,.4)}
 #minimap{width:120px;height:120px;background:rgba(15,23,42,.65);border:2px solid rgba(255,255,255,.35);border-radius:14px}
-#speedo-box{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;z-index:50;pointer-events:none}
+#speedo-box{position:fixed;bottom:max(20px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;z-index:50;pointer-events:none}
 .speed-number{font:900 3rem/1 'Chakra Petch';font-style:italic;color:#facc15;text-shadow:0 0 16px rgba(250,204,21,.6),0 4px 0 #000}
 #gauge{width:230px;height:12px;background:rgba(15,23,42,.85);border:2px solid #fff;border-radius:8px;margin-top:6px;overflow:hidden}
 #gauge-fill{height:100%;width:0;background:#facc15}
 .vehicle-tag{font:900 .85rem 'Chakra Petch';color:#38bdf8;background:rgba(15,23,42,.85);padding:2px 12px;border-radius:999px;border:1px solid #38bdf8;margin-top:5px}
 #nitro-alert{font:900 1.1rem 'Chakra Petch';color:#ef4444;display:none;animation:fl .3s infinite alternate;text-shadow:0 0 12px #ef4444}
 @keyframes fl{from{transform:scale(.95);opacity:.7}to{transform:scale(1.1);opacity:1}}
-#mobile-controls{position:fixed;bottom:22px;left:0;right:0;display:flex;justify-content:space-between;padding:0 24px;pointer-events:none;z-index:60}
+#mobile-controls{position:fixed;bottom:max(22px,env(safe-area-inset-bottom));left:0;right:0;display:flex;justify-content:space-between;padding:0 max(24px,env(safe-area-inset-left));pointer-events:none;z-index:60}
 .pad{pointer-events:auto;display:flex;gap:12px;align-items:flex-end}
-.v-btn{width:70px;height:70px;border-radius:24px;background:linear-gradient(145deg,rgba(30,41,59,.85),rgba(15,23,42,.9));border:3px solid rgba(255,255,255,.35);display:flex;justify-content:center;align-items:center;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,.55);font:900 1rem 'Chakra Petch';transition:transform .08s}
+.v-btn{width:70px;height:70px;border-radius:24px;background:linear-gradient(145deg,rgba(30,41,59,.85),rgba(15,23,42,.9));border:3px solid rgba(255,255,255,.35);display:flex;justify-content:center;align-items:center;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,.55);font:900 1rem 'Chakra Petch';transition:transform .08s;touch-action:none}
 .v-btn:active{transform:scale(.9);background:rgba(56,189,248,.5);border-color:#38bdf8}
 .v-btn svg{width:34px;height:34px;fill:#fff}
 #toast-msg{position:fixed;top:38%;left:50%;transform:translate(-50%,-50%);font:900 2.4rem 'Chakra Petch';font-style:italic;color:#4ade80;text-shadow:0 0 25px #22c55e,0 4px 0 #000;pointer-events:none;z-index:100;opacity:0;transition:opacity .25s;white-space:nowrap}
@@ -46,20 +46,20 @@ html,body{width:100vw;height:100vh;overflow:hidden;background:#60a5fa;position:f
 @keyframes zoomIn{from{transform:scale(0.3);opacity:0}to{transform:scale(1);opacity:1}}
 
 /* VICTORY MODAL */
-#victory-modal{position:fixed;inset:0;background:rgba(10,15,29,.88);backdrop-filter:blur(14px);display:none;justify-content:center;align-items:center;padding:18px;z-index:200}
+#victory-modal{position:fixed;inset:0;background:rgba(10,15,29,.88);backdrop-filter:blur(14px);display:none;justify-content:center;align-items:center;padding:18px;z-index:200;overflow:auto}
 .victory-box{background:linear-gradient(145deg,#0284c7,#0369a1 40%,#0f172a);border:5px solid #38bdf8;border-radius:34px;padding:30px;max-width:480px;width:100%;text-align:center;box-shadow:0 0 50px rgba(56,189,248,.5)}
 .btn-upgrade{width:100%;padding:14px;border-radius:20px;border:none;background:linear-gradient(180deg,#10b981,#059669);color:#fff;font:900 1.2rem 'Chakra Petch';cursor:pointer;box-shadow:0 6px 0 #047857;margin-top:18px}
 
 /* BONUS TIME INTERACTIVE */
 #bonus{display:none;position:fixed;inset:0;background:rgba(10,15,29,.85);backdrop-filter:blur(8px);z-index:150;justify-content:center;align-items:center;padding:12px}
-.b-box{background:linear-gradient(145deg,#0f172a,#1e3a8a);border:4px solid #facc15;border-radius:26px;padding:18px 24px;max-width:620px;width:100%;text-align:center;max-height:96vh;overflow:auto;box-shadow:0 0 50px rgba(250,204,21,.35)}
+.b-box{background:linear-gradient(145deg,#0f172a,#1e3a8a);border:4px solid #facc15;border-radius:26px;padding:18px 24px;max-width:620px;width:100%;text-align:center;max-height:96vh;max-height:96dvh;overflow:auto;box-shadow:0 0 50px rgba(250,204,21,.35)}
 .b-head{display:flex;justify-content:space-between;align-items:center;font:900 1.1rem 'Chakra Petch';color:#facc15}
 #b-time{font:900 2.6rem 'Chakra Petch';font-style:italic;color:#fff}#b-time.low{color:#ef4444}
 #b-step{font-weight:800;color:#93c5fd;margin-top:4px}
 #b-task{font-weight:900;font-size:1.3rem;margin:8px 0 14px}
 #b-workarea{background:#ffffff;border-radius:18px;padding:16px;color:#0f172a;margin-bottom:14px;box-shadow:0 6px 20px rgba(0,0,0,.3)}
 .word-ribbon-bar{display:flex;gap:8px;justify-content:center;margin-bottom:12px;border-bottom:2px dashed #cbd5e1;padding-bottom:10px}
-.tool-btn{background:#f1f5f9;border:2px solid #cbd5e1;border-radius:10px;padding:8px 16px;font:900 1.05rem 'Chakra Petch';color:#1e293b;cursor:pointer}
+.tool-btn{background:#f1f5f9;border:2px solid #cbd5e1;border-radius:10px;padding:8px 16px;font:900 1.05rem 'Chakra Petch','Kanit';color:#1e293b;cursor:pointer}
 .tool-btn:active{transform:scale(.95)}
 .tool-btn.active{background:#38bdf8;border-color:#0284c7;color:#fff}
 .doc-sheet{background:#f8fafc;border:2px solid #94a3b8;border-radius:12px;padding:14px;min-height:75px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;font-weight:700}
@@ -70,9 +70,38 @@ html,body{width:100vw;height:100vh;overflow:hidden;background:#60a5fa;position:f
 #b-know h4{font:900 1.1rem 'Kanit';margin-bottom:4px}
 #b-know p{font-weight:500;line-height:1.5}
 #b-wait{display:none;margin:12px 0;font-weight:800;color:#4ade80;font-size:1.15rem;line-height:1.5}
-.b-btn{padding:12px 28px;border-radius:18px;border:none;background:linear-gradient(180deg,#10b981,#059669);color:#fff;font:900 1.15rem 'Chakra Petch';cursor:pointer;box-shadow:0 4px 0 #047857;margin-top:8px}
+.b-btn{padding:12px 28px;border-radius:18px;border:none;background:linear-gradient(180deg,#10b981,#059669);color:#fff;font:900 1.15rem 'Chakra Petch','Kanit';cursor:pointer;box-shadow:0 4px 0 #047857;margin-top:8px}
 .rrow{display:flex;gap:10px;align-items:center;padding:5px 12px;border-radius:12px;background:rgba(15,23,42,.55);margin-bottom:5px;font:800 1rem 'Kanit'}
 .rrow.me{background:#facc15;color:#0f172a}.rrow b{min-width:34px}.rrow .t{margin-left:auto;font-family:'Chakra Petch'}
+
+/* คำถามแบบใหม่: เลือกรูป / ดูรูปตอบข้อความ / ลากวาง */
+.pic-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(86px,1fr));gap:10px}
+.pic-btn{font-size:2.6rem;padding:10px;background:#f1f5f9;border:3px solid #cbd5e1;border-radius:16px;cursor:pointer;line-height:1.2}
+.pic-btn:active{transform:scale(.93);border-color:#38bdf8}
+.big-pic{font-size:3.6rem;line-height:1.2;margin:4px 0 14px;color:#0f172a;font-weight:800}
+.txt-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.txt-grid .tool-btn{padding:12px 8px;font-family:'Kanit';font-size:1rem}
+.drag-slot{display:inline-block;min-width:130px;min-height:44px;border:3px dashed #94a3b8;border-radius:12px;padding:4px 12px;color:#0284c7;font-weight:900;margin-left:8px;line-height:1.6}
+.drag-slot.over{background:#e0f2fe;border-color:#0284c7}
+.drag-bank{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+.chip{background:#38bdf8;color:#fff;font:900 1.05rem 'Chakra Petch','Kanit';padding:10px 16px;border-radius:12px;cursor:grab;touch-action:none;box-shadow:0 3px 0 #0284c7}
+.chip.sel{outline:4px solid #facc15}
+.chip.ghost{position:fixed;z-index:999;pointer-events:none;opacity:.92;transform:scale(1.08)}
+
+@media (max-width:700px){
+  #mission-banner{min-width:0;max-width:52vw;padding:4px 10px}.mission-target{font-size:.8rem}.mission-badge{font-size:.65rem}
+  #rank-list{width:112px}.rk{font-size:.72rem}
+  #minimap{width:90px;height:90px}.hud-pill{font-size:.9rem;padding:2px 10px}
+  .v-btn{width:58px;height:58px;border-radius:18px}#btn-up{width:64px!important;height:64px!important}
+  .speed-number{font-size:2.2rem}#gauge{width:160px}
+  #toast-msg{font-size:1.5rem}#cd-text{font-size:4.5rem}
+  .b-box{padding:14px}#b-task{font-size:1.05rem}
+}
+@media (max-height:480px){
+  #rank-list,#minimap{display:none}
+  .v-btn{width:54px;height:54px}#btn-up{width:60px!important;height:60px!important}
+  .speed-number{font-size:1.8rem}#speedo-box{bottom:6px}#mobile-controls{bottom:8px}
+}
 </style>
 </head>
 <body>
@@ -89,7 +118,7 @@ html,body{width:100vw;height:100vh;overflow:hidden;background:#60a5fa;position:f
 
 <div id="rank-list"></div>
 <div id="mission-banner">
-  <div class="mission-badge" id="m-stage-badge">STAGE 1 / 12</div>
+  <div class="mission-badge" id="m-stage-badge">STAGE 1 / 13</div>
   <div class="mission-target" id="m-quest-text"></div>
 </div>
 <div id="right-hud">
@@ -123,13 +152,13 @@ html,body{width:100vw;height:100vh;overflow:hidden;background:#60a5fa;position:f
     <h2 id="res-title" style="font:900 2rem 'Chakra Petch';font-style:italic;color:#facc15"></h2>
     <p style="color:#cbd5e1;font-size:.9rem">เรียงตามเวลาเข้าเส้นชัย</p>
     <div id="res-list" style="margin:12px 0;text-align:left"></div>
-    <div id="res-reward" style="font:900 1.4rem 'Chakra Petch';color:#4ade80"></div>
+    <div id="res-reward" style="font:900 1.4rem 'Chakra Petch';color:#4ade80;line-height:1.5"></div>
     <button class="btn-upgrade" onclick="goNext()">กลับสู่ล็อบบี้เลือกด่านต่อไป</button>
   </div>
 </div>
 
 <div id="bonus"><div class="b-box">
-  <div class="b-head"><span>⏱ LAP BONUS · ทำภารกิจรับ N2O บูสต์</span><b id="b-time">30</b></div>
+  <div class="b-head"><span>⏱ LAP BONUS · ตอบ 2 ข้อ รับ N2O บูสต์</span><b id="b-time">45</b></div>
   <div id="b-step"></div>
   <div id="b-task"></div>
   <div id="b-workarea"></div>
@@ -141,20 +170,14 @@ html,body{width:100vw;height:100vh;overflow:hidden;background:#60a5fa;position:f
 <script>
 const urlParams = new URLSearchParams(location.search);
 let stageId = parseInt(urlParams.get('stage')) || 1;
+if (stageId < 1 || stageId > 13) stageId = 1;
 
 const stageDatabase = {
-  1: { name: "สปอร์ตโกคาร์ต" },
-  2: { name: "สปอร์ตโกคาร์ต" },
-  3: { name: "สปอร์ตโกคาร์ต" },
-  4: { name: "รถกระบะเทอร์โบ" },
-  5: { name: "รถสปอร์ตเปิดประทุน" },
-  6: { name: "ซูเปอร์คาร์โกลด์" },
-  7: { name: "ซูเปอร์คาร์โกลด์" },
-  8: { name: "ซูเปอร์คาร์โกลด์" },
-  9: { name: "ซูเปอร์คาร์โกลด์" },
-  10: { name: "ซูเปอร์คาร์โกลด์" },
-  11: { name: "ซูเปอร์คาร์โกลด์" },
-  12: { name: "ซูเปอร์คาร์โกลด์" }
+  1: { name: "สปอร์ตโกคาร์ต" }, 2: { name: "สปอร์ตโกคาร์ต" }, 3: { name: "สปอร์ตโกคาร์ต" },
+  4: { name: "รถกระบะเทอร์โบ" }, 5: { name: "รถสปอร์ตเปิดประทุน" },
+  6: { name: "ซูเปอร์คาร์โกลด์" }, 7: { name: "ซูเปอร์คาร์โกลด์" }, 8: { name: "ซูเปอร์คาร์โกลด์" },
+  9: { name: "ซูเปอร์คาร์โกลด์" }, 10: { name: "ซูเปอร์คาร์โกลด์" }, 11: { name: "ซูเปอร์คาร์โกลด์" },
+  12: { name: "ซูเปอร์คาร์โกลด์" }, 13: { name: "ซูเปอร์คาร์ลับ" }
 };
 const cur = stageDatabase[stageId] || stageDatabase[1];
 
@@ -170,7 +193,8 @@ const THEMES = {
   9:{n:"ภูเขาไฟลาวา",sky:[0x7f1d1d,0xfb923c],gnd:0x44403c,hill:[0x57534e,0x78350f,0x7f1d1d],hs:"cone",road:0x292524,curb:[0xf97316,0x1c1917],wall:[0xea580c,0x292524],near:"lava",far:"pyr",fc:[0x57534e,0x44403c],glow:true},
   10:{n:"เมืองนีออนยามค่ำคืน",sky:[0x0b1026,0x3b2a7a],gnd:0x1e1b4b,hill:[0x312e81,0x4c1d95,0x1e3a8a],hs:"cone",road:0x1f2937,curb:[0x22d3ee,0xec4899],wall:[0x8b5cf6,0x22d3ee],near:"neon",far:"tower",fc:[0x22d3ee,0xec4899,0xa78bfa],night:true},
   11:{n:"เกาะลอยฟ้า",sky:[0x60a5fa,0xffffff],gnd:0xf8fafc,hill:[0xffffff,0xe0f2fe,0xfce7f3],hs:"sphere",road:0x64748b,curb:[0xfacc15,0xffffff],wall:[0xa78bfa,0xffffff],near:"tree",far:"blob",fc:[0xffffff,0xfce7f3,0xe0f2fe]},
-  12:{n:"สนามแกรนด์ปรีซ์",sky:[0x1d4ed8,0xfef3c7],gnd:0x4ade80,hill:[0xfde68a,0xfacc15,0xf59e0b],hs:"sphere",road:0x1f2937,curb:[0xfacc15,0x0f172a],wall:[0xfacc15,0x0f172a],near:"flag",far:"tower",fc:[0xfacc15,0xf59e0b]}
+  12:{n:"สนามแกรนด์ปรีซ์",sky:[0x1d4ed8,0xfef3c7],gnd:0x4ade80,hill:[0xfde68a,0xfacc15,0xf59e0b],hs:"sphere",road:0x1f2937,curb:[0xfacc15,0x0f172a],wall:[0xfacc15,0x0f172a],near:"flag",far:"tower",fc:[0xfacc15,0xf59e0b]},
+  13:{n:"ด่านปริศนาลับ",sky:[0x1e1b4b,0xc084fc],gnd:0x1e1b4b,hill:[0x4c1d95,0x7e22ce,0x1e3a8a],hs:"cone",road:0x1f2937,curb:[0xfacc15,0xec4899],wall:[0xa855f7,0x22d3ee],near:"neon",far:"tower",fc:[0xfacc15,0xec4899,0x22d3ee],night:true}
 };
 const TH = THEMES[stageId] || THEMES[1];
 
@@ -187,13 +211,12 @@ gm.minFilter = gm.magFilter = THREE.NearestFilter; gm.needsUpdate = true;
 const toon = (c, o) => new THREE.MeshToonMaterial(Object.assign({ color: c, gradientMap: gm }, o));
 let sky, clouds;
 
-const TOTAL_LAPS = 5, BONUS_SEC = 30;
+const TOTAL_LAPS = 5, BONUS_SEC = 45;
 let raceF = 0, bonus = null, acc = 0, lastT = 0, lastBonusLap = 0;
 let isCountingDown = true, countdownTimer = 3;
 
 const fmt = t => { const ms = Math.round(t * 1000); return String(Math.floor(ms / 60000)).padStart(2, "0") + ":" + String(Math.floor(ms / 1000) % 60).padStart(2, "0") + "." + String(ms % 1000).padStart(3, "0"); };
 
-// ปรับความเร็ว AI ให้อยู่ระดับ 52% - 64% ของผู้เล่น ขับแซงได้ง่าย
 const RATIO = [0.64, 0.58, 0.60, 0.55, 0.52], SKILL = [.85, .7, .6, .8, .45];
 const SPH = new THREE.SphereGeometry(1, 14, 10);
 const mk = (g, geo, c, x = 0, y = 0, z = 0, sx = 1, sy = 1, sz = 1, em) => { const m = new THREE.Mesh(geo, toon(c, em ? { emissive: em } : undefined)); m.position.set(x, y, z); m.scale.set(sx, sy, sz); m.castShadow = true; g.add(m); return m; };
@@ -222,104 +245,78 @@ const P = {
   baseMax: stageId === 1 ? 1.35 : (stageId <= 3 ? 1.75 : 2.25), accel: 0.045, friction: 0.015, turn: 0.046
 };
 
-/* ---------- WEB AUDIO SYSTEM (COUNTDOWN & NITRO SFX) ---------- */
-let audioCtx = null;
+/* ---------- ระบบบันทึกข้อมูล (ใช้ฐานข้อมูลเดียวกับหน้า index) ---------- */
+const SKIN_COLORS = { default: 0x0284c7, red_fire: 0xef4444, gold_cyber: 0xfacc15, green_speed: 0x10b981 };
 
+function getUserRecord() {
+  try {
+    const user = localStorage.getItem("word_kart_active_user");
+    if (!user) return null;
+    const db = JSON.parse(localStorage.getItem("word_kart_db") || "{}");
+    return db[user] ? { user, db, d: db[user] } : null;
+  } catch (e) { return null; }
+}
+
+// สีรถตามที่ซื้อ/เลือกใช้ในหน้าตกแต่งรถ (Custom Garage)
+function getCarColor() {
+  const def = stageId > 5 ? 0xfacc15 : (stageId >= 3 ? 0xef4444 : 0xf8fafc);
+  const rec = getUserRecord();
+  if (!rec) return def;
+  const id = rec.d.skin || "default";
+  return SKIN_COLORS[id] != null ? SKIN_COLORS[id] : def;
+}
+
+/* ---------- WEB AUDIO SYSTEM ---------- */
+let audioCtx = null;
 function getAudioContext() {
-  if (!audioCtx) {
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  }
-  if (audioCtx.state === 'suspended') {
-    audioCtx.resume();
-  }
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (audioCtx.state === 'suspended') audioCtx.resume();
   return audioCtx;
 }
-
-function unlockAudioManual() {
-  getAudioContext();
-}
+function unlockAudioManual() { try { getAudioContext(); } catch (e) {} }
 
 function playBeepLow() {
   try {
-    const ctx = getAudioContext();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.type = "square";
-    osc.frequency.setValueAtTime(440, ctx.currentTime);
+    const ctx = getAudioContext(), osc = ctx.createOscillator(), gain = ctx.createGain();
+    osc.type = "square"; osc.frequency.setValueAtTime(440, ctx.currentTime);
     gain.gain.setValueAtTime(0.2, ctx.currentTime);
     gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.18);
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    osc.start();
-    osc.stop(ctx.currentTime + 0.18);
+    osc.connect(gain); gain.connect(ctx.destination); osc.start(); osc.stop(ctx.currentTime + 0.18);
   } catch(e) {}
 }
-
 function playBeepHigh() {
   try {
-    const ctx = getAudioContext();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.type = "square";
-    osc.frequency.setValueAtTime(880, ctx.currentTime);
+    const ctx = getAudioContext(), osc = ctx.createOscillator(), gain = ctx.createGain();
+    osc.type = "square"; osc.frequency.setValueAtTime(880, ctx.currentTime);
     osc.frequency.exponentialRampToValueAtTime(1046.5, ctx.currentTime + 0.15);
     gain.gain.setValueAtTime(0.28, ctx.currentTime);
     gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.6);
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    osc.start();
-    osc.stop(ctx.currentTime + 0.6);
+    osc.connect(gain); gain.connect(ctx.destination); osc.start(); osc.stop(ctx.currentTime + 0.6);
   } catch(e) {}
 }
-
 function playNitroSound() {
   try {
-    const ctx = getAudioContext();
-    const now = ctx.currentTime;
-
-    const osc = ctx.createOscillator();
-    const oscGain = ctx.createGain();
+    const ctx = getAudioContext(), now = ctx.currentTime;
+    const osc = ctx.createOscillator(), oscGain = ctx.createGain();
     osc.type = "sawtooth";
     osc.frequency.setValueAtTime(140, now);
     osc.frequency.exponentialRampToValueAtTime(800, now + 0.35);
     osc.frequency.exponentialRampToValueAtTime(300, now + 1.2);
-
     oscGain.gain.setValueAtTime(0.22, now);
     oscGain.gain.exponentialRampToValueAtTime(0.001, now + 1.2);
-
     const filter = ctx.createBiquadFilter();
-    filter.type = "bandpass";
-    filter.frequency.setValueAtTime(450, now);
+    filter.type = "bandpass"; filter.frequency.setValueAtTime(450, now);
     filter.frequency.exponentialRampToValueAtTime(1200, now + 0.35);
-
-    osc.connect(filter);
-    filter.connect(oscGain);
-    oscGain.connect(ctx.destination);
-    osc.start(now);
-    osc.stop(now + 1.2);
-
-    const bufferSize = ctx.sampleRate * 0.8;
-    const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-    const output = noiseBuffer.getChannelData(0);
-    for (let i = 0; i < bufferSize; i++) {
-      output[i] = Math.random() * 2 - 1;
-    }
-    const whiteNoise = ctx.createBufferSource();
-    whiteNoise.buffer = noiseBuffer;
-
-    const noiseFilter = ctx.createBiquadFilter();
-    noiseFilter.type = "highpass";
-    noiseFilter.frequency.setValueAtTime(1000, now);
-
+    osc.connect(filter); filter.connect(oscGain); oscGain.connect(ctx.destination);
+    osc.start(now); osc.stop(now + 1.2);
+    const bufferSize = ctx.sampleRate * 0.8, noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate), output = noiseBuffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) output[i] = Math.random() * 2 - 1;
+    const whiteNoise = ctx.createBufferSource(); whiteNoise.buffer = noiseBuffer;
+    const noiseFilter = ctx.createBiquadFilter(); noiseFilter.type = "highpass"; noiseFilter.frequency.setValueAtTime(1000, now);
     const noiseGain = ctx.createGain();
-    noiseGain.gain.setValueAtTime(0.16, now);
-    noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.8);
-
-    whiteNoise.connect(noiseFilter);
-    noiseFilter.connect(noiseGain);
-    noiseGain.connect(ctx.destination);
-    whiteNoise.start(now);
-    whiteNoise.stop(now + 0.8);
+    noiseGain.gain.setValueAtTime(0.16, now); noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.8);
+    whiteNoise.connect(noiseFilter); noiseFilter.connect(noiseGain); noiseGain.connect(ctx.destination);
+    whiteNoise.start(now); whiteNoise.stop(now + 0.8);
   } catch(e) {}
 }
 
@@ -343,7 +340,8 @@ function init() {
 
   buildSky(); buildTrack(); buildScenery(); buildItems(); buildStartArch();
 
-  car = makeKart(stageId > 5 ? 0xfacc15 : (stageId >= 3 ? 0xef4444 : 0xf8fafc), 0xdc2626, true);
+  // รถผู้เล่นใช้สีที่ซื้อ/เลือกไว้ในหน้า Custom Garage
+  car = makeKart(getCarColor(), 0xdc2626, true);
   scene.add(car);
   [[50,-6,0x8b5cf6,0x1e1b4b,0,"Rider"],[32,6,0x10b981,0x065f46,1,"Dino"],[16,-9,0xf97316,0x7c2d12,0,"Bolt"],
    [-16,8,0xec4899,0x831843,1,"Luna"],[-32,-4,0x06b6d4,0x164e63,0,"Neo"]].forEach(([s,l,b,h,e,name],i) => {
@@ -356,8 +354,8 @@ function init() {
   const pg = new THREE.SphereGeometry(0.5, 6, 6);
   for (let i = 0; i < 30; i++) { const m = new THREE.Mesh(pg, new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0 })); m.visible = false; scene.add(m); parts.push({ m, l: 0, vy: 0 }); }
 
-  $("m-stage-badge").innerText = `STAGE ${stageId} / 12 · ${TH.n}`;
-  $("m-quest-text").innerText = `ซิ่งพิชิต 5 รอบ · แวะทำภารกิจทุกรอบที่เข้าเส้นชัย`;
+  $("m-stage-badge").innerText = `STAGE ${stageId} / 13 · ${TH.n}`;
+  $("m-quest-text").innerText = `ซิ่งพิชิต 5 รอบ · แวะตอบ 2 คำถามทุกรอบที่เข้าเส้นชัย`;
   $("vehicle-val").innerText = cur.name;
   setupInputs();
   addEventListener("resize", () => { camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); });
@@ -369,7 +367,7 @@ function init() {
   animate();
 }
 
-/* ---------- START COUNTDOWN SEQUENCE (3.. 2.. 1.. GO!) ---------- */
+/* ---------- COUNTDOWN ---------- */
 function startCountdown() {
   isCountingDown = true;
   countdownTimer = 3;
@@ -379,32 +377,16 @@ function startCountdown() {
   $("lamp-3").className = "cd-lamp red";
   $("cd-text").innerText = "3";
   $("cd-text").style.color = "#facc15";
-
   playBeepLow();
-
   const cdInterval = setInterval(() => {
     countdownTimer--;
-    if (countdownTimer === 2) {
-      $("cd-text").innerText = "2";
-      $("lamp-3").className = "cd-lamp";
-      playBeepLow();
-    } else if (countdownTimer === 1) {
-      $("cd-text").innerText = "1";
-      $("lamp-2").className = "cd-lamp";
-      playBeepLow();
-    } else if (countdownTimer === 0) {
-      $("cd-text").innerText = "GO! 🏁";
-      $("cd-text").style.color = "#4ade80";
-      $("lamp-1").className = "cd-lamp green";
-      $("lamp-2").className = "cd-lamp green";
-      $("lamp-3").className = "cd-lamp green";
-      isCountingDown = false;
-      playBeepHigh();
-      showToast("START RACE! 🏁", "#facc15");
-    } else {
-      clearInterval(cdInterval);
-      $("countdown-screen").style.display = "none";
-    }
+    if (countdownTimer === 2) { $("cd-text").innerText = "2"; $("lamp-3").className = "cd-lamp"; playBeepLow(); }
+    else if (countdownTimer === 1) { $("cd-text").innerText = "1"; $("lamp-2").className = "cd-lamp"; playBeepLow(); }
+    else if (countdownTimer === 0) {
+      $("cd-text").innerText = "GO! 🏁"; $("cd-text").style.color = "#4ade80";
+      $("lamp-1").className = "cd-lamp green"; $("lamp-2").className = "cd-lamp green"; $("lamp-3").className = "cd-lamp green";
+      isCountingDown = false; playBeepHigh(); showToast("START RACE! 🏁", "#facc15");
+    } else { clearInterval(cdInterval); $("countdown-screen").style.display = "none"; }
   }, 1000);
 }
 
@@ -571,12 +553,12 @@ function buildItems() {
 
 function useN2O() {
   getAudioContext();
+  if (bonus || isCountingDown) return;
   if (P.gauge < 50) { showToast("N2O ว่าง! ทำภารกิจผ่านด่านเพื่อรับ", "#f59e0b"); return; }
-  if (P.boost < 10) { 
-    P.gauge -= 50; 
-    P.boost = 80; 
+  if (P.boost < 10) {
+    P.gauge -= 50; P.boost = 80;
     playNitroSound();
-    showToast("N2O BOOST! ⚡", "#38bdf8"); 
+    showToast("N2O BOOST! ⚡", "#38bdf8");
   }
 }
 
@@ -594,7 +576,7 @@ function setupInputs() {
   addEventListener("pointerdown", () => { getAudioContext(); window.focus(); });
   const bind = (id, on, off) => {
     const el = $(id);
-    ["touchstart","mousedown"].forEach(ev => el.addEventListener(ev, e => { e.preventDefault(); getAudioContext(); on(); }));
+    ["touchstart","mousedown"].forEach(ev => el.addEventListener(ev, e => { e.preventDefault(); getAudioContext(); on(); }, { passive: false }));
     ["touchend","touchcancel","mouseup","mouseleave"].forEach(ev => el.addEventListener(ev, off));
   };
   [["btn-up","up"],["btn-down","down"],["btn-left","left"],["btn-right","right"]].forEach(([id, a]) => bind(id, () => keys[a] = true, () => keys[a] = false));
@@ -614,7 +596,7 @@ function update() {
   if (isCleared) return;
   if (isCountingDown) return;
   if (bonus) { tickBonus(); return; }
-  
+
   frame++; raceF++;
   let max = P.baseMax;
   if (P.boost > 0) { P.boost--; max *= 1.48; P.speed = Math.min(max, P.speed + .08); }
@@ -629,10 +611,10 @@ function update() {
   if (!P.drift) {
     if (turnIn && P.speed > P.baseMax * .7) { if (++P.hold > 10) { P.drift = turnIn; P.charge = 0; showToast("DRIFT!", "#facc15"); } } else P.hold = 0;
   } else if (!turnIn || P.speed < P.baseMax * .5) {
-    if (P.charge > 35) { 
-      P.boost = Math.min(110, 40 + P.charge * .6); 
+    if (P.charge > 35) {
+      P.boost = Math.min(110, 40 + P.charge * .6);
       playNitroSound();
-      showToast("DRIFT BOOST! ⚡", "#38bdf8"); 
+      showToast("DRIFT BOOST! ⚡", "#38bdf8");
     }
     P.drift = 0; P.charge = 0; P.hold = 0;
   } else P.charge++;
@@ -644,12 +626,9 @@ function update() {
 
   let best = P.idx, bd = 1e9;
   for (let k = -14; k <= 14; k++) { const i = mod(P.idx + k), dx = P.x - pts[i].x, dz = P.z - pts[i].z, d = dx*dx + dz*dz; if (d < bd) { bd = d; best = i; } }
-  
-  if (P.idx > N * .75 && best < N * .25) {
-    P.lap++;
-  } else if (P.idx < N * .25 && best > N * .75) {
-    P.lap--;
-  }
+
+  if (P.idx > N * .75 && best < N * .25) P.lap++;
+  else if (P.idx < N * .25 && best > N * .75) P.lap--;
   P.idx = best;
 
   const off = (P.x - pts[best].x) * rgt[best].x + (P.z - pts[best].z) * rgt[best].z, lim = HW + 1.3;
@@ -667,7 +646,7 @@ function update() {
     }
   });
 
-  // ทำภารกิจทุกรอบที่เข้าเส้นชัย (รอบที่ 1, 2, 3, 4)
+  // ตอบคำถามทุกรอบที่เข้าเส้นชัย (รอบที่ 1, 2, 3, 4)
   if (P.lap > lastBonusLap && P.lap < TOTAL_LAPS) {
     lastBonusLap = P.lap;
     startBonus();
@@ -713,7 +692,7 @@ function update() {
 }
 
 function stepAI(a) {
-  if (isCountingDown || bonus) return; // ล็อกรถคู่แข่งให้อยู่กับที่ระหว่างโบนัสไทม์
+  if (isCountingDown || bonus) return;
   if (a.bt > 0) a.bt--;
   else if (a.n2o > 0 && Math.random() < .003) { a.bt = 80; a.n2o--; }
   a.s += a.sp * (1 + Math.sin(raceF * .01 + a.i * 2) * .015) * (a.bt > 0 ? 1.35 : 1) / SP;
@@ -726,120 +705,153 @@ function finishRace() {
   setTimeout(showResult, 1300);
 }
 
+/* ---------- บันทึกด่าน เหรียญ สถิติเวลา และปลดล็อกด่านถัดไป ---------- */
+function saveProgress(reward) {
+  const info = { unlockedNext: 0, unlock13: false, saved: false };
+  try {
+    const rec = getUserRecord();
+    if (!rec) return info;
+    const { user, db, d } = rec;
+    const before = d.stage || 1;
+    d.coins = (d.coins || 0) + reward;
+
+    if (stageId < 13) {
+      // ผ่านด่านนี้ → ปลดล็อกด่านถัดไป (ผ่านด่าน 12 → ปลดล็อกเกมพิเศษที่ 13)
+      if (before <= stageId) { d.stage = stageId + 1; info.unlockedNext = stageId + 1; }
+      if (stageId === 12 && before <= 12) info.unlock13 = true;
+    } else if (before >= 13) {
+      d.cleared13 = true;
+    }
+
+    // สถิติเวลาดีที่สุด
+    if (!d.bestSec || P.fin < d.bestSec) { d.bestSec = P.fin; d.bestTime = fmt(P.fin); }
+
+    db[user] = d;
+    localStorage.setItem("word_kart_db", JSON.stringify(db));
+    info.saved = true;
+  } catch (e) {}
+  return info;
+}
+
 function showResult() {
   const L = [{ n: "คุณ", t: P.fin, me: 1 }, ...ais.map(a => ({ n: a.name, t: a.fin }))].sort((a, b) => a.t - b.t);
   $("res-list").innerHTML = L.map((r, i) => `<div class="rrow${r.me ? " me" : ""}"><b>${["🥇", "🥈", "🥉"][i] || i + 1}</b>${r.n}<span class="t">${fmt(r.t)}</span></div>`).join("");
   const place = L.findIndex(r => r.me), reward = [150, 100, 70][place] || 40;
   $("res-title").innerText = place === 0 ? "คุณชนะ! 🏆" : `เข้าเส้นชัยอันดับ ${place + 1}`;
-  $("res-reward").innerText = `+${reward} Coins 🪙`;
-  try {
-    const saved = localStorage.getItem("word_kart_save");
-    let p = saved ? JSON.parse(saved) : { coins: 0, stage: 1 };
-    p.coins = (p.coins || 0) + reward;
-    if (p.stage <= stageId && stageId < 12) p.stage = stageId + 1;
-    localStorage.setItem("word_kart_save", JSON.stringify(p));
-  } catch (e) {}
+  const info = saveProgress(reward);
+  let html = `+${reward} Coins 🪙`;
+  if (info.unlock13) html += `<br>🔓 ปลดล็อก <b>เกมพิเศษที่ 13</b> แล้ว!`;
+  else if (info.unlockedNext) html += `<br>🔓 ปลดล็อกด่าน ${info.unlockedNext} แล้ว`;
+  if (stageId === 13 && info.saved) html += `<br>🏆 พิชิตด่านปริศนาสำเร็จ!`;
+  if (!info.saved) html += `<br><span style="font-size:.85rem;color:#fca5a5">ยังไม่ได้เข้าสู่ระบบ จึงไม่บันทึกข้อมูล</span>`;
+  $("res-reward").innerHTML = html;
   $("victory-modal").style.display = "flex";
 }
 
-/* ---------- คลังภารกิจ 4 สไตล์ใหม่ (ตัดข้อ 1 ออกทั้งหมด) ---------- */
+/* ---------- คลังคำถามตามบทเรียน (st = บทที่เกี่ยวข้อง) ---------- */
 const shuf = a => a.slice().sort(() => Math.random() - .5);
+const PC = (st, q, opts, target, know) => ({ mode: "pic_choice", st, q, opts, target, know });
+const IQ = (st, pic, q, opts, target, know) => ({ mode: "img_q", st, pic, q, opts, target, know });
+const DR = (st, q, pre, opts, target, know) => ({ mode: "drag", st, q, pre, opts, target, know });
 
-const INTERACTIVE_MISSIONS = [
-  // สไตล์ที่ 2: ตรวจคำผิดเส้นหยักสีแดง
-  {
-    mode: "action_spellcheck",
-    q: "แตะที่คำที่มีเส้นหยักสีแดง เพื่อแก้ไขคำสะกดผิดให้ถูกต้อง",
-    wrongWord: "ไมโครชอฟต์",
-    correctWord: "ไมโครซอฟต์",
-    know: "เส้นหยักสีแดงใต้คำแปลว่าสะกดผิด ให้คลิกขวาเพื่อเลือกคำสะกดที่ถูกต้องในพจนานุกรม"
-  },
-  {
-    mode: "action_spellcheck",
-    q: "แตะที่คำสะกดผิด เพื่อแก้ชื่อโปรแกรมประมวลผลคำให้ถูกต้อง",
-    wrongWord: "เวิด",
-    correctWord: "เวิร์ด",
-    know: "การสะกดคำทับศัพท์ภาษาอังกฤษ Microsoft Word ในภาษาไทยต้องมีไม้ทัณฑฆาตกำกับ"
-  },
+const TBL32 = '<table style="margin:0 auto;border-collapse:collapse;font-size:1.3rem">' +
+  '<tr><td style="border:2px solid #475569;padding:6px 16px">ก</td><td style="border:2px solid #475569;padding:6px 16px">ข</td><td style="border:2px solid #475569;padding:6px 16px">ค</td></tr>' +
+  '<tr><td style="border:2px solid #475569;padding:6px 16px">1</td><td style="border:2px solid #475569;padding:6px 16px">2</td><td style="border:2px solid #475569;padding:6px 16px">3</td></tr></table>';
+const CENTER_PIC = '<div style="max-width:260px;margin:0 auto 6px;border:2px solid #94a3b8;border-radius:8px;padding:8px;text-align:center;font-size:1.1rem;letter-spacing:2px">▬▬▬<br>▬▬▬▬▬▬▬<br>▬▬▬▬</div>';
 
-  // สไตล์ที่ 3: แทรกและจัดตัดรูปภาพ Wrap Text
-  {
-    mode: "action_wraptext",
-    q: "เลือกคำสั่ง Wrap Text เพื่อส่งรูปภาพไปอยู่ 'ข้างหลังข้อความ (Behind Text)'",
-    target: "Behind Text",
-    opts: ["In Front of Text", "Behind Text", "Square"],
-    know: "Behind Text ส่งรูปภาพลงไปเป็นฉากหลัง ทำให้พิมพ์ข้อความลอยทับบนภาพได้"
-  },
-  {
-    mode: "action_wraptext",
-    q: "เลือกคำสั่ง Wrap Text เพื่อให้ข้อความ 'ล้อมรอบรูปภาพเป็นสี่เหลี่ยม (Square)'",
-    target: "Square",
-    opts: ["Square", "In Line with Text", "Behind Text"],
-    know: "Square ทำให้ข้อความไหลล้อมรอบกรอบรูปภาพเป็นทรงสี่เหลี่ยมอย่างมีระเบียบ"
-  },
+const MISSIONS = [
+  // ===== บท 1: ส่วนประกอบ Word =====
+  PC(1, "Microsoft Word มีสีประจำโปรแกรมเป็นสีน้ำเงิน ไอคอนสมุดเล่มไหนตรงกัน?", ["📘","📗","📙","📕"], "📘", "Word คือโปรแกรมสีน้ำเงิน (Excel สีเขียว, PowerPoint สีส้มแดง)"),
+  IQ(1, "📄", "พื้นที่กระดาษว่างสำหรับพิมพ์งานใน Word เรียกว่าอะไร?", ["Ribbon","เอกสาร (Document)","Status Bar","แท็บ File"], "เอกสาร (Document)", "พื้นที่สีขาวตรงกลางคือหน้าเอกสาร ใช้พิมพ์เนื้อหา"),
+  DR(1, "ลากชื่อส่วนประกอบไปวางในช่องว่าง", "แถบคำสั่งที่รวมแท็บ Home, Insert ฯลฯ เรียกว่า", ["Ribbon","Status Bar","Cursor"], "Ribbon", "Ribbon คือแถบเครื่องมือด้านบน แบ่งเป็นแท็บและกลุ่มคำสั่ง"),
+  { mode: "action_ribbon", st: 1, q: "หากต้องการ 'แทรกรูปภาพ ตาราง หรือรูปร่าง' ต้องเปิดแท็บ Ribbon ใด?", target: "Insert", opts: ["Home (หน้าแรก)", "Insert (แทรก)", "Layout (เค้าโครง)", "View (มุมมอง)"], know: "แท็บ Insert (แทรก) เป็นศูนย์รวมคำสั่งใส่วัตถุภายนอก เช่น ตาราง รูปภาพ และแผนภูมิ" },
 
-  // สไตล์ที่ 4: ลากสร้างขนาดตารางข้อมูล (Table Grid Picker)
-  {
-    mode: "action_table",
-    q: "แตะช่องตารางเพื่อกำหนดขนาด '3 คอลัมน์ x 2 แถว'",
-    targetCols: 3,
-    targetRows: 2,
-    know: "คอลัมน์คือนับตามแนวตั้ง (3 ช่อง) และแถวคือนับตามแนวนอน (2 ช่อง)"
-  },
-  {
-    mode: "action_table",
-    q: "แตะช่องตารางเพื่อกำหนดขนาด '2 คอลัมน์ x 3 แถว'",
-    targetCols: 2,
-    targetRows: 3,
-    know: "ตารางขนาด 2 x 3 จะมี 2 คอลัมน์แนวตั้ง และ 3 แถวแนวนอน"
-  },
+  // ===== บท 2: จัดการไฟล์ & คีย์ลัด =====
+  PC(2, "ปุ่มไหนคือคำสั่ง 'บันทึกไฟล์ (Save)'?", ["🖨️","💾","📋","✂️"], "💾", "ไอคอนแผ่นดิสก์ 💾 คือ Save (Ctrl + S)"),
+  IQ(2, "↩️", "ไอคอนลูกศรย้อนกลับนี้คือคำสั่งอะไร?", ["ทำซ้ำ (Redo)","ยกเลิกการกระทำ (Undo)","ลบไฟล์","พิมพ์เอกสาร"], "ยกเลิกการกระทำ (Undo)", "ลูกศรย้อนกลับคือ Undo (Ctrl + Z)"),
+  DR(2, "ลากคีย์ลัดไปวางในช่องว่าง", "คีย์ลัด 'บันทึกไฟล์' คือ", ["Ctrl + P","Ctrl + S","Ctrl + Z"], "Ctrl + S", "Ctrl + S = Save, Ctrl + P = Print, Ctrl + Z = Undo"),
 
-  // สไตล์ที่ 5: สลับแท็บเมนู Ribbon และจัดรูปแบบข้อความ
-  {
-    mode: "action_ribbon",
-    q: "หากต้องการ 'แทรกรูปภาพ ตาราง หรือรูปร่าง' ต้องเปิดแท็บ Ribbon ใด?",
-    target: "Insert",
-    opts: ["Home (หน้าแรก)", "Insert (แทรก)", "Layout (เค้าโครง)", "View (มุมมอง)"],
-    know: "แท็บ Insert (แทรก) เป็นศูนย์รวมคำสั่งใส่วัตถุภายนอก เช่น ตาราง รูปภาพ และแผนภูมิ"
-  },
-  {
-    mode: "action_style",
-    q: "คลิกปุ่มสไตล์ข้อความ เพื่อแปลงหัวข้อให้เป็น 'ตัวหนา (Bold)'",
-    target: "B",
-    know: "ปุ่ม B (Bold) ใช้เน้นคำสำคัญให้หนาเด่นชัด หรือกดคีย์ลัด Ctrl + B"
-  },
-  {
-    mode: "action_align",
-    q: "จัดวางหัวข้อเอกสารให้อยู่ 'กึ่งกลางหน้ากระดาษ (Center)'",
-    target: "center",
-    know: "ปุ่ม Center จัดกึ่งกลางหน้ากระดาษ นิยมใช้กับชื่อเรื่องรายงาน หรือกดคีย์ลัด Ctrl + E"
-  }
+  // ===== บท 3: พิมพ์และเลือกข้อความ =====
+  PC(3, "ไอคอนไหนใช้ 'ตัดข้อความ (Cut)'?", ["✂️","🖼️","🔍","↩️"], "✂️", "กรรไกรคือ Cut (Ctrl + X) ใช้ย้ายข้อความออกจากที่เดิม"),
+  IQ(3, "📋", "ไอคอนคลิปบอร์ดนี้คือคำสั่งอะไร?", ["วาง (Paste)","ตัด (Cut)","พิมพ์ (Print)","แทรกตาราง"], "วาง (Paste)", "คลิปบอร์ดคือ Paste (Ctrl + V) ใช้วางสิ่งที่คัดลอกหรือตัดไว้"),
+  DR(3, "ลากคีย์ลัดไปวางในช่องว่าง", "คีย์ลัด 'เลือกข้อความทั้งหมด (Select All)' คือ", ["Ctrl + A","Ctrl + D","Ctrl + K"], "Ctrl + A", "Ctrl + A = เลือกทั้งหมดในเอกสาร"),
+
+  // ===== บท 4: ตกแต่งฟอนต์ =====
+  IQ(4, '<b style="font-size:4rem">B</b>', "ปุ่มตัวอักษรนี้ทำให้ข้อความเป็นอย่างไร?", ["ตัวหนา","ตัวเอียง","ขีดเส้นใต้","ตัวยก"], "ตัวหนา", "ปุ่ม B (Bold) ทำตัวหนา คีย์ลัด Ctrl + B"),
+  IQ(4, '<i style="font-size:4rem">I</i>', "ปุ่มตัวอักษรนี้ทำให้ข้อความเป็นอย่างไร?", ["ตัวหนา","ตัวเอียง","ขีดเส้นใต้","ตัวห้อย"], "ตัวเอียง", "ปุ่ม I (Italic) ทำตัวเอียง คีย์ลัด Ctrl + I"),
+  DR(4, "ลากคีย์ลัดไปวางในช่องว่าง", "คีย์ลัด 'ขีดเส้นใต้ (Underline)' คือ", ["Ctrl + B","Ctrl + U","Ctrl + I"], "Ctrl + U", "Ctrl + B = หนา, Ctrl + I = เอียง, Ctrl + U = ขีดเส้นใต้"),
+  { mode: "action_style", st: 4, q: "คลิกปุ่มสไตล์ข้อความ เพื่อแปลงหัวข้อให้เป็น 'ตัวหนา (Bold)'", target: "B", know: "ปุ่ม B (Bold) ใช้เน้นคำสำคัญให้หนาเด่นชัด หรือกดคีย์ลัด Ctrl + B" },
+
+  // ===== บท 5: จัดแนวย่อหน้า =====
+  PC(5, "ไอคอนลูกศรไหนสื่อถึงการ 'จัดชิดซ้าย'?", ["⬅️","➡️","↔️","⬆️"], "⬅️", "จัดชิดซ้าย (Align Left) คีย์ลัด Ctrl + L"),
+  IQ(5, CENTER_PIC, "ข้อความในกรอบนี้ถูกจัดแนวแบบใด?", ["ชิดซ้าย","กึ่งกลาง","ชิดขวา","กระจายแบบ Justify"], "กึ่งกลาง", "ข้อความที่อยู่กลางหน้ากระดาษคือจัดกึ่งกลาง (Center) คีย์ลัด Ctrl + E"),
+  DR(5, "ลากคีย์ลัดไปวางในช่องว่าง", "คีย์ลัด 'จัดกึ่งกลาง (Center)' คือ", ["Ctrl + E","Ctrl + L","Ctrl + R"], "Ctrl + E", "Ctrl + L = ซ้าย, Ctrl + E = กลาง, Ctrl + R = ขวา"),
+  { mode: "action_align", st: 5, q: "จัดวางหัวข้อเอกสารให้อยู่ 'กึ่งกลางหน้ากระดาษ (Center)'", target: "center", know: "ปุ่ม Center จัดกึ่งกลางหน้ากระดาษ นิยมใช้กับชื่อเรื่องรายงาน หรือกดคีย์ลัด Ctrl + E" },
+
+  // ===== บท 6: ลำดับเลข & Bullets =====
+  IQ(6, "• รายการ<br>• รายการ<br>• รายการ", "การนำหน้ารายการด้วยจุดแบบนี้เรียกว่าอะไร?", ["Bullets","Numbering","Table","Heading"], "Bullets", "Bullets คือสัญลักษณ์จุดนำหน้า ใช้กับรายการที่ไม่ต้องเรียงลำดับ"),
+  IQ(6, "1. รายการ<br>2. รายการ<br>3. รายการ", "การนำหน้ารายการด้วยตัวเลขแบบนี้เรียกว่าอะไร?", ["Bullets","Numbering","Border","Shading"], "Numbering", "Numbering คือเลขลำดับ ใช้กับขั้นตอนที่ต้องเรียงก่อนหลัง"),
+  DR(6, "ลากคำตอบไปวางในช่องว่าง", "รายการที่ไม่ต้องเรียงลำดับ ควรใช้", ["Bullets","Numbering","Table"], "Bullets", "ไม่ต้องเรียงลำดับ → Bullets / ต้องเรียงลำดับ → Numbering"),
+
+  // ===== บท 7: แทรกรูปภาพ & Wrap Text =====
+  PC(7, "ไอคอนไหนคือการ 'แทรกรูปภาพ'?", ["🔤","🖼️","📏","🖨️"], "🖼️", "รูปภาพอยู่ในแท็บ Insert > Pictures"),
+  DR(7, "ลากคำสั่งไปวางในช่องว่าง", "คำสั่ง Wrap Text ที่ส่งรูปไปไว้หลังข้อความคือ", ["Behind Text","Square","In Line with Text"], "Behind Text", "Behind Text ส่งรูปเป็นฉากหลัง พิมพ์ข้อความทับได้"),
+  { mode: "action_wraptext", st: 7, q: "เลือกคำสั่ง Wrap Text เพื่อส่งรูปภาพไปอยู่ 'ข้างหลังข้อความ (Behind Text)'", target: "Behind Text", opts: ["In Front of Text", "Behind Text", "Square"], know: "Behind Text ส่งรูปภาพลงไปเป็นฉากหลัง ทำให้พิมพ์ข้อความลอยทับบนภาพได้" },
+  { mode: "action_wraptext", st: 7, q: "เลือกคำสั่ง Wrap Text เพื่อให้ข้อความ 'ล้อมรอบรูปภาพเป็นสี่เหลี่ยม (Square)'", target: "Square", opts: ["Square", "In Line with Text", "Behind Text"], know: "Square ทำให้ข้อความไหลล้อมรอบกรอบรูปภาพเป็นทรงสี่เหลี่ยมอย่างมีระเบียบ" },
+
+  // ===== บท 8: ตาราง =====
+  PC(8, "ไอคอนไหนสื่อถึง 'ตาราง (Table)'?", ["🖼️","▦","✂️","💾"], "▦", "ตารางคือช่องสี่เหลี่ยมเรียงเป็นแถวและคอลัมน์ ใช้คำสั่ง Insert > Table"),
+  IQ(8, TBL32, "ตารางในรูปมีกี่คอลัมน์ × กี่แถว?", ["3 คอลัมน์ × 2 แถว","2 คอลัมน์ × 3 แถว","3 คอลัมน์ × 3 แถว","2 คอลัมน์ × 2 แถว"], "3 คอลัมน์ × 2 แถว", "คอลัมน์นับแนวตั้ง (3 ช่อง) แถวนับแนวนอน (2 ช่อง)"),
+  DR(8, "ลากคำสั่งไปวางในช่องว่าง", "คำสั่งที่รวมหลายช่องในตารางให้เป็นช่องเดียวคือ", ["Merge Cells","Split Cells","Delete Table"], "Merge Cells", "Merge Cells = ผสานเซลล์, Split Cells = แบ่งเซลล์"),
+  { mode: "action_table", st: 8, q: "แตะช่องตารางเพื่อกำหนดขนาด '3 คอลัมน์ x 2 แถว'", targetCols: 3, targetRows: 2, know: "คอลัมน์คือนับตามแนวตั้ง (3 ช่อง) และแถวคือนับตามแนวนอน (2 ช่อง)" },
+  { mode: "action_table", st: 8, q: "แตะช่องตารางเพื่อกำหนดขนาด '2 คอลัมน์ x 3 แถว'", targetCols: 2, targetRows: 3, know: "ตารางขนาด 2 x 3 จะมี 2 คอลัมน์แนวตั้ง และ 3 แถวแนวนอน" },
+
+  // ===== บท 9: ตั้งค่าหน้ากระดาษ A4 =====
+  IQ(9, "📄", "กระดาษขนาดมาตรฐานของเอกสารทั่วไปในประเทศไทยคือขนาดใด?", ["A4","A0","A8","B9"], "A4", "A4 ขนาด 21 × 29.7 ซม. เป็นขนาดมาตรฐานของงานเอกสาร"),
+  DR(9, "ลากแท็บไปวางในช่องว่าง", "การตั้งค่าหน้ากระดาษ (ขนาด ขอบ แนวกระดาษ) อยู่ในแท็บ", ["Layout","Home","Review"], "Layout", "แท็บ Layout (เค้าโครง) มีคำสั่ง Size, Margins, Orientation"),
+  PC(9, "กระดาษ 'แนวตั้ง (Portrait)' มีรูปทรงคล้ายอุปกรณ์ใด?", ["📱","🖥️","🍔","🎞️"], "📱", "Portrait = แนวตั้ง, Landscape = แนวนอน"),
+
+  // ===== บท 10: ตรวจสะกดคำผิด =====
+  IQ(10, '<span style="text-decoration:underline wavy #ef4444">สะกดผิด</span>', "เส้นหยักสีแดงใต้คำหมายถึงอะไร?", ["สะกดคำผิด","ไวยากรณ์ผิด","ตัวหนา","เป็นลิงก์"], "สะกดคำผิด", "เส้นหยักสีแดง = สะกดผิด คลิกขวาเพื่อเลือกคำที่ถูกต้อง"),
+  IQ(10, '<span style="text-decoration:underline wavy #2563eb">ประโยคนี้</span>', "เส้นหยักสีน้ำเงินใต้ข้อความมักหมายถึงอะไร?", ["ไวยากรณ์/รูปแบบน่าสงสัย","ตัวเอียง","คำสะกดถูกต้องแล้ว","ลบข้อความ"], "ไวยากรณ์/รูปแบบน่าสงสัย", "เส้นสีน้ำเงินเตือนเรื่องไวยากรณ์หรือรูปแบบที่ควรตรวจสอบ"),
+  DR(10, "ลากปุ่มไปวางในช่องว่าง", "ปุ่มลัดเปิดตรวจการสะกดคำและไวยากรณ์ใน Word คือ", ["F5","F7","F12"], "F7", "กด F7 เพื่อเปิดตัวตรวจการสะกดและไวยากรณ์"),
+  { mode: "action_spellcheck", st: 10, q: "แตะที่คำที่มีเส้นหยักสีแดง เพื่อแก้ไขคำสะกดผิดให้ถูกต้อง", wrongWord: "ไมโครชอฟต์", correctWord: "ไมโครซอฟต์", know: "เส้นหยักสีแดงใต้คำแปลว่าสะกดผิด ให้คลิกขวาเพื่อเลือกคำสะกดที่ถูกต้องในพจนานุกรม" },
+  { mode: "action_spellcheck", st: 10, q: "แตะที่คำสะกดผิด เพื่อแก้ชื่อโปรแกรมประมวลผลคำให้ถูกต้อง", wrongWord: "เวิด", correctWord: "เวิร์ด", know: "การสะกดคำทับศัพท์ภาษาอังกฤษ Microsoft Word ในภาษาไทยต้องมีไม้ทัณฑฆาตกำกับ" },
+
+  // ===== บท 11: สไตล์ & สารบัญอัตโนมัติ =====
+  IQ(11, '<div style="font-size:1.8rem;font-weight:900;color:#1e3a8a">หัวเรื่อง 1</div>', "การกำหนดข้อความเป็น Heading 1 ช่วยให้ทำสิ่งใดได้?", ["สร้างสารบัญอัตโนมัติ","เปลี่ยนสีกระดาษ","พิมพ์เร็วขึ้น","ลบตาราง"], "สร้างสารบัญอัตโนมัติ", "Word ใช้ Heading Styles สร้างสารบัญอัตโนมัติ"),
+  DR(11, "ลากแท็บไปวางในช่องว่าง", "คำสั่ง Table of Contents (สารบัญ) อยู่ในแท็บ", ["References","Home","View"], "References", "แท็บ References (การอ้างอิง) มี Table of Contents"),
+  PC(11, "ไอคอนไหนสื่อถึง 'สารบัญ / รายการหัวข้อ'?", ["📑","🖼️","💾","✂️"], "📑", "สารบัญแสดงหัวข้อพร้อมเลขหน้า สร้างจาก Heading Styles"),
+
+  // ===== บท 12: ส่งออกไฟล์ PDF =====
+  IQ(12, "📕", "ไฟล์นามสกุล .pdf ย่อมาจากอะไร?", ["Portable Document Format","Print Direct File","Personal Data Folder","Page Design Form"], "Portable Document Format", "PDF = Portable Document Format เปิดดูได้เหมือนกันทุกอุปกรณ์"),
+  DR(12, "ลากคำสั่งไปวางในช่องว่าง", "การบันทึกเอกสารเป็น PDF ใช้เมนู File >", ["Save As","New","Options"], "Save As", "File > Save As แล้วเลือกชนิดไฟล์เป็น PDF"),
+  PC(12, "ไอคอนไหนสื่อถึงการ 'ส่งออก (Export)' ไฟล์?", ["📥","📤","🗑️","🔒"], "📤", "Export ใช้ส่งไฟล์ออกเป็นรูปแบบอื่น เช่น PDF")
 ];
 
-function buildCurrentLapMission() {
-  return shuf(INTERACTIVE_MISSIONS)[0];
+const usedQ = new Set();
+function pick2Missions() {
+  const rel = m => stageId === 13 ? 0 : (m.st === stageId ? 0 : (m.st < stageId ? 1 : 2));
+  const sorted = () => shuf(MISSIONS).sort((a, b) => rel(a) - rel(b));
+  let pool = sorted().filter(m => !usedQ.has(m));
+  if (pool.length < 4) { usedQ.clear(); pool = sorted(); }
+  const first = pool[0];
+  const second = pool.find(x => x !== first && x.mode !== first.mode) || pool[1];
+  usedQ.add(first); usedQ.add(second);
+  return [first, second];
 }
 
 function startBonus() {
   for (const k in keys) keys[k] = false;
   P.speed = 0; P.vx = 0; P.vz = 0;
-  
-  // รีเซ็ตตำแหน่งรถ AI ทุกคันให้มาเข้าแถวรอบเส้นสตาร์ตพร้อมผู้เล่น
+
   const currentLapBase = P.lap * N;
   const offsets = [-8, 8, -14, 14, -20];
-  ais.forEach((a, i) => {
-    a.s = currentLapBase + offsets[i];
-    a.sp = P.baseMax * RATIO[i];
-    a.bt = 0;
-  });
+  ais.forEach((a, i) => { a.s = currentLapBase + offsets[i]; a.sp = P.baseMax * RATIO[i]; a.bt = 0; });
 
-  bonus = {
-    m: buildCurrentLapMission(),
-    t: BONUS_SEC * 60,
-    state: "play",
-    ok: false
-  };
-  
+  const qs = pick2Missions();
+  bonus = { qs, qi: 0, m: qs[0], t: BONUS_SEC * 60, state: "play", ok: false };
+
   $("bonus").style.display = "flex";
   $("b-time").innerText = BONUS_SEC;
   $("b-time").classList.remove("low");
@@ -849,10 +861,10 @@ function startBonus() {
 function renderBonusUI() {
   const b = bonus, m = b.m, st = b.state;
   const show = (id, on, d = "block") => $(id).style.display = on ? d : "none";
-  
-  $("b-step").innerText = `ภารกิจรอบที่ ${P.lap} / ${TOTAL_LAPS}`;
+
+  $("b-step").innerText = `ภารกิจรอบที่ ${P.lap} / ${TOTAL_LAPS} · ข้อ ${b.qi + 1} / ${b.qs.length}`;
   $("b-task").innerText = m.q;
-  
+
   show("b-workarea", st === "play");
   show("b-know", st === "know");
   show("b-wait", st === "done");
@@ -862,44 +874,32 @@ function renderBonusUI() {
   work.innerHTML = "";
 
   if (st === "play") {
-    // 2. ภารกิจตรวจคำผิด
     if (m.mode === "action_spellcheck") {
       work.innerHTML = `
         <div style="font-size:0.95rem; color:#64748b; margin-bottom:8px;">แตะที่คำที่มีเส้นหยักสีแดงเพื่อแก้ไข:</div>
         <div class="doc-sheet">
           โปรแกรม&nbsp;<span id="spell-target" style="text-decoration:underline wavy #ef4444; color:#ef4444; cursor:pointer; font-weight:900;" onclick="fixSpelling()">${m.wrongWord}</span>&nbsp;Word 3D
-        </div>
-      `;
+        </div>`;
     }
-    // 3. ภารกิจ Wrap Text
     else if (m.mode === "action_wraptext") {
       work.innerHTML = `
         <div style="font-size:0.95rem; color:#64748b; margin-bottom:12px;">เลือกรูปแบบการตัดข้อความรอบรูปภาพ:</div>
         <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
           ${m.opts.map(o => `<button class="tool-btn" onclick="checkWrapOption('${o}', '${m.target}')">${o}</button>`).join("")}
-        </div>
-      `;
+        </div>`;
     }
-    // 4. ภารกิจกำหนดขนาดตาราง (Table Grid Picker)
     else if (m.mode === "action_table") {
       let gridHtml = '<div style="font-size:0.95rem; color:#64748b;">แตะเลือกช่องเพื่อกำหนดขนาดตาราง:</div><div class="table-grid-box" id="tbl-grid">';
-      for(let r=1; r<=3; r++){
-        for(let c=1; c<=4; c++){
-          gridHtml += `<div class="tbl-cell" data-r="${r}" data-c="${c}" onclick="selectTableSize(${c}, ${r})"></div>`;
-        }
-      }
+      for (let r = 1; r <= 3; r++) for (let c = 1; c <= 4; c++) gridHtml += `<div class="tbl-cell" data-r="${r}" data-c="${c}" onclick="selectTableSize(${c}, ${r})"></div>`;
       gridHtml += '</div><div id="tbl-status" style="font-size:0.9rem; font-weight:800; color:#0284c7;">เลือก: 1 x 1</div>';
       work.innerHTML = gridHtml;
     }
-    // 5. ภารกิจเลือกแท็บ Ribbon
     else if (m.mode === "action_ribbon") {
       work.innerHTML = `
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
           ${m.opts.map(t => `<button class="tool-btn" style="padding:14px; font-size:1.05rem;" onclick="checkRibbonTab('${t}', '${m.target}')">${t}</button>`).join("")}
-        </div>
-      `;
+        </div>`;
     }
-    // ภารกิจตกแต่งฟอนต์
     else if (m.mode === "action_style") {
       work.innerHTML = `
         <div class="word-ribbon-bar">
@@ -907,10 +907,8 @@ function renderBonusUI() {
           <button class="tool-btn" onclick="applyInteractiveStyle('I')"><i>I</i></button>
           <button class="tool-btn" onclick="applyInteractiveStyle('U')"><u>U</u></button>
         </div>
-        <div class="doc-sheet" id="sample-text">เอกสารรายงาน Microsoft Word</div>
-      `;
+        <div class="doc-sheet" id="sample-text">เอกสารรายงาน Microsoft Word</div>`;
     }
-    // ภารกิจจัดแนวย่อหน้า
     else if (m.mode === "action_align") {
       work.innerHTML = `
         <div class="word-ribbon-bar">
@@ -918,130 +916,137 @@ function renderBonusUI() {
           <button class="tool-btn" onclick="applyInteractiveAlign('center')">กึ่งกลาง</button>
           <button class="tool-btn" onclick="applyInteractiveAlign('right')">ชิดขวา</button>
         </div>
-        <div class="doc-sheet" id="sample-text" style="text-align:left; display:block;">หัวข้อรายงาน ม.1</div>
-      `;
+        <div class="doc-sheet" id="sample-text" style="text-align:left; display:block;">หัวข้อรายงาน ม.1</div>`;
+    }
+    // คำถามข้อความ → ตอบเป็นรูป
+    else if (m.mode === "pic_choice") {
+      work.innerHTML = `<div class="pic-grid">${shuf(m.opts).map(o => `<button class="pic-btn" data-v="${o}">${o}</button>`).join("")}</div>`;
+      work.querySelectorAll(".pic-btn").forEach(btn => btn.onclick = () => btn.dataset.v === m.target ? handleBonusSuccess() : handleBonusFail());
+    }
+    // คำถามเป็นรูป → ตอบเป็นข้อความ
+    else if (m.mode === "img_q") {
+      work.innerHTML = `<div class="big-pic">${m.pic}</div><div class="txt-grid">${shuf(m.opts).map(o => `<button class="tool-btn" data-v="${o}">${o}</button>`).join("")}</div>`;
+      work.querySelectorAll(".tool-btn").forEach(btn => btn.onclick = () => btn.dataset.v === m.target ? handleBonusSuccess() : handleBonusFail());
+    }
+    // ลากคำตอบมาวาง (Drag & Drop)
+    else if (m.mode === "drag") {
+      work.innerHTML = `
+        <div class="doc-sheet" style="font-size:1.1rem;flex-wrap:wrap;">${m.pre}<span class="drag-slot" id="dslot">?</span></div>
+        <div class="drag-bank">${shuf(m.opts).map(o => `<div class="chip" data-v="${o}">${o}</div>`).join("")}</div>
+        <div style="font-size:.85rem;color:#64748b;margin-top:10px">ลากคำตอบไปวางในช่องว่าง (หรือแตะคำตอบ แล้วแตะช่องว่าง)</div>`;
+      setupDrag(work, m);
     }
   }
 
-  if (st === "know") {
-    $("b-know-text").innerText = m.know;
-  }
-
-  if (st === "done") {
-    $("b-wait").innerHTML = "🎉 ภารกิจสำเร็จ! ได้รับ N2O ไนโตรบูสต์เต็มหลอด ⚡<br>กดปุ่มด้านล่างเพื่อออกตัวลุยรอบต่อไปพร้อมกัน!";
-  }
+  if (st === "know") $("b-know-text").innerText = m.know;
+  if (st === "done") $("b-wait").innerHTML = "🎉 ภารกิจสำเร็จ! ได้รับ N2O ไนโตรบูสต์เต็มหลอด ⚡<br>กดปุ่มด้านล่างเพื่อออกตัวลุยรอบต่อไปพร้อมกัน!";
 }
 
-// ฟังก์ชันตรวจคำผิด
+/* ---------- ระบบลากวาง รองรับเมาส์ / ทัชสกรีน / แท็บเล็ต ---------- */
+function setupDrag(root, m) {
+  const slot = root.querySelector("#dslot");
+  let selected = null, locked = false;
+  const answer = v => {
+    if (locked) return; locked = true;
+    slot.innerText = v;
+    setTimeout(() => v === m.target ? handleBonusSuccess() : handleBonusFail(), 350);
+  };
+  const inSlot = (x, y, pad) => { const r = slot.getBoundingClientRect(); return x > r.left - pad && x < r.right + pad && y > r.top - pad && y < r.bottom + pad; };
+  slot.onclick = () => { if (selected) answer(selected.dataset.v); };
+
+  root.querySelectorAll(".chip").forEach(chip => {
+    let ghost = null, moved = false, sx = 0, sy = 0;
+    const place = e => { if (ghost) { ghost.style.left = (e.clientX - 45) + "px"; ghost.style.top = (e.clientY - 26) + "px"; } };
+    chip.addEventListener("pointerdown", e => {
+      if (locked) return;
+      e.preventDefault(); moved = false; sx = e.clientX; sy = e.clientY;
+      try { chip.setPointerCapture(e.pointerId); } catch (err) {}
+      ghost = chip.cloneNode(true); ghost.classList.add("ghost"); document.body.appendChild(ghost); place(e);
+    });
+    chip.addEventListener("pointermove", e => {
+      if (!ghost) return;
+      if (Math.abs(e.clientX - sx) + Math.abs(e.clientY - sy) > 8) moved = true;
+      place(e); slot.classList.toggle("over", inSlot(e.clientX, e.clientY, 0));
+    });
+    chip.addEventListener("pointerup", e => {
+      if (!ghost) return;
+      ghost.remove(); ghost = null; slot.classList.remove("over");
+      if (moved && inSlot(e.clientX, e.clientY, 14)) answer(chip.dataset.v);
+      else if (!moved) {
+        root.querySelectorAll(".chip").forEach(c => c.classList.remove("sel"));
+        chip.classList.add("sel"); selected = chip;
+      }
+    });
+    chip.addEventListener("pointercancel", () => { if (ghost) { ghost.remove(); ghost = null; slot.classList.remove("over"); } });
+  });
+}
+
 function fixSpelling() {
   const el = $("spell-target");
-  el.innerText = bonus.m.correctWord;
-  el.style.color = "#15803d";
-  el.style.textDecoration = "none";
+  el.innerText = bonus.m.correctWord; el.style.color = "#15803d"; el.style.textDecoration = "none";
   setTimeout(handleBonusSuccess, 450);
 }
-
-// ฟังก์ชันตรวจ Wrap Text
-function checkWrapOption(selected, target) {
-  if (selected === target) {
-    handleBonusSuccess();
-  } else {
-    handleBonusFail();
-  }
-}
-
-// ฟังก์ชันเลือกขนาดตาราง
+function checkWrapOption(selected, target) { selected === target ? handleBonusSuccess() : handleBonusFail(); }
 function selectTableSize(cols, rows) {
   document.querySelectorAll(".tbl-cell").forEach(cell => {
-    const c = parseInt(cell.dataset.c);
-    const r = parseInt(cell.dataset.r);
-    if (c <= cols && r <= rows) cell.classList.add("sel");
-    else cell.classList.remove("sel");
+    const c = parseInt(cell.dataset.c), r = parseInt(cell.dataset.r);
+    if (c <= cols && r <= rows) cell.classList.add("sel"); else cell.classList.remove("sel");
   });
   $("tbl-status").innerText = `เลือก: ${cols} คอลัมน์ x ${rows} แถว`;
-
-  if (cols === bonus.m.targetCols && rows === bonus.m.targetRows) {
-    setTimeout(handleBonusSuccess, 400);
-  } else {
-    setTimeout(handleBonusFail, 400);
-  }
+  if (cols === bonus.m.targetCols && rows === bonus.m.targetRows) setTimeout(handleBonusSuccess, 400);
+  else setTimeout(handleBonusFail, 400);
 }
-
-// ฟังก์ชันตรวจแท็บ Ribbon
-function checkRibbonTab(selected, target) {
-  if (selected.includes(target)) {
-    handleBonusSuccess();
-  } else {
-    handleBonusFail();
-  }
-}
-
+function checkRibbonTab(selected, target) { selected.includes(target) ? handleBonusSuccess() : handleBonusFail(); }
 function applyInteractiveStyle(style) {
   const txt = $("sample-text");
   if (style === 'B') txt.style.fontWeight = txt.style.fontWeight === '900' ? '400' : '900';
   if (style === 'I') txt.style.fontStyle = txt.style.fontStyle === 'italic' ? 'normal' : 'italic';
   if (style === 'U') txt.style.textDecoration = txt.style.textDecoration === 'underline' ? 'none' : 'underline';
-
-  if (style === bonus.m.target) {
-    handleBonusSuccess();
-  } else {
-    handleBonusFail();
-  }
+  style === bonus.m.target ? handleBonusSuccess() : handleBonusFail();
 }
-
 function applyInteractiveAlign(align) {
-  const txt = $("sample-text");
-  txt.style.textAlign = align;
-  if (align === bonus.m.target) {
-    handleBonusSuccess();
-  } else {
-    handleBonusFail();
-  }
+  $("sample-text").style.textAlign = align;
+  align === bonus.m.target ? handleBonusSuccess() : handleBonusFail();
 }
 
+// ตอบถูก: ไปข้อถัดไป / ถ้าครบ 2 ข้อ รับ N2O เต็มหลอด
 function handleBonusSuccess() {
-  bonus.ok = true;
-  bonus.state = "done";
-  P.gauge = 100;
+  if (!bonus || bonus.state !== "play") return;
+  if (bonus.qi < bonus.qs.length - 1) {
+    bonus.qi++; bonus.m = bonus.qs[bonus.qi]; bonus.state = "play";
+    showToast("ถูกต้อง! ไปข้อต่อไป ✅", "#4ade80");
+    renderBonusUI(); return;
+  }
+  bonus.ok = true; bonus.state = "done"; P.gauge = 100;
   renderBonusUI();
 }
-
 function handleBonusFail() {
+  if (!bonus || bonus.state !== "play") return;
   bonus.state = "know";
   renderBonusUI();
 }
 
-// นับเวลาถอยหลังต่อเนื่องจนถึง 0
 function tickBonus() {
   bonus.t--;
   const sec = Math.max(0, Math.ceil(bonus.t / 60));
   $("b-time").innerText = sec;
   $("b-time").classList.toggle("low", sec <= 5);
+  if (bonus.t <= 0) endBonus();
+}
 
-  if (bonus.t <= 0) {
-    bonusEnter();
-  }
+function endBonus() {
+  bonus = null;
+  $("bonus").style.display = "none";
+  startCountdown();
 }
 
 function bonusEnter() {
   if (!bonus) return;
-  if (bonus.state === "know") {
-    bonus.state = "play";
-    renderBonusUI();
-  } else {
-    bonus = null;
-    $("bonus").style.display = "none";
-    // ออกตัวพร้อมกัน
-    startCountdown();
-  }
+  if (bonus.state === "know") { bonus.state = "play"; renderBonusUI(); }
+  else if (bonus.state === "done") endBonus();
 }
 
-$("b-retry").addEventListener("click", () => {
-  if (bonus && bonus.state === "know") {
-    bonus.state = "play";
-    renderBonusUI();
-  }
-});
+$("b-retry").addEventListener("click", () => { if (bonus && bonus.state === "know") { bonus.state = "play"; renderBonusUI(); } });
 $("b-go").addEventListener("click", bonusEnter);
 
 function drawRank() {
