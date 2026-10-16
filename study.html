@@ -10,19 +10,16 @@
   
   <style>
     :root {
-      --word-blue-dark: #1e40af;
-      --word-blue-main: #1d4ed8;
-      --word-blue-bright: #3b82f6;
-      --word-cyan: #0284c7;
-      --arcade-gold: #f59e0b;
-      --arcade-yellow: #facc15;
-      --arcade-green: #10b981;
-      --arcade-red: #ef4444;
-      --bg-gradient: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #7dd3fc 100%);
+      --bg-light: #e0f2fe;
+      --grid-line: rgba(2, 132, 199, 0.12);
+      --word-blue-dark: #0369a1;
+      --word-blue-main: #0284c7;
+      --word-blue-bright: #38bdf8;
       --card-bg: #ffffff;
       --text-main: #0f172a;
       --text-sub: #334155;
-      --text-muted: #475569;
+      --text-muted: #64748b;
+      --gold-accent: #facc15;
     }
 
     * {
@@ -33,24 +30,24 @@
 
     body {
       min-height: 100vh;
-      background: var(--bg-gradient);
+      background: var(--bg-light);
       font-family: 'Kanit', sans-serif;
       color: var(--text-main);
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
-      padding: 20px 14px 50px;
+      justify-content: center;
+      padding: 24px 16px;
       overflow-x: hidden;
       position: relative;
     }
 
-    /* 3D Bright Arcade Grid Background */
+    /* Bright Arcade Grid Background */
     body::before {
       content: ''; position: fixed; inset: 0;
       background: 
-        linear-gradient(to right, rgba(2, 132, 199, 0.12) 2px, transparent 2px),
-        linear-gradient(to bottom, rgba(2, 132, 199, 0.12) 2px, transparent 2px);
+        linear-gradient(to right, var(--grid-line) 2px, transparent 2px),
+        linear-gradient(to bottom, var(--grid-line) 2px, transparent 2px);
       background-size: 32px 32px;
       pointer-events: none; z-index: 0;
     }
@@ -67,15 +64,16 @@
       border-radius: 28px;
       padding: 32px 28px;
       max-width: 880px; width: 100%;
-      box-shadow: 0 10px 0 var(--word-blue-dark), 0 20px 40px rgba(2, 132, 199, 0.25);
+      box-shadow: 0 12px 0 var(--word-blue-dark), 0 20px 40px rgba(2, 132, 199, 0.2);
       text-align: left;
       z-index: 1;
       position: relative;
+      margin: auto;
       animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     @keyframes popIn {
-      from { transform: scale(0.92) translateY(20px); opacity: 0; }
+      from { transform: scale(0.95) translateY(15px); opacity: 0; }
       to { transform: scale(1) translateY(0); opacity: 1; }
     }
 
@@ -91,21 +89,21 @@
     }
 
     .unit-badge-pill {
-      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      background: linear-gradient(135deg, #0284c7, #2563eb);
       color: #ffffff;
       font-family: 'Chakra Petch', sans-serif;
       font-weight: 800;
       padding: 8px 20px;
-      border-radius: 999px;
+      border-radius: 14px;
       font-size: 1rem;
-      box-shadow: 0 4px 0 #1e3a8a;
+      box-shadow: 0 4px 0 #0369a1;
       display: inline-flex; align-items: center; gap: 8px;
     }
 
     .btn-back-hub {
       padding: 10px 18px;
       border-radius: 14px;
-      border: 2px solid #bae6fd;
+      border: 2px solid #38bdf8;
       background: #f0f9ff;
       color: var(--word-blue-main);
       font-weight: 800;
@@ -114,10 +112,10 @@
       text-decoration: none;
       display: inline-flex; align-items: center; gap: 8px;
       transition: all 0.15s;
-      box-shadow: 0 4px 0 #7dd3fc;
+      box-shadow: 0 4px 0 #0284c7;
     }
     .btn-back-hub:hover { background: #e0f2fe; }
-    .btn-back-hub:active { transform: translateY(2px); box-shadow: 0 1px 0 #7dd3fc; }
+    .btn-back-hub:active { transform: translateY(2px); box-shadow: 0 1px 0 #0284c7; }
 
     /* Lesson Typography */
     .lesson-header-title {
@@ -139,8 +137,8 @@
     }
 
     .content-section h3 {
-      color: var(--word-blue-dark);
-      font-size: 1.22rem;
+      color: var(--text-main);
+      font-size: 1.2rem;
       font-weight: 800;
       margin: 28px 0 14px;
       display: flex; align-items: center; gap: 10px;
@@ -166,7 +164,7 @@
     .key-callout-box {
       background: #f0f9ff;
       border: 3px solid #bae6fd;
-      border-radius: 22px;
+      border-radius: 20px;
       padding: 22px;
       margin: 24px 0;
       box-shadow: 0 6px 0 #7dd3fc;
@@ -185,7 +183,7 @@
       color: #713f12;
       border: 2px solid #facc15;
       padding: 3px 10px;
-      border-radius: 10px;
+      border-radius: 8px;
       font-family: 'Chakra Petch', sans-serif;
       font-weight: 800;
       font-size: 0.92rem;
@@ -197,7 +195,7 @@
     .ui-demo-box {
       background: #ffffff;
       border: 3px dashed #38bdf8;
-      border-radius: 22px;
+      border-radius: 20px;
       padding: 22px;
       margin: 24px 0;
       text-align: center;
@@ -211,11 +209,11 @@
       margin-top: 12px;
     }
 
-    /* Action Buttons (Hub / Test) */
+    /* Action Buttons Group */
     .action-footer-group {
       display: grid;
       grid-template-columns: 1fr 1.5fr;
-      gap: 14px;
+      gap: 16px;
       margin-top: 36px;
     }
 
@@ -223,6 +221,7 @@
       padding: 16px;
       border-radius: 18px;
       border: none;
+      font-family: 'Chakra Petch', sans-serif;
       font-size: 1.1rem;
       font-weight: 800;
       cursor: pointer;
@@ -232,23 +231,23 @@
     }
 
     .btn-return-hub {
-      background: #e0f2fe;
-      color: #0284c7;
-      border: 2px solid #38bdf8;
-      box-shadow: 0 5px 0 #0284c7;
+      background: #f1f5f9;
+      color: #475569;
+      border: 2px solid #cbd5e1;
+      box-shadow: 0 5px 0 #94a3b8;
     }
-    .btn-return-hub:hover { background: #bae6fd; }
-    .btn-return-hub:active { transform: translateY(3px); box-shadow: 0 1px 0 #0284c7; }
+    .btn-return-hub:hover { background: #e2e8f0; }
+    .btn-return-hub:active { transform: translateY(3px); box-shadow: 0 1px 0 #94a3b8; }
 
-    .btn-start-test {
+    .btn-start-game {
       background: linear-gradient(180deg, #10b981 0%, #059669 100%);
       color: #ffffff;
-      box-shadow: 0 6px 0 #047857, 0 10px 20px rgba(16, 185, 129, 0.3);
+      box-shadow: 0 6px 0 #047857, 0 10px 20px rgba(16, 185, 129, 0.25);
     }
-    .btn-start-test:hover { filter: brightness(1.06); }
-    .btn-start-test:active { transform: translateY(4px); box-shadow: 0 2px 0 #047857; }
+    .btn-start-game:hover { filter: brightness(1.06); }
+    .btn-start-game:active { transform: translateY(3px); box-shadow: 0 2px 0 #047857; }
 
-    /* Responsive Adjustments for All Devices */
+    /* Responsive Adjustments */
     @media (max-width: 640px) {
       body { padding: 14px 10px 32px; }
       .study-container { padding: 22px 16px; border-radius: 22px; }
@@ -287,9 +286,9 @@
         <svg class="ico" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
         <span>กลับหน้าหลัก</span>
       </a>
-      <a id="btn-start-game" class="btn-action-footer btn-start-test" href="#">
-        <svg class="ico" style="width:24px; height:24px;" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-        <span>ทำแบบทดสอบปลดล็อกบทเรียน</span>
+      <a id="btn-start-game" class="btn-action-footer btn-start-game" href="#">
+        <svg class="ico" style="width:24px; height:24px;" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <span>ตะลุยด่านเกมสนามแข่ง (GAMEJA)</span>
       </a>
     </div>
   </div>
@@ -315,7 +314,7 @@
           <div class="ui-demo-box">
             <svg viewBox="0 0 320 120" width="100%" height="110">
               <rect x="5" y="5" width="310" height="110" rx="10" fill="#f8fafc" stroke="#0284c7" stroke-width="2"/>
-              <rect x="5" y="5" width="310" height="26" fill="#1d4ed8" rx="10 10 0 0"/>
+              <rect x="5" y="5" width="310" height="26" fill="#0284c7" rx="10 10 0 0"/>
               <text x="15" y="22" fill="#fff" font-size="11" font-weight="bold">Document1 - Microsoft Word (Title Bar)</text>
               <rect x="15" y="38" width="290" height="34" fill="#e0f2fe" rx="6"/>
               <text x="25" y="59" fill="#0369a1" font-size="11" font-weight="bold">[ Ribbon: Home | Insert | Draw | Layout ]</text>
@@ -609,17 +608,14 @@
     const urlParams = new URLSearchParams(window.location.search);
     const unitId = parseInt(urlParams.get('unit')) || 1;
 
-    // อัปเดตข้อมูลบนหน้าจอ
+    // อัปเดต Tag แสดงบทเรียน
     document.getElementById("study-unit-tag").innerHTML = `
       <svg class="ico" viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zm0 13.09L4.27 12 12 7.78 19.73 12 12 16.09z"/></svg>
       <span>UNIT ${unitId}</span>
     `;
     
-    // ตั้งค่าให้ปุ่มทำแบบทดสอบเปิดหน้า index.html พร้อมสั่งรันแบบทดสอบของบทนั้น
-    document.getElementById("btn-start-game").onclick = function(e) {
-      e.preventDefault();
-      window.location.href = `index.html?quizUnit=${unitId}`;
-    };
+    // ลิงก์ปุ่มไปยัง gameja.html ตามด่านที่เลือก
+    document.getElementById("btn-start-game").href = `gameja.html?stage=${unitId}`;
 
     const currentBookLesson = bookDatabase[unitId];
     if (currentBookLesson) {
